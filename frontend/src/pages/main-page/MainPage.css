@@ -187,7 +187,7 @@ a {
 
 .map-NiNo{
     margin-top: -20px;
-    background: url('../../../public/iconsVk/галвный_экран_осн_02.jpg');
+    background: url('../../../../vue-frontend/src/images/icons/mainPageShort.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

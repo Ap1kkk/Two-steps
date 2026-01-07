@@ -154,7 +154,7 @@ const MainPage = () => {
                     <img
                         onClick={handleButtonClickRecommendation}
                         className="arrow"
-                        src="/icons/стрелка.svg"
+                        src="/vue-frontend/src/images/icons/arrowRight.svg"
                         alt="стрелка"
                     />
                 </div>
@@ -197,7 +197,7 @@ const MainPage = () => {
                     <img
                         onClick={handleButtonClickPopular}
                         className="arrow"
-                        src="/icons/стрелка.svg"
+                        src="/vue-frontend/src/images/icons/arrowRight.svg"
                         alt="стрелка"
                     />
                 </div>
