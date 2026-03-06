@@ -13,7 +13,7 @@ RUN pip install --upgrade pip
 COPY sportline_project/requirements.txt /app/
 
 # Установить зависимости из requirements.txt
-RUN pip install -r /routes/requirements.txt
+RUN pip install -r /app/requirements.txt
 
 
 # Копируем весь проект в контейнер
