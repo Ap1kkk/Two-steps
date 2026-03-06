@@ -17,7 +17,7 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AppException extends RuntimeException {
-    private static final String MESSAGE_PLACEHOLDER = "App error: %s";
+    private static final String MESSAGE_PLACEHOLDER = "Index error: %s";
 
     private ErrorReason reason;
     private String message;

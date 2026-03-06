@@ -1,65 +1,16 @@
 import React from "react";
-import {BrowserRouter as Router, Link, Navigate, Route, Routes, useLocation} from "react-router-dom";
-
-import MainPage from "./pages/main-page/main_page";
-import Profile from "./pages/all-profile-pages/ProfilePage/ProfilePage";
-import Authorization from "./pages/Authorization/Authorization";
-import Register from "./pages/Register/Register";
-import Preferences from "./pages/Preferences/Preferences";
-import RoutesOnMap from "./pages/mapRoutes/routesOnMap";
-import StatisticsPage from "./pages/all-profile-pages/StatisticsPage/StatisticsPage";
-import Achievements from "./pages/all-profile-pages/AchievementsPage/AchievementsPage";
-import EditProfile from "./pages/all-profile-pages/EditProfilePage/EditProfilePage";
-import Admin_workbench from "./pages/admin-page/admin_workbench";
-import Recommendation from "./pages/Filters/Recommendation";
-import PopularRouts from "./pages/PopularRouts/PopularRouts";
-import UserHistory from "./pages/UserHistory/UserHistory";
-import UserLikeRouts from "./pages/UserLikeRouts/UserLikeRouts";
-import SearchRouts from "./pages/SearchRouts/SearchRouts";
-
-function App() {
-    return (
-        <Router>
-            <AppComponent />
-        </Router>
-    );
-}
+import {Link, useLocation} from "react-router-dom";
 
 function AppComponent() {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
     const showNavigation = !(
         ["/login", "/register", "/register/preferences","/map"].includes(location.pathname) ||
-        /^\/map\/[^/]+$/.test(location.pathname) // Регулярное выражение для проверки пути вида "/map/:routeId"
+        /^\/map\/[^/]+$/.test(location.pathname)
     );
     
     return (
         <>
-            <Routes>
-                <Route path="/" element={<Navigate to="/login" replace/>}/>
-
-                <Route path="/login" element={<Authorization/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/register/preferences" element={<Preferences/>}/>
-
-                <Route path="/admin" element={<Admin_workbench/>}/>
-                <Route path="/main_page" element={<MainPage/>}/>
-
-                <Route path="/map/:routeId" element={<RoutesOnMap/>}/>
-
-                <Route path="/main_page/recomendation" element={<Recommendation/>}/>
-                <Route path="/favourites" element={<UserLikeRouts/>}/>
-                <Route path="/main_page/popular" element={<PopularRouts/>}/>
-                <Route path="/history" element={<UserHistory/>}/>
-                <Route path="/main_page/search_page" element={<SearchRouts />}/>
-
-                <Route path="/profile_page" element={<Profile />}/>
-                <Route path="/profile_page/statistics_page" element={<StatisticsPage />} />
-                <Route path="/profile_page/achievements_page" element={<Achievements />} />
-                <Route path="/profile_page/route_history_page" element={<UserHistory />} />
-                <Route path="/profile_page/edit_profile_page" element={<EditProfile />} />
-                <Route path="/main_page/history" element={<UserHistory />}/>
-            </Routes>
             {showNavigation && (
             <nav style={styles.bottomNav}>
             <Link to="/favourites" style={styles.navLink}>

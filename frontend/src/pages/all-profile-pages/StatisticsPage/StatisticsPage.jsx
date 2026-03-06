@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./StatisticsPage.css";
-import {BASE_API_URL} from "../../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 const StatisticsPage = () => {
     const [period, setPeriod] = useState("WEEK");

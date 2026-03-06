@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import {useNavigate, useParams} from "react-router-dom";
-import {BASE_API_URL} from "../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 import './routesOnMap.css'; // Импорт CSS-файла
 

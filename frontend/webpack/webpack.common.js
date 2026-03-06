@@ -1,14 +1,14 @@
 const HTMLWebpackPlugins = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
-	entry: path.resolve(__dirname, '..', './src/main.ts'),
+	entry: path.resolve(__dirname, '..', './src/index.tsx'),
 	output: {
 		path: path.resolve(__dirname, '..', './dist'),
 		filename: production
@@ -19,16 +19,12 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.vue$/,
-				loader: 'vue-loader',
-			},
-			{
-				test: /\.ts$/,
-				loader: 'ts-loader',
-				options: {
-					appendTsSuffixTo: [/\.vue$/],
-					transpileOnly: true,
-				},
+				test: /\.[tj]sx?$/,
+				use: [
+					{
+						loader: 'ts-loader',
+					},
+				],
 				exclude: /node_modules/,
 			},
 			{
@@ -63,6 +59,7 @@ module.exports = {
 								auto: /\.module\.\w+$/i,
 							},
 							importLoaders: 2,
+							url: true,
 						},
 					},
 					'postcss-loader',
@@ -77,20 +74,16 @@ module.exports = {
 		],
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.json', '.vue'],
+		extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'],
 		alias: {
-			'@': path.resolve(__dirname, '..', './src'),
 			fonts: path.resolve(__dirname, '..', './src/fonts'),
 			src: path.resolve(__dirname, '..', './src'),
 			components: path.resolve(__dirname, '..', './src/components'),
-			views: path.resolve(__dirname, '..', './src/views'),
 		},
 	},
 	plugins: [
-		new VueLoaderPlugin(),
 		new HTMLWebpackPlugins({
 			template: path.resolve(__dirname, '..', './public/index.html'),
-			BASE_URL: '/',
 		}),
 		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin({
@@ -101,16 +94,15 @@ module.exports = {
 		new webpack.EnvironmentPlugin({
 			NODE_ENV: 'development',
 		}),
-		new webpack.DefinePlugin({
-			'process.env.BASE_URL': JSON.stringify('/'),
-			__VUE_OPTIONS_API__: JSON.stringify(true),
-			__VUE_PROD_DEVTOOLS__: JSON.stringify(false),
-			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(false),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, '..', 'node_modules/slick-carousel/slick/*.{eot,woff,ttf,svg}'),
+					to: path.resolve(__dirname, '..', 'dist/static/fonts/[name][ext]'),
+					context: path.resolve(__dirname, '..', 'node_modules/slick-carousel/slick'),
+					noErrorOnMissing: true,
+				},
+			],
 		}),
 	],
-	devServer: {
-		historyApiFallback: true,
-		hot: true,
-		port: 8080,
-	},
 };

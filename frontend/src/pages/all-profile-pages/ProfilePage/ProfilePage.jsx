@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
 import "./ProfilePage.css";
-import {BASE_API_URL} from "../../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 const  USER_INFORMATION_URL = `${BASE_API_URL}/user/profile`;
 

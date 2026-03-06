@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Icon32SearchOutline, Icon56ClockCircleDashedOutline } from "@vkontakte/icons";
 import { Card, CardScroll, Group } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import './MainPage.css';
-import { BASE_API_URL, BASE_STATIC_URL } from "../../constants/globals"; // Подключаем файл стилей
+import { BASE_API_URL, BASE_STATIC_URL } from "src/constants/globals";
 
 const LIMIT = 5;
 
@@ -151,12 +149,6 @@ const MainPage = () => {
             <div className="recommendedSection">
                 <div className="main_title">
                     <h3 className="sectionTitle">Рекомендуемые</h3>
-                    <img
-                        onClick={handleButtonClickRecommendation}
-                        className="arrow"
-                        src="/vue-frontend/src/images/icons/arrowRight.svg"
-                        alt="стрелка"
-                    />
                 </div>
                 <div style={{ marginLeft: "-40px" }}>
                     <Group>
@@ -194,12 +186,6 @@ const MainPage = () => {
             <div className="popularSection">
                 <div className="main_title">
                     <h3 className="sectionTitle">Популярные</h3>
-                    <img
-                        onClick={handleButtonClickPopular}
-                        className="arrow"
-                        src="/vue-frontend/src/images/icons/arrowRight.svg"
-                        alt="стрелка"
-                    />
                 </div>
 
                 {popularRoutes.map((route) => (

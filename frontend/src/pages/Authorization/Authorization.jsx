@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import "./Authorization.css";
 import { useNavigate } from "react-router-dom";
-import {BASE_API_URL} from "../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 const Authorization = () => {
     const [email, setEmail] = useState('');

@@ -6,10 +6,9 @@
     "lib": [
       "esnext",
       "dom",
-      "dom.iterable",
-      "scripthost"
+      "dom.iterable"
     ],
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "isolatedModules": true,
     "esModuleInterop": true,
     "strict": true,
@@ -36,6 +35,6 @@
   "outDir": "./dist/",
   "include": ["src/**/*"],
   "exclude": [
-    "node_modules"
+    "../frontend/node_modules"
   ]
 }

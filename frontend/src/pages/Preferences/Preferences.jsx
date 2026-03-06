@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Preferences.css';
 import { useNavigate } from "react-router-dom";
-import {BASE_API_URL} from "../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 const Preferences = () => {
     const [options, setOptions] = useState([]); // Доступные категории из БД

@@ -1,6 +1,6 @@
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import React, { useEffect, useState } from "react";
-import {BASE_API_URL} from "../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 const API_ROUTE_URL = `${BASE_API_URL}/admin/route/create`;
 const API_ROUTE_URL_CATEGORIES = `${BASE_API_URL}/category/all`;

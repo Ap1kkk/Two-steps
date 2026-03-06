@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactSlider from "react-slider";
 import "./FilterPopularRoutes.css";
-import { BASE_API_URL } from "../../../constants/globals";
+import { BASE_API_URL } from "src/constants/globals";
 
 const FilterPopularRoutes = ({ filters, onApply }) => {
     const [tempFilters, setTempFilters] = useState({

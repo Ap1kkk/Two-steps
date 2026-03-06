@@ -24,7 +24,7 @@ services:
     container_name: sportline_backend_analytics
     ports:
       - "8000:8000"
-    working_dir: /app/sportline_project/  # Устанавливаем рабочую директорию контейнера
+    working_dir: /routes/sportline_project/  # Устанавливаем рабочую директорию контейнера
     depends_on:
       - postgres
     env_file:
@@ -64,7 +64,7 @@ services:
       MVC_RESOURCE_PATH_PATTERN: "/static/image/**"
 
     volumes:
-      - ./uploads:/app/uploads
+      - ./uploads:/routes/uploads
 
   postgres:
     restart: always

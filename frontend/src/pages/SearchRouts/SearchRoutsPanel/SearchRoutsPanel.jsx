@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactSlider from "react-slider";
 import "./SearchRoutsPanel.css";
-import { BASE_API_URL } from "../../../constants/globals";
+import { BASE_API_URL } from "src/constants/globals";
 
 const SearchRoutsPanel = ({ filters, onApply }) => {
     const [tempFilters, setTempFilters] = useState({

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactSlider from "react-slider";
 import "./RecommendationFilterPanel.css";
-import {BASE_API_URL} from "../../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 const RecommendationFilterPanel = ({ filters, onApply }) => {
     const [tempFilters, setTempFilters] = useState({

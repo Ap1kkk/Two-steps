@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SearchRoutsFiltered.css";
-import {BASE_API_URL} from "../../../constants/globals";
+import {BASE_API_URL} from "src/constants/globals";
 
 const SearchRoutsFiltered = ({ filters, searchQuery }) => {
     const [routes, setRoutes] = useState([]);
