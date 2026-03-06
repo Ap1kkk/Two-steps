@@ -28,7 +28,7 @@ services:
     depends_on:
       - postgres
     env_file:
-      - .env  # Подключаем файл .env с переменными окружения
+      - frontend/.env  # Подключаем файл .env с переменными окружения
     command: >
       bash -c "python manage.py makemigrations &&
                python manage.py migrate &&

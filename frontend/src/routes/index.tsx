@@ -1,55 +1,63 @@
-import {
-    Routes,
-    Route,
-    Navigate
-} from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Authorization from "src/pages/Authorization/Authorization";
-import Register from "src/pages/Register/Register";
-import Preferences from "src/pages/Preferences/Preferences";
-import Admin_workbench from "src/pages/admin-page/admin_workbench";
-import MainPage from "src/pages/main-page/main_page";
-import RoutesOnMap from "src/pages/mapRoutes/routesOnMap";
-import Recommendation from "src/pages/Filters/Recommendation";
-import UserLikeRouts from "src/pages/UserLikeRouts/UserLikeRouts";
-import PopularRouts from "src/pages/PopularRouts/PopularRouts";
-import UserHistory from "src/pages/UserHistory/UserHistory";
-import SearchRouts from "src/pages/SearchRouts/SearchRouts";
-import Profile from "src/pages/all-profile-pages/ProfilePage/ProfilePage";
-import StatisticsPage from "src/pages/all-profile-pages/StatisticsPage/StatisticsPage";
-import Achievements from "src/pages/all-profile-pages/AchievementsPage/AchievementsPage";
-import EditProfile from "src/pages/all-profile-pages/EditProfilePage/EditProfilePage";
+import Authorization from 'src/pages/Authorization/Authorization';
+import Register from 'src/pages/Register/Register';
+import Preferences from 'src/pages/Preferences/Preferences';
+import Admin_workbench from 'src/pages/admin-page/admin_workbench';
+import MainPage from 'src/pages/main-page/main_page';
+import RoutesOnMap from 'src/pages/mapRoutes/routesOnMap';
+import Recommendation from 'src/pages/Filters/Recommendation';
+import UserLikeRouts from 'src/pages/UserLikeRouts/UserLikeRouts';
+import PopularRouts from 'src/pages/PopularRouts/PopularRouts';
+import UserHistory from 'src/pages/UserHistory/UserHistory';
+import SearchRouts from 'src/pages/SearchRouts/SearchRouts';
+import Profile from 'src/pages/all-profile-pages/ProfilePage/ProfilePage';
+import StatisticsPage from 'src/pages/all-profile-pages/StatisticsPage/StatisticsPage';
+import Achievements from 'src/pages/all-profile-pages/AchievementsPage/AchievementsPage';
+import EditProfile from 'src/pages/all-profile-pages/EditProfilePage/EditProfilePage';
 
-import React from "react";
+import React from 'react';
 
 export const Index = () => {
-    return (
-        <>
-            <Routes>
-                <Route path="/" element={<Navigate to="/login" replace/>}/>
+	return (
+		<>
+			<Routes>
+				<Route path='/' element={<Navigate to='/login' replace />} />
 
-                <Route path="/login" element={<Authorization/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/register/preferences" element={<Preferences/>}/>
+				<Route path='/login' element={<Authorization />} />
+				<Route path='/register' element={<Register />} />
+				<Route path='/register/preferences' element={<Preferences />} />
 
-                <Route path="/admin" element={<Admin_workbench/>}/>
-                <Route path="/main_page" element={<MainPage/>}/>
+				<Route path='/admin' element={<Admin_workbench />} />
+				<Route path='/main_page' element={<MainPage />} />
 
-                <Route path="/map/:routeId" element={<RoutesOnMap/>}/>
+				<Route path='/map/:routeId' element={<RoutesOnMap />} />
 
-                <Route path="/main_page/recomendation" element={<Recommendation/>}/>
-                <Route path="/favourites" element={<UserLikeRouts/>}/>
-                <Route path="/main_page/popular" element={<PopularRouts/>}/>
-                <Route path="/history" element={<UserHistory/>}/>
-                <Route path="/main_page/search_page" element={<SearchRouts />}/>
+				<Route path='/main_page/recomendation' element={<Recommendation />} />
+				<Route path='/favourites' element={<UserLikeRouts />} />
+				<Route path='/main_page/popular' element={<PopularRouts />} />
+				<Route path='/history' element={<UserHistory />} />
+				<Route path='/main_page/search_page' element={<SearchRouts />} />
 
-                <Route path="/profile_page" element={<Profile />}/>
-                <Route path="/profile_page/statistics_page" element={<StatisticsPage />} />
-                <Route path="/profile_page/achievements_page" element={<Achievements />} />
-                <Route path="/profile_page/route_history_page" element={<UserHistory />} />
-                <Route path="/profile_page/edit_profile_page" element={<EditProfile />} />
-                <Route path="/main_page/history" element={<UserHistory />}/>
-            </Routes>
-        </>
-    )
+				<Route path='/profile_page' element={<Profile />} />
+				<Route
+					path='/profile_page/statistics_page'
+					element={<StatisticsPage />}
+				/>
+				<Route
+					path='/profile_page/achievements_page'
+					element={<Achievements />}
+				/>
+				<Route
+					path='/profile_page/route_history_page'
+					element={<UserHistory />}
+				/>
+				<Route
+					path='/profile_page/edit_profile_page'
+					element={<EditProfile />}
+				/>
+				<Route path='/main_page/history' element={<UserHistory />} />
+			</Routes>
+		</>
+	);
 };

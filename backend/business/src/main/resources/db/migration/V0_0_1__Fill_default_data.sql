@@ -16,14 +16,14 @@ INSERT INTO user_activity(name) VALUES ('Школьник');
 INSERT INTO user_activity(name) VALUES ('В полном расцвете сил');
 INSERT INTO user_activity(name) VALUES ('Пенсионер');
 
-INSERT INTO user_avatars(id, path) VALUES (1, '/avatars/avatar1.png');
-INSERT INTO user_avatars(id, path) VALUES (2, '/avatars/avatar2.png');
-INSERT INTO user_avatars(id, path) VALUES (3, '/avatars/avatar3.png');
-INSERT INTO user_avatars(id, path) VALUES (4, '/avatars/avatar4.png');
-INSERT INTO user_avatars(id, path) VALUES (5, '/avatars/avatar5.png');
-INSERT INTO user_avatars(id, path) VALUES (6, '/avatars/avatar6.png');
-INSERT INTO user_avatars(id, path) VALUES (7, '/avatars/avatar7.png');
-INSERT INTO user_avatars(id, path) VALUES (8, '/avatars/avatar8.png');
+INSERT INTO user_avatars(id, path) VALUES (1, '/avatarProfile/avatar1.png');
+INSERT INTO user_avatars(id, path) VALUES (2, '/avatarProfile/avatar2.png');
+INSERT INTO user_avatars(id, path) VALUES (3, '/avatarProfile/avatar3.png');
+INSERT INTO user_avatars(id, path) VALUES (4, '/avatarProfile/avatar4.png');
+INSERT INTO user_avatars(id, path) VALUES (5, '/avatarProfile/avatar5.png');
+INSERT INTO user_avatars(id, path) VALUES (6, '/avatarProfile/avatar6.png');
+INSERT INTO user_avatars(id, path) VALUES (7, '/avatarProfile/avatar7.png');
+INSERT INTO user_avatars(id, path) VALUES (8, '/avatarProfile/avatar8.png');
 
 INSERT INTO
     users(

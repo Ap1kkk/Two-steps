@@ -7,10 +7,9 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 root.render(
-    <StrictMode>
-        <BrowserRouter>
-            <Index />
-        </BrowserRouter>
-    </StrictMode>
+	<StrictMode>
+		<BrowserRouter>
+			<Index />
+		</BrowserRouter>
+	</StrictMode>
 );
-

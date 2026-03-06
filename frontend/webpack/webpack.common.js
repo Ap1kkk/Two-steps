@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
-	entry: path.resolve(__dirname, '..', './src/index.tsx'),
+	entry: path.resolve(__dirname, '..', './src/Header.tsx'),
 	output: {
 		path: path.resolve(__dirname, '..', './dist'),
 		filename: production

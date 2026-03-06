@@ -1,158 +1,157 @@
-
 .button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 .startButton {
-    padding: 10px 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+	padding: 10px 10px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-top: 10px;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 .error {
-    color: red;
+	color: red;
 }
 
 .errorText {
-    font-size: 16px;
-    font-weight: bold;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .routeName {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .errorMessageOverlay {
-    position: fixed;
-    bottom: 250px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(255, 0, 0, 0.8);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 1000;
+	position: fixed;
+	bottom: 250px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(255, 0, 0, 0.8);
+	color: #fff;
+	padding: 10px 20px;
+	border-radius: 5px;
+	z-index: 1000;
 }
 .infoPanel {
-    position: fixed;
-    bottom: 40px;
-    width: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #EFEBEB;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
-    padding: 10px 20px;
-    border-radius: 5px;
-    z-index: 1000;
-    margin-bottom: 60px;
+	position: fixed;
+	bottom: 40px;
+	width: 80%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #efebeb;
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+	padding: 10px 20px;
+	border-radius: 5px;
+	z-index: 1000;
+	margin-bottom: 60px;
 }
-.progressLabel{
-    margin-left: 105px;
+.progressLabel {
+	margin-left: 105px;
 }
 
 .progressBarContainer {
-    position: fixed;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 30px;
-    background-color: #f3f3f3;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: 10px;
+	position: fixed;
+	bottom: 50px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 80%;
+	height: 30px;
+	background-color: #f3f3f3;
+	border-radius: 15px;
+	overflow: hidden;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	margin-bottom: 10px;
 }
 
 .progressBar {
-    height: 100%;
-    background-color: #4caf50;
-    transition: width 0.5s ease;
+	height: 100%;
+	background-color: #4caf50;
+	transition: width 0.5s ease;
 }
 
 .progressText {
-    text-align: center;
-    margin-top: 5px;
-    font-size: 14px;
-    font-weight: bold;
+	text-align: center;
+	margin-top: 5px;
+	font-size: 14px;
+	font-weight: bold;
 }
 
 /* Стили для Progress Bar */
 .containerProgress {
-    height: 20px;
-    width: 100%;
-    background-color: #e0e0df;
-    border-radius: 5px;
-    margin: 10px 0;
+	height: 20px;
+	width: 100%;
+	background-color: #e0e0df;
+	border-radius: 5px;
+	margin: 10px 0;
 }
 
 .filler {
-    height: 100%;
-    background-color: #007bff;
-    border-radius: inherit;
-    text-align: center;
-    transition: width 0.2s ease-in-out;
+	height: 100%;
+	background-color: #007bff;
+	border-radius: inherit;
+	text-align: center;
+	transition: width 0.2s ease-in-out;
 }
 
 .label {
-    padding: 5px;
-    color: white;
-    font-weight: bold;
+	padding: 5px;
+	color: white;
+	font-weight: bold;
 }
-button{
-    background-color:#FFFFFF
+button {
+	background-color: #ffffff;
 }
-.sett{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.sett {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
 }
-.sett>div{
-background-color: #FFFFFF;
-border-radius: 6px;
-text-align: center;
-margin: 3px;
-padding: 5px;
+.sett > div {
+	background-color: #ffffff;
+	border-radius: 6px;
+	text-align: center;
+	margin: 3px;
+	padding: 5px;
 }
-.sett>div>p{
-font-size: 14px;
+.sett > div > p {
+	font-size: 14px;
 }
-.h{
-    font-weight: 750;
+.h {
+	font-weight: 750;
 }
-.categories{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.categories {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
 }
-.categ{
-    background-color: #EBEDF0;
-    border-color: #FFFFFF;
-    border: 3px solid rgb(255, 255, 255);
-    padding: 5px;
-    border-radius: 6px;
-    color: #6D7885;
+.categ {
+	background-color: #ebedf0;
+	border-color: #ffffff;
+	border: 3px solid rgb(255, 255, 255);
+	padding: 5px;
+	border-radius: 6px;
+	color: #6d7885;
 }
-.buttons_map{
-    display: flex;
-    justify-content: space-between;
+.buttons_map {
+	display: flex;
+	justify-content: space-between;
 }
-.like-icon{
-    width: 30px;
-    height: 30px;
+.like-icon {
+	width: 30px;
+	height: 30px;
 }

@@ -1,99 +1,98 @@
 .edit-profile-container {
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
+	padding: 20px;
+	max-width: 600px;
+	margin: 0 auto;
 }
 
 .edit-profile-container h1 {
-    text-align: center;
+	text-align: center;
 }
 
 .message {
-    color: red;
-    text-align: center;
+	color: red;
+	text-align: center;
 }
 
 .avatar-section,
 .preferences-section {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .avatar-preview {
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 }
 
 .avatar-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
 }
 
 .avatar-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: center;
+	margin-top: 10px;
 }
 
 .avatar-option {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	cursor: pointer;
+	border: 2px solid transparent;
 }
 
 .avatar-option.selected {
-    border: 2px solid blue;
+	border: 2px solid blue;
 }
 
 .preferences-list {
-    display: flex;
-    flex-wrap: wrap; /* Кнопки будут переноситься на новую строку, если не влезают */
-    gap: 10px; /* Расстояние между кнопками */
-    justify-content: flex-start; /* Кнопки выравниваются по началу строки */
+	display: flex;
+	flex-wrap: wrap; /* Кнопки будут переноситься на новую строку, если не влезают */
+	gap: 10px; /* Расстояние между кнопками */
+	justify-content: flex-start; /* Кнопки выравниваются по началу строки */
 }
 
 .preference-button {
-    padding: 10px 20px; /* Внутренние отступы */
-    border-radius: 20px; /* Скругленные углы */
-    background-color: white; /* Белый фон */
-    color: #2688EB; /* Голубой текст */
-    border: 2px solid #2688EB; /* Голубая обводка */
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+	padding: 10px 20px; /* Внутренние отступы */
+	border-radius: 20px; /* Скругленные углы */
+	background-color: white; /* Белый фон */
+	color: #2688eb; /* Голубой текст */
+	border: 2px solid #2688eb; /* Голубая обводка */
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
 }
 
 .preference-button.active {
-    background-color: #2688EB; /* Голубой фон при активном состоянии */
-    color: white; /* Белый текст */
+	background-color: #2688eb; /* Голубой фон при активном состоянии */
+	color: white; /* Белый текст */
 }
 
 .preference-button:hover {
-    background-color: #e0f7fa; /* Светло-голубой фон при наведении */
-    color: #2688EB; /* Голубой текст при наведении */
+	background-color: #e0f7fa; /* Светло-голубой фон при наведении */
+	color: #2688eb; /* Голубой текст при наведении */
 }
 
 .save-button {
-    display: block; /* Делает кнопку блочной, чтобы занимала всю ширину */
-    width: 100%; /* Занимает всю ширину доступного контейнера */
-    margin-top: 20px; /* Отступ сверху */
-    padding: 15px; /* Увеличиваем высоту кнопки */
-    background-color: white; /* Белый фон */
-    color: #2688EB; /* Голубой текст */
-    border: 2px solid #2688EB; /* Голубая обводка */
-    border-radius: 5px; /* Скругленные углы */
-    font-size: 16px; /* Увеличиваем размер шрифта */
-    font-weight: bold; /* Жирный текст */
-    cursor: pointer;
-    text-align: center; /* Центрируем текст */
-    transition: background-color 0.3s, color 0.3s;
+	display: block; /* Делает кнопку блочной, чтобы занимала всю ширину */
+	width: 100%; /* Занимает всю ширину доступного контейнера */
+	margin-top: 20px; /* Отступ сверху */
+	padding: 15px; /* Увеличиваем высоту кнопки */
+	background-color: white; /* Белый фон */
+	color: #2688eb; /* Голубой текст */
+	border: 2px solid #2688eb; /* Голубая обводка */
+	border-radius: 5px; /* Скругленные углы */
+	font-size: 16px; /* Увеличиваем размер шрифта */
+	font-weight: bold; /* Жирный текст */
+	cursor: pointer;
+	text-align: center; /* Центрируем текст */
+	transition: background-color 0.3s, color 0.3s;
 }
 
 .save-button:hover {
-    background-color: #e0f7fa; /* Светло-голубой фон при наведении */
-    color: #2688EB; /* Голубой текст */
+	background-color: #e0f7fa; /* Светло-голубой фон при наведении */
+	color: #2688eb; /* Голубой текст */
 }
-

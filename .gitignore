@@ -1,5 +1,5 @@
 # Ignoring .env files
-.env
+frontend/.env
 
 # Ignoring virtual environment
 /backend/analytics/venv/

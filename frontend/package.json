@@ -27,21 +27,20 @@
     "@types/mocha": "^10.0.10",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
-    "@types/webpack-env": "^1.18.8",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "@vkontakte/icons": "^3.43.0",
     "@vkontakte/vkui": "^7.11.6",
     "autoprefixer": "^10.4.14",
     "clean-webpack-plugin": "^4.0.0",
-    "commitizen": "^4.2.4",
+    "commitizen": "^4.3.0",
     "copy-webpack-plugin": "^14.0.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "cssnano": "^6.0.1",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "9.26.0",
+    "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -59,7 +58,7 @@
     "react-slider": "^2.0.6",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.97.3",
-    "sass-loader": "^16.0.6",
+    "sass-loader": "^13.3.3",
     "style-loader": "^3.3.3",
     "stylelint": "^16.1.0",
     "stylelint-config-standard-scss": "^13.0.0",
@@ -71,6 +70,11 @@
     "webpack": "5.104.1",
     "webpack-cli": "^5.0.2",
     "webpack-dev-server": "^5.2.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
   },
   "lint-staged": {
     "*.{css,scss}": "npm run stylelint:fix",
