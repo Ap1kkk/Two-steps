@@ -3,11 +3,7 @@
     "target": "ES5",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react-jsx",
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -33,7 +29,7 @@
     }
   },
   "outDir": "./dist/",
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/custom.d.ts"],
   "exclude": [
     "../frontend/node_modules"
   ]

@@ -3,12 +3,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
 module.exports = {
-	entry: path.resolve(__dirname, '..', './src/Header.tsx'),
+	entry: path.resolve(__dirname, '..', './src/index.tsx'),
 	output: {
 		path: path.resolve(__dirname, '..', './dist'),
 		filename: production
@@ -67,6 +66,7 @@ module.exports = {
 						loader: 'sass-loader',
 						options: {
 							sourceMap: true,
+							api: 'modern',
 						},
 					},
 				],
@@ -93,16 +93,6 @@ module.exports = {
 		}),
 		new webpack.EnvironmentPlugin({
 			NODE_ENV: 'development',
-		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: path.resolve(__dirname, '..', 'node_modules/slick-carousel/slick/*.{eot,woff,ttf,svg}'),
-					to: path.resolve(__dirname, '..', 'dist/static/fonts/[name][ext]'),
-					context: path.resolve(__dirname, '..', 'node_modules/slick-carousel/slick'),
-					noErrorOnMissing: true,
-				},
-			],
 		}),
 	],
 };

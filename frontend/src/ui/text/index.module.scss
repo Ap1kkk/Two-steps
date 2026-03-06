@@ -1,0 +1,107 @@
+@mixin typography($size: 18, $weight: 400, $family: 'Noto Sans') {
+	color: var(--text-color);
+	font-weight: $weight;
+	font-size: $size;
+	font-family: $family;
+	line-height: normal;
+	letter-spacing: 0;
+}
+
+.text {
+	@include typography(18, 400, 'Noto Sans');
+}
+
+.roboto {
+	font-family: 'Roboto';
+}
+
+.color-light {
+	color: #002c67;
+}
+
+.color-dark {
+	color: #d2d2d2;
+}
+
+.color-white {
+	color: white;
+}
+
+.left {
+	text-align: left;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.size12 {
+	font-size: 12px;
+}
+
+.size18 {
+	font-size: 18px;
+}
+
+.size22 {
+	font-size: 22px;
+}
+
+.size24 {
+	font-size: 24px;
+}
+
+.size32 {
+	font-size: 32px;
+}
+
+.size38 {
+	font-size: 38px;
+}
+
+.size44 {
+	font-size: 44px;
+}
+
+.weight400 {
+	font-weight: 400;
+}
+
+.weight600 {
+	font-weight: 600;
+}
+
+.weight800 {
+	font-weight: 800;
+}
+
+.normal {
+	font-style: normal;
+}
+
+.italic {
+	font-style: italic;
+}
+
+// для динамических типографий, используем константы, которые будут меняться
+
+.dynamic {
+	color: #000000;
+	font-size: 18px;
+	font-family: 'Roboto';
+}
+
+// для заголовка и подзаголовка рамер шрифта одинаковый, меняется только цвет и семейство шрифтов
+
+.dynamicLite {
+	color: #000000;
+	font-family: 'Roboto';
+}

@@ -136,23 +136,6 @@ const MainPage = () => {
 
 	return (
 		<div className='container'>
-			{/* Header */}
-			<header className='header'>
-				<Icon56ClockCircleDashedOutline
-					onClick={handleButtonClickHistory}
-					width={32}
-					height={32}
-					color='#2975CC'
-				/>
-				<h1 className='title'>SportLine</h1>
-				<Icon32SearchOutline
-					onClick={handleButtonClickSearch}
-					width={32}
-					height={32}
-					color='#2975CC'
-				/>
-			</header>
-
 			<div className='map-NiNo'>
 				{/* Map Section */}
 				<div className='mapSection'>

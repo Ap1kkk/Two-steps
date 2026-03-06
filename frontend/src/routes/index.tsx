@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { Layout } from 'src/components/layout/Layout';
 
 import Authorization from 'src/pages/Authorization/Authorization';
 import Register from 'src/pages/Register/Register';
@@ -16,17 +17,15 @@ import StatisticsPage from 'src/pages/all-profile-pages/StatisticsPage/Statistic
 import Achievements from 'src/pages/all-profile-pages/AchievementsPage/AchievementsPage';
 import EditProfile from 'src/pages/all-profile-pages/EditProfilePage/EditProfilePage';
 
-import React from 'react';
-
 export const Index = () => {
 	return (
-		<>
-			<Routes>
-				<Route path='/' element={<Navigate to='/login' replace />} />
+		<Routes>
+			<Route path='/login' element={<Authorization />} />
+			<Route path='/register' element={<Register />} />
+			<Route path='/register/preferences' element={<Preferences />} />
 
-				<Route path='/login' element={<Authorization />} />
-				<Route path='/register' element={<Register />} />
-				<Route path='/register/preferences' element={<Preferences />} />
+			<Route element={<Layout />}>
+				<Route path='/' element={<Navigate to='/main_page' replace />} />
 
 				<Route path='/admin' element={<Admin_workbench />} />
 				<Route path='/main_page' element={<MainPage />} />
@@ -40,24 +39,12 @@ export const Index = () => {
 				<Route path='/main_page/search_page' element={<SearchRouts />} />
 
 				<Route path='/profile_page' element={<Profile />} />
-				<Route
-					path='/profile_page/statistics_page'
-					element={<StatisticsPage />}
-				/>
-				<Route
-					path='/profile_page/achievements_page'
-					element={<Achievements />}
-				/>
-				<Route
-					path='/profile_page/route_history_page'
-					element={<UserHistory />}
-				/>
-				<Route
-					path='/profile_page/edit_profile_page'
-					element={<EditProfile />}
-				/>
+				<Route path='/profile_page/statistics_page' element={<StatisticsPage />} />
+				<Route path='/profile_page/achievements_page' element={<Achievements />} />
+				<Route path='/profile_page/route_history_page' element={<UserHistory />} />
+				<Route path='/profile_page/edit_profile_page' element={<EditProfile />} />
 				<Route path='/main_page/history' element={<UserHistory />} />
-			</Routes>
-		</>
+			</Route>
+		</Routes>
 	);
 };
