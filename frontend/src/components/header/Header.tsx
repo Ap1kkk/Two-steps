@@ -9,13 +9,13 @@ export const Header = () => {
         <>
             <nav className={styles.navigation}>
                 <Link to='/favourites' className={styles.navigation__link}>
-                    <Text>Избранное</Text>
+                    <Text as='h2' size={22} family='spotify'>Избранное</Text>
                 </Link>
                 <Link to='/main_page' className={styles.navigation__link}>
-                    <Text>Sport Line</Text>
+                    <Text as='h1' size={24} weight={700} family={'spotify'}>Sport Line</Text>
                 </Link>
                 <Link to='/profile_page' className={styles.navigation__link}>
-                    <Text>Профиль</Text>
+                    <Text as='h2' size={22} family={'spotify'}>Профиль</Text>
                 </Link>
             </nav>
         </>

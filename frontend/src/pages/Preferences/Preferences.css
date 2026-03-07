@@ -11,21 +11,7 @@
 	box-sizing: border-box;
 }
 
-h1 {
-	font-size: 16px;
-	font-weight: bold;
-	color: #343a40;
-	margin-bottom: 20px;
-	text-align: center;
-}
 /* Заголовок */
-h3 {
-	font-size: 13px;
-	font-weight: bold;
-	color: #343a40;
-	margin-bottom: 10px;
-	align-self: flex-start;
-}
 
 /* Кнопки предпочтений */
 ._preferences-buttons {

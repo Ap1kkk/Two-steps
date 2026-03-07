@@ -1,59 +1,93 @@
-/* Roboto Thin */
+/* Spotify */
 
 @font-face {
-	font-weight: 100;
-	font-family: 'Roboto';
-	font-style: normal;
-	font-display: swap;
-	src: url('./fontFiles/Roboto-Thin.woff2') format('woff2'),
-		url('./fontFiles/Roboto-Thin.woff') format('woff'),
-		url('./fontFiles/Roboto-Thin.ttf') format('truetype');
+  font-family: 'Spotify Mix';
+  src:
+          url('fontFiles/spotify/SpotifyMix-Light.woff2') format('woff2'),
+          url('fontFiles/spotify/SpotifyMix-Light.woff') format('woff'),
+          url('fontFiles/spotify/SpotifyMix-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
 
-/* Roboto Light */
+@font-face {
+  font-family: 'Spotify Mix';
+  src:
+          url('fontFiles/spotify/SpotifyMix-LightItalic.woff2') format('woff2'),
+          url('fontFiles/spotify/SpotifyMix-LightItalic.woff') format('woff'),
+          url('fontFiles/spotify/SpotifyMix-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Spotify Mix';
+  src:
+          url('fontFiles/spotify/SpotifyMix-Regular.woff2') format('woff2'),
+          url('fontFiles/spotify/SpotifyMix-Regular.woff') format('woff'),
+          url('fontFiles/spotify/SpotifyMix-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Spotify Mix';
+  src:
+          url('fontFiles/spotify/SpotifyMix-RegularItalic.woff2') format('woff2'),
+          url('fontFiles/spotify/SpotifyMix-RegularItalic.woff') format('woff'),
+          url('fontFiles/spotify/SpotifyMix-RegularItalic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Spotify Mix';
+  src:
+          url('fontFiles/spotify/SpotifyMix-Bold.woff2') format('woff2'),
+          url('fontFiles/spotify/SpotifyMix-Bold.woff') format('woff'),
+          url('fontFiles/spotify/SpotifyMix-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Spotify Mix';
+  src:
+          url('fontFiles/spotify/SpotifyMix-BoldItalic.woff2') format('woff2'),
+          url('fontFiles/spotify/SpotifyMix-BoldItalic.woff') format('woff'),
+          url('fontFiles/spotify/SpotifyMix-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Roboto */
 
 @font-face {
 	font-weight: 300;
 	font-family: 'Roboto';
 	font-style: normal;
 	font-display: swap;
-	src: url('./fontFiles/Roboto-Light.woff2') format('woff2'),
-		url('./fontFiles/Roboto-Light.woff') format('woff'),
-		url('./fontFiles/Roboto-Light.ttf') format('truetype');
+	src: url('fontFiles/roboto/Roboto-Light.woff2') format('woff2'),
+		url('fontFiles/roboto/Roboto-Light.woff') format('woff'),
+		url('fontFiles/roboto/Roboto-Light.ttf') format('truetype');
 }
-
-/* Roboto Regular */
 
 @font-face {
 	font-weight: 400;
 	font-family: 'Roboto';
 	font-style: normal;
 	font-display: swap;
-	src: url('./fontFiles/Roboto-Regular.woff2') format('woff2'),
-		url('./fontFiles/Roboto-Regular.woff') format('woff'),
-		url('./fontFiles/Roboto-Regular.ttf') format('truetype');
+	src: url('fontFiles/roboto/Roboto-Regular.woff2') format('woff2'),
+		url('fontFiles/roboto/Roboto-Regular.woff') format('woff'),
+		url('fontFiles/roboto/Roboto-Regular.ttf') format('truetype');
 }
-
-/* Roboto Medium */
-
-@font-face {
-	font-weight: 500;
-	font-family: 'Roboto';
-	font-style: normal;
-	font-display: swap;
-	src: url('./fontFiles/Roboto-Medium.woff2') format('woff2'),
-		url('./fontFiles/Roboto-Medium.woff') format('woff'),
-		url('./fontFiles/Roboto-Medium.ttf') format('truetype');
-}
-
-/* Roboto Bold */
 
 @font-face {
 	font-weight: 700;
 	font-family: 'Roboto';
 	font-style: normal;
 	font-display: swap;
-	src: url('./fontFiles/Roboto-Bold.woff2') format('woff2'),
-		url('./fontFiles/Roboto-Bold.woff') format('woff'),
-		url('./fontFiles/Roboto-Bold.ttf') format('truetype');
+	src: url('fontFiles/roboto/Roboto-Bold.woff2') format('woff2'),
+		url('fontFiles/roboto/Roboto-Bold.woff') format('woff'),
+		url('fontFiles/roboto/Roboto-Bold.ttf') format('truetype');
 }

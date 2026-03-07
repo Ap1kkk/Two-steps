@@ -1,8 +1,4 @@
 /* Общий стиль контейнера */
-a {
-	text-decoration: none;
-	color: #333;
-}
 
 .container {
 	display: flex;
