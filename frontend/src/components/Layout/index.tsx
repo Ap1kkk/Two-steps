@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Header } from '../header/Header';
+import { Header } from '../Header/index';
+import {Footer} from "components/Footer";
 
 import styles from './Layout.module.scss';
 
@@ -10,6 +11,7 @@ export const Layout = () => {
             <main className={styles.content}>
                 <Outlet />
             </main>
+            <Footer />
         </div>
     );
 };

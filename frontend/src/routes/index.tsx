@@ -1,12 +1,12 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Layout } from 'src/components/layout/Layout';
+import { Layout } from 'components/Layout';
 
 import Authorization from 'src/pages/Authorization/Authorization';
 import Register from 'src/pages/Register/Register';
 import Preferences from 'src/pages/Preferences/Preferences';
 import Admin_workbench from 'src/pages/admin-page/admin_workbench';
-import MainPage from 'src/pages/main-page/main_page';
-import RoutesOnMap from 'src/pages/mapRoutes/routesOnMap';
+import MainPage from 'src/pages/MainPage/MainPage';
+import RoutesOnMap from 'src/pages/RouteMap/RoutesOnMap';
 import Recommendation from 'src/pages/Filters/Recommendation';
 import UserLikeRouts from 'src/pages/UserLikeRouts/UserLikeRouts';
 import PopularRouts from 'src/pages/PopularRouts/PopularRouts';
@@ -28,22 +28,23 @@ export const Index = () => {
 				<Route path='/' element={<Navigate to='/main_page' replace />} />
 
 				<Route path='/admin' element={<Admin_workbench />} />
+
 				<Route path='/main_page' element={<MainPage />} />
+				<Route path='/main_page/recomendation' element={<Recommendation />} />
+				<Route path='/main_page/popular' element={<PopularRouts />} />
+				<Route path='/main_page/search_page' element={<SearchRouts />} />
+				<Route path='/main_page/history' element={<UserHistory />} />
 
 				<Route path='/map/:routeId' element={<RoutesOnMap />} />
 
-				<Route path='/main_page/recomendation' element={<Recommendation />} />
 				<Route path='/favourites' element={<UserLikeRouts />} />
-				<Route path='/main_page/popular' element={<PopularRouts />} />
 				<Route path='/history' element={<UserHistory />} />
-				<Route path='/main_page/search_page' element={<SearchRouts />} />
 
 				<Route path='/profile_page' element={<Profile />} />
 				<Route path='/profile_page/statistics_page' element={<StatisticsPage />} />
 				<Route path='/profile_page/achievements_page' element={<Achievements />} />
 				<Route path='/profile_page/route_history_page' element={<UserHistory />} />
 				<Route path='/profile_page/edit_profile_page' element={<EditProfile />} />
-				<Route path='/main_page/history' element={<UserHistory />} />
 			</Route>
 		</Routes>
 	);

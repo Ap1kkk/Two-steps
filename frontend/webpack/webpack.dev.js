@@ -1,4 +1,4 @@
-const path = require('path'); //для того чтобы превратить отнсительный путь в абсолютный мы будем использовать пакет path
+const path = require('path');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {

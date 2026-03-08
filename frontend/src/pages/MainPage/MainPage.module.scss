@@ -1,0 +1,176 @@
+.container {
+	position: relative;
+	min-height: 100vh;
+	width: 100%;
+	overflow-x: hidden;
+}
+
+.mapBackground {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-image: url('https://cartocdn-gusc.global.ssl.fastly.net/opmb/api/map?size=600x600&zoom=12&center=55.7558,37.6173&style=light&format=png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	opacity: 0.15;
+	z-index: 0;
+	pointer-events: none;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+										to bottom,
+										rgba(255, 255, 255, 0.95) 0%,
+										rgba(255, 255, 255, 0.85) 50%,
+										rgba(255, 255, 255, 0.95) 100%
+		);
+		pointer-events: none;
+	}
+
+	@media (max-width: 768px) {
+		opacity: 0.1;
+
+		&::after {
+			background: linear-gradient(
+											to bottom,
+											rgba(255, 255, 255, 0.98) 0%,
+											rgba(255, 255, 255, 0.9) 50%,
+											rgba(255, 255, 255, 0.98) 100%
+			);
+		}
+	}
+}
+
+.content {
+	position: relative;
+	z-index: 1;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+
+	@media (max-width: 768px) {
+		padding: 16px;
+	}
+
+	@media (max-width: 480px) {
+		padding: 12px;
+	}
+}
+
+.loading {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 18px;
+	color: #333;
+	background: rgba(255, 255, 255, 0.9);
+	padding: 20px 40px;
+	border-radius: 12px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	z-index: 2;
+}
+
+.errorBanner {
+	position: relative;
+	z-index: 1;
+	background-color: #fff3cd;
+	color: #856404;
+	padding: 12px 20px;
+	margin: 10px 20px;
+	border-radius: 8px;
+	border: 1px solid #ffeeba;
+	font-size: 14px;
+	text-align: center;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+	@media (max-width: 768px) {
+		margin: 8px 16px;
+		padding: 10px 16px;
+		font-size: 13px;
+	}
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	overflow-y: auto;
+	min-height: 100%;
+	padding-bottom: 60px;
+
+	@media (max-width: 768px) {
+		padding-bottom: 50px;
+	}
+}
+
+.loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 200px;
+	font-size: 16px;
+	color: #666;
+}
+
+.error {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 200px;
+	padding: 20px;
+	text-align: center;
+
+	p {
+		color: #dc3545;
+		margin-bottom: 16px;
+		font-size: 16px;
+	}
+}
+
+.retryButton {
+	padding: 10px 20px;
+	background: linear-gradient(135deg, #007bff, #0056b3);
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+	}
+
+	&:active {
+		transform: translateY(0);
+	}
+}
+
+.errorBanner {
+	background-color: #fff3cd;
+	color: #856404;
+	padding: 12px 20px;
+	margin: 10px 20px;
+	border-radius: 8px;
+	border: 1px solid #ffeeba;
+	font-size: 14px;
+	text-align: center;
+
+	@media (max-width: 768px) {
+		margin: 8px 16px;
+		padding: 10px 16px;
+		font-size: 13px;
+	}
+}

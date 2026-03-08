@@ -58,7 +58,6 @@ module.exports = {
 								auto: /\.module\.\w+$/i,
 							},
 							importLoaders: 2,
-							url: true,
 						},
 					},
 					'postcss-loader',
@@ -67,6 +66,7 @@ module.exports = {
 						options: {
 							sourceMap: true,
 							api: 'modern',
+							additionalData: `@use "sass:math";`
 						},
 					},
 				],
@@ -75,6 +75,10 @@ module.exports = {
 	},
 	resolve: {
 		extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'],
+		modules: [
+			path.resolve(__dirname, '..', './src'),
+			'node_modules'
+		],
 		alias: {
 			fonts: path.resolve(__dirname, '..', './src/fonts'),
 			src: path.resolve(__dirname, '..', './src'),
