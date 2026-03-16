@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Layout } from 'components/Layout';
 
 import Authorization from 'src/pages/Authorization/Authorization';
@@ -17,35 +17,82 @@ import StatisticsPage from 'src/pages/all-profile-pages/StatisticsPage/Statistic
 import Achievements from 'src/pages/all-profile-pages/AchievementsPage/AchievementsPage';
 import EditProfile from 'src/pages/all-profile-pages/EditProfilePage/EditProfilePage';
 
-export const Index = () => {
-	return (
-		<Routes>
-			<Route path='/login' element={<Authorization />} />
-			<Route path='/register' element={<Register />} />
-			<Route path='/register/preferences' element={<Preferences />} />
-
-			<Route element={<Layout />}>
-				<Route path='/' element={<Navigate to='/main_page' replace />} />
-
-				<Route path='/admin' element={<Admin_workbench />} />
-
-				<Route path='/main_page' element={<MainPage />} />
-				<Route path='/main_page/recomendation' element={<Recommendation />} />
-				<Route path='/main_page/popular' element={<PopularRouts />} />
-				<Route path='/main_page/search_page' element={<SearchRouts />} />
-				<Route path='/main_page/history' element={<UserHistory />} />
-
-				<Route path='/map/:routeId' element={<RoutesOnMap />} />
-
-				<Route path='/favourites' element={<UserLikeRouts />} />
-				<Route path='/history' element={<UserHistory />} />
-
-				<Route path='/profile_page' element={<Profile />} />
-				<Route path='/profile_page/statistics_page' element={<StatisticsPage />} />
-				<Route path='/profile_page/achievements_page' element={<Achievements />} />
-				<Route path='/profile_page/route_history_page' element={<UserHistory />} />
-				<Route path='/profile_page/edit_profile_page' element={<EditProfile />} />
-			</Route>
-		</Routes>
-	);
-};
+export const router = createBrowserRouter([
+	{
+		path: '/login',
+		element: <Authorization />,
+	},
+	{
+		path: '/register',
+		element: <Register />,
+	},
+	{
+		path: '/register/preferences',
+		element: <Preferences />,
+	},
+	{
+		element: <Layout />,
+		children: [
+			{
+				path: '/',
+				element: <Navigate to='/main_page' replace />,
+			},
+			{
+				path: '/admin',
+				element: <Admin_workbench />,
+			},
+			{
+				path: '/main_page',
+				element: <MainPage />,
+			},
+			{
+				path: '/main_page/recomendation',
+				element: <Recommendation />,
+			},
+			{
+				path: '/main_page/popular',
+				element: <PopularRouts />,
+			},
+			{
+				path: '/main_page/search_page',
+				element: <SearchRouts />,
+			},
+			{
+				path: '/main_page/history',
+				element: <UserHistory />,
+			},
+			{
+				path: '/map/:routeId',
+				element: <RoutesOnMap />,
+			},
+			{
+				path: '/favourites',
+				element: <UserLikeRouts />,
+			},
+			{
+				path: '/history',
+				element: <UserHistory />,
+			},
+			{
+				path: '/profile_page',
+				element: <Profile />,
+			},
+			{
+				path: '/profile_page/statistics_page',
+				element: <StatisticsPage />,
+			},
+			{
+				path: '/profile_page/achievements_page',
+				element: <Achievements />,
+			},
+			{
+				path: '/profile_page/route_history_page',
+				element: <UserHistory />,
+			},
+			{
+				path: '/profile_page/edit_profile_page',
+				element: <EditProfile />,
+			},
+		],
+	},
+]);
