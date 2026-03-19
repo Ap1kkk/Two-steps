@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserHistoryPanel from './UserHistoryPanel/UserHistoryPanel';
 import UserHistoryRouts from './UserHistoryRouts/UserHistoryRouts';
 import './UserHistory.css';
-import { BASE_API_URL } from 'src/constants/globals';
+import { BASE_API_URL } from '../../types/constants/globals';
 
 const UserHistory = () => {
 	const [categories, setCategories] = useState([]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
-import Text from "src/ui/text/Text";
+import Text from "../UI/text/Text";
 
 export const Footer = () => {
     const currentYear = new Date().getFullYear();

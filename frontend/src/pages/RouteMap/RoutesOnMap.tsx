@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RouteMap } from 'components/RouteMap';
+import { RouteMap } from '../../components/RouteMap';
 import { RouteData } from 'src/types';
-import { Text } from 'src/ui/text/Text'
+import { Text } from '../../components/UI/text/Text'
 import { getMockRouteById, mockRouteKremlin, mockRoutes } from './mockData';
 
 import styles from './RoutesOnMap.module.scss';

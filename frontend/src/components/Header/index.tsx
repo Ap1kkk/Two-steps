@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Text } from 'src/ui/text/Text'
+import { Text } from '../UI/text/Text'
 
-import Profile from 'src/assets/icons/profile.svg'
-import Loupe from 'src/assets/icons/loupe.svg'
+import Profile from '../../assets/images/icons/profile.svg'
+import Loupe from '../../assets/images/icons/loupe.svg'
 
 import styles from './Header.module.scss';
 

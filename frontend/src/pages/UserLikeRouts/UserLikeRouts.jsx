@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UserLikeRoutsPanel from './UserLikeRoutsPanel/UserLikeRoutsPanel';
 import UserLikeRoutsFiltered from './UserLikeRoutsFiltered/UserLikeRoutsFiltered';
 import './UserLikeRouts.css';
-import { BASE_API_URL } from 'src/constants/globals';
+import { BASE_API_URL } from '../../types/constants/globals';
 
 const UserLikeRouts = () => {
 	const [categories, setCategories] = useState([]);

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RouteOfTheDay } from 'components/RouteOfTheDay';
-import { RecommendedRoutes } from 'components/RecommendedRoutes';
-import { PopularRoutes } from 'components/PopularRoutes';
+import { RouteOfTheDay } from '../../components/RouteOfTheDay';
+import { RecommendedRoutes } from '../../components/RecommendedRoutes';
+import { PopularRoutes } from '../../components/PopularRoutes';
 import { Route } from 'src/types';
-import { BASE_API_URL } from 'src/constants/globals';
+import { BASE_API_URL } from '../../types/constants/globals';
 import styles from './MainPage.module.scss';
 
 const LIMIT = 5;
@@ -19,7 +19,7 @@ const MOCK_POPULAR_ROUTES: Route[] = [
 	{
 		id: 1,
 		name: 'Парк Горького',
-		imagePath: '/images/park-gorkogo.jpg',
+		imagePath: '/images-123/park-gorkogo.jpg',
 		distance: 3500,
 		difficulty: 'EASY',
 		categories: [{ id: 1, name: 'Парк' }, { id: 2, name: 'Прогулка' }]
@@ -27,7 +27,7 @@ const MOCK_POPULAR_ROUTES: Route[] = [
 	{
 		id: 2,
 		name: 'Воробьевы горы',
-		imagePath: '/images/vorobyovy-gory.jpg',
+		imagePath: '/images-123/vorobyovy-gory.jpg',
 		distance: 5200,
 		difficulty: 'MEDIUM',
 		categories: [{ id: 3, name: 'Природа' }, { id: 4, name: 'Вид' }]
@@ -35,7 +35,7 @@ const MOCK_POPULAR_ROUTES: Route[] = [
 	{
 		id: 3,
 		name: 'Красная площадь',
-		imagePath: '/images/red-square.jpg',
+		imagePath: '/images-123/red-square.jpg',
 		distance: 2800,
 		difficulty: 'EASY',
 		categories: [{ id: 5, name: 'История' }, { id: 6, name: 'Центр' }]
@@ -43,7 +43,7 @@ const MOCK_POPULAR_ROUTES: Route[] = [
 	{
 		id: 4,
 		name: 'Царицыно',
-		imagePath: '/images/tsaritsyno.jpg',
+		imagePath: '/images-123/tsaritsyno.jpg',
 		distance: 4800,
 		difficulty: 'MEDIUM',
 		categories: [{ id: 1, name: 'Парк' }, { id: 7, name: 'Дворец' }]
@@ -51,7 +51,7 @@ const MOCK_POPULAR_ROUTES: Route[] = [
 	{
 		id: 5,
 		name: 'Сокольники',
-		imagePath: '/images/sokolniki.jpg',
+		imagePath: '/images-123/sokolniki.jpg',
 		distance: 6200,
 		difficulty: 'HARD',
 		categories: [{ id: 1, name: 'Парк' }, { id: 8, name: 'Лес' }]
@@ -62,7 +62,7 @@ const MOCK_RECOMMENDED_ROUTES: Route[] = [
 	{
 		id: 6,
 		name: 'Патриаршие пруды',
-		imagePath: '/images/patriarshiye.jpg',
+		imagePath: '/images-123/patriarshiye.jpg',
 		distance: 2100,
 		difficulty: 'EASY',
 		categories: [{ id: 9, name: 'Пруды' }, { id: 10, name: 'Исторический' }]
@@ -70,7 +70,7 @@ const MOCK_RECOMMENDED_ROUTES: Route[] = [
 	{
 		id: 7,
 		name: 'Арбат',
-		imagePath: 'src/assets/images/arbat.jpg',
+		imagePath: 'src/assets/images-123/arbat.jpg',
 		distance: 1800,
 		difficulty: 'EASY',
 		categories: [{ id: 11, name: 'Пешеходный' }, { id: 12, name: 'Улица' }]
@@ -78,7 +78,7 @@ const MOCK_RECOMMENDED_ROUTES: Route[] = [
 	{
 		id: 8,
 		name: 'Зарядье',
-		imagePath: '/images/zaryadye.jpg',
+		imagePath: '/images-123/zaryadye.jpg',
 		distance: 3200,
 		difficulty: 'MEDIUM',
 		categories: [{ id: 1, name: 'Парк' }, { id: 13, name: 'Современный' }]
@@ -86,7 +86,7 @@ const MOCK_RECOMMENDED_ROUTES: Route[] = [
 	{
 		id: 9,
 		name: 'ВДНХ',
-		imagePath: '/images/vdnh.jpg',
+		imagePath: '/images-123/vdnh.jpg',
 		distance: 7500,
 		difficulty: 'HARD',
 		categories: [{ id: 14, name: 'Выставка' }, { id: 15, name: 'Достопримечательность' }]
@@ -94,7 +94,7 @@ const MOCK_RECOMMENDED_ROUTES: Route[] = [
 	{
 		id: 10,
 		name: 'Коломенское',
-		imagePath: '/images/kolomenskoye.jpg',
+		imagePath: '/images-123/kolomenskoye.jpg',
 		distance: 5400,
 		difficulty: 'MEDIUM',
 		categories: [{ id: 1, name: 'Парк' }, { id: 16, name: 'Музей' }]

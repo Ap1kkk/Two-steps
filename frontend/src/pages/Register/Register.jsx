@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { BASE_API_URL } from 'src/constants/globals';
+import { BASE_API_URL } from '../../types/constants/globals';
 
 const Register = () => {
 	const [username, setUsername] = useState('');

@@ -2,7 +2,7 @@ import { ElementType, ReactNode } from 'react';
 import { clsx } from 'clsx';
 
 import styles from './index.module.scss';
-import {FontFamiliesClasses} from "src/constants/articleProps";
+import {FontFamiliesClasses} from "../UI-constants/articleProps";
 
 type TextProps = {
     children: ReactNode;

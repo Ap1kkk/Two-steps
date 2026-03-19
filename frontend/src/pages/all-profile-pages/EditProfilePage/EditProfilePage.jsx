@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './EditProfilePage.css';
-import { BASE_API_URL } from 'src/constants/globals';
+import { BASE_API_URL } from '../../../types/constants/globals';
 
 const USER_PROFILE_URL = `${BASE_API_URL}/user/profile`;
 const UPDATE_PROFILE_URL = `${BASE_API_URL}/user/edit`;

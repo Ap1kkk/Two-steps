@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LikeButton } from '../LikeButton';
 import { Route } from 'src/types';
-import { BASE_STATIC_URL } from 'src/constants/globals';
+import { BASE_STATIC_URL } from '../../types/constants/globals';
 import styles from './RecommendedRoutes.module.scss';
 
 interface RecommendedRoutesProps {

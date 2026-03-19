@@ -30,7 +30,7 @@ module.exports = {
 				test: /\.(png|jpg|gif|webp)$/,
 				type: 'asset/resource',
 				generator: {
-					filename: 'static/images/[hash][ext][query]',
+					filename: 'static/images-123/[hash][ext][query]',
 				},
 			},
 			{
@@ -80,9 +80,17 @@ module.exports = {
 			'node_modules'
 		],
 		alias: {
-			fonts: path.resolve(__dirname, '..', './src/fonts'),
-			src: path.resolve(__dirname, '..', './src'),
-			components: path.resolve(__dirname, '..', './src/components'),
+            '@fonts': path.resolve(__dirname, "src/assets/fonts"),
+            '@styles': path.resolve(__dirname, "src/assets/styles"),
+            '@images': path.resolve(__dirname, "src/assets/images"),
+            '@components': path.resolve(__dirname, "src/components"),
+            '@ui': path.resolve(__dirname, "src/components/ui"),
+            '@pages': path.resolve(__dirname, "src/pages"),
+            '@selectors': path.resolve(__dirname, "src/services/selectors"),
+            '@slices': path.resolve(__dirname, "src/services/slices"),
+            '@store': path.resolve(__dirname, "src/services/store"),
+            '@types': path.resolve(__dirname, "src/types"),
+            '@utils': path.resolve(__dirname, "src/utils")
 		},
 	},
 	plugins: [

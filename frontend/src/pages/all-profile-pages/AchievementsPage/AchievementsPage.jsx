@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './AchievementsPage.css';
-import { BASE_API_URL, BASE_STATIC_URL } from 'src/constants/globals';
+import { BASE_API_URL, BASE_STATIC_URL } from '../../../types/constants/globals';
 
 const USER_ACHIEVEMENTS_URL = `${BASE_API_URL}/user/achievements`;
 
