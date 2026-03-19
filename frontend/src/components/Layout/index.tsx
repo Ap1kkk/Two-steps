@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Header } from '../Header/index';
-import {Footer} from "components/Footer";
+import { Footer } from "components/Footer";
 
 import styles from './Layout.module.scss';
 
@@ -15,5 +15,3 @@ export const Layout = () => {
         </div>
     );
 };
-
-// Не трогать!!!
