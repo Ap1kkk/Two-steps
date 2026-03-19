@@ -80,17 +80,17 @@ module.exports = {
 			'node_modules'
 		],
 		alias: {
-            '@fonts': path.resolve(__dirname, "src/assets/fonts"),
-            '@styles': path.resolve(__dirname, "src/assets/styles"),
-            '@images': path.resolve(__dirname, "src/assets/images"),
-            '@components': path.resolve(__dirname, "src/components"),
-            '@ui': path.resolve(__dirname, "src/components/ui"),
-            '@pages': path.resolve(__dirname, "src/pages"),
-            '@selectors': path.resolve(__dirname, "src/services/selectors"),
-            '@slices': path.resolve(__dirname, "src/services/slices"),
-            '@store': path.resolve(__dirname, "src/services/store"),
-            '@types': path.resolve(__dirname, "src/types"),
-            '@utils': path.resolve(__dirname, "src/utils")
+            '@fonts': path.resolve(__dirname, "../src/assets/fonts"),
+            '@styles': path.resolve(__dirname, "../src/assets/styles"),
+            '@images': path.resolve(__dirname, "../src/assets/images"),
+            '@components': path.resolve(__dirname, "../src/components"),
+            '@ui': path.resolve(__dirname, "../src/components/ui"),
+            '@pages': path.resolve(__dirname, "../src/pages"),
+            '@selectors': path.resolve(__dirname, "../src/services/selectors"),
+            '@slices': path.resolve(__dirname, "../src/services/slices"),
+            '@store': path.resolve(__dirname, "../src/services/store"),
+            '@types': path.resolve(__dirname, "../src/types"),
+            '@utils': path.resolve(__dirname, "../src/utils")
 		},
 	},
 	plugins: [

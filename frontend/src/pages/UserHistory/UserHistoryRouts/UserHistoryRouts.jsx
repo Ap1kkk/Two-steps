@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserHistoryRouts.css';
 
-const UserHistoryRouts = ({ routes }) => {
+export const UserHistoryRouts = ({ routes }) => {
 	if (!routes.length) {
 		return <p>Нет доступных маршрутов для отображения.</p>;
 	}

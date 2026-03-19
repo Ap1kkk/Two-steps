@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './PopularFilteredRoutes.css';
-import { BASE_API_URL, BASE_STATIC_URL } from '../../../types/constants/globals';
+import {
+	BASE_API_URL,
+	BASE_STATIC_URL,
+} from '../../../types/constants/globals';
 
-const PopularFilteredRoutes = ({ filters, searchQuery }) => {
+export const PopularFilteredRoutes = ({ filters, searchQuery }) => {
 	const [routes, setRoutes] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);

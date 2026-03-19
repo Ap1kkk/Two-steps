@@ -1,63 +1,58 @@
 /* Spotify */
 
 @font-face {
-  font-family: 'Spotify Mix';
-  src:
-          url('./font-files/spotify/SpotifyMix-Light.woff2') format('woff2'),
-          url('./font-files/spotify/SpotifyMix-Light.woff') format('woff'),
-          url('./font-files/spotify/SpotifyMix-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
+	font-family: 'Spotify Mix';
+	src: url('./font-files/spotify/SpotifyMix-Light.woff2') format('woff2'),
+		url('./font-files/spotify/SpotifyMix-Light.woff') format('woff'),
+		url('./font-files/spotify/SpotifyMix-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Spotify Mix';
-  src:
-          url('./font-files/spotify/SpotifyMix-LightItalic.woff2') format('woff2'),
-          url('./font-files/spotify/SpotifyMix-LightItalic.woff') format('woff'),
-          url('./font-files/spotify/SpotifyMix-LightItalic.ttf') format('truetype');
-  font-weight: 300;
-  font-style: italic;
+	font-family: 'Spotify Mix';
+	src: url('./font-files/spotify/SpotifyMix-LightItalic.woff2') format('woff2'),
+		url('./font-files/spotify/SpotifyMix-LightItalic.woff') format('woff'),
+		url('./font-files/spotify/SpotifyMix-LightItalic.ttf') format('truetype');
+	font-weight: 300;
+	font-style: italic;
 }
 
 @font-face {
-  font-family: 'Spotify Mix';
-  src:
-          url('./font-files/spotify/SpotifyMix-Regular.woff2') format('woff2'),
-          url('./font-files/spotify/SpotifyMix-Regular.woff') format('woff'),
-          url('./font-files/spotify/SpotifyMix-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
+	font-family: 'Spotify Mix';
+	src: url('./font-files/spotify/SpotifyMix-Regular.woff2') format('woff2'),
+		url('./font-files/spotify/SpotifyMix-Regular.woff') format('woff'),
+		url('./font-files/spotify/SpotifyMix-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Spotify Mix';
-  src:
-          url('./font-files/spotify/SpotifyMix-RegularItalic.woff2') format('woff2'),
-          url('./font-files/spotify/SpotifyMix-RegularItalic.woff') format('woff'),
-          url('./font-files/spotify/SpotifyMix-RegularItalic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
+	font-family: 'Spotify Mix';
+	src: url('./font-files/spotify/SpotifyMix-RegularItalic.woff2')
+			format('woff2'),
+		url('./font-files/spotify/SpotifyMix-RegularItalic.woff') format('woff'),
+		url('./font-files/spotify/SpotifyMix-RegularItalic.ttf') format('truetype');
+	font-weight: 400;
+	font-style: italic;
 }
 
 @font-face {
-  font-family: 'Spotify Mix';
-  src:
-          url('./font-files/spotify/SpotifyMix-Bold.woff2') format('woff2'),
-          url('./font-files/spotify/SpotifyMix-Bold.woff') format('woff'),
-          url('./font-files/spotify/SpotifyMix-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
+	font-family: 'Spotify Mix';
+	src: url('./font-files/spotify/SpotifyMix-Bold.woff2') format('woff2'),
+		url('./font-files/spotify/SpotifyMix-Bold.woff') format('woff'),
+		url('./font-files/spotify/SpotifyMix-Bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Spotify Mix';
-  src:
-          url('./font-files/spotify/SpotifyMix-BoldItalic.woff2') format('woff2'),
-          url('./font-files/spotify/SpotifyMix-BoldItalic.woff') format('woff'),
-          url('./font-files/spotify/SpotifyMix-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
+	font-family: 'Spotify Mix';
+	src: url('./font-files/spotify/SpotifyMix-BoldItalic.woff2') format('woff2'),
+		url('./font-files/spotify/SpotifyMix-BoldItalic.woff') format('woff'),
+		url('./font-files/spotify/SpotifyMix-BoldItalic.ttf') format('truetype');
+	font-weight: 700;
+	font-style: italic;
 }
 
 /* Roboto */
@@ -68,8 +63,8 @@
 	font-style: normal;
 	font-display: swap;
 	src: url('./font-files/roboto/Roboto-Light.woff2') format('woff2'),
-		 url('./font-files/roboto/Roboto-Light.woff') format('woff'),
-		 url('./font-files/roboto/Roboto-Light.ttf') format('truetype');
+		url('./font-files/roboto/Roboto-Light.woff') format('woff'),
+		url('./font-files/roboto/Roboto-Light.ttf') format('truetype');
 }
 
 @font-face {
@@ -78,8 +73,8 @@
 	font-style: normal;
 	font-display: swap;
 	src: url('./font-files/roboto/Roboto-Regular.woff2') format('woff2'),
-		 url('./font-files/roboto/Roboto-Regular.woff') format('woff'),
-		 url('./font-files/roboto/Roboto-Regular.ttf') format('truetype');
+		url('./font-files/roboto/Roboto-Regular.woff') format('woff'),
+		url('./font-files/roboto/Roboto-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -88,6 +83,6 @@
 	font-style: normal;
 	font-display: swap;
 	src: url('./font-files/roboto/Roboto-Bold.woff2') format('woff2'),
-		 url('./font-files/roboto/Roboto-Bold.woff') format('woff'),
-		 url('./font-files/roboto/Roboto-Bold.ttf') format('truetype');
+		url('./font-files/roboto/Roboto-Bold.woff') format('woff'),
+		url('./font-files/roboto/Roboto-Bold.ttf') format('truetype');
 }

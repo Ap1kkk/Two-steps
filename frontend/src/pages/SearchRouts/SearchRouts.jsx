@@ -3,7 +3,7 @@ import SearchRoutsPanel from './SearchRoutsPanel/SearchRoutsPanel';
 import SearchRoutsFiltered from './SearchRoutsFiltered/SearchRoutsFiltered';
 import './SearchRouts.css';
 
-const SearchRouts = () => {
+export const SearchRouts = () => {
 	const [filters, setFilters] = useState({
 		order: 'ASC',
 		difficulties: [],

@@ -3,7 +3,7 @@ import RecommendationFilterPanel from './FilterPanel/RecommendationFilterPanel';
 import RecommendationFilteredRoutes from './FilteredRoutes/RecommendationFilteredRoutes';
 import './Recommendation.css';
 
-const Recommendation = () => {
+export const Recommendation = () => {
 	const [filters, setFilters] = useState({
 		order: 'ASC',
 		difficulties: [],

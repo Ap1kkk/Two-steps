@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './StatisticsPage.css';
 import { BASE_API_URL } from '../../../types/constants/globals';
 
-const StatisticsPage = () => {
+export const StatisticsPage = () => {
 	const [period, setPeriod] = useState('WEEK');
 	const [statistics, setStatistics] = useState({});
 	const [loading, setLoading] = useState(true);

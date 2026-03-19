@@ -5,7 +5,7 @@ import { BASE_API_URL } from '../../types/constants/globals';
 const API_ROUTE_URL = `${BASE_API_URL}/admin/route/create`;
 const API_ROUTE_URL_CATEGORIES = `${BASE_API_URL}/category/all`;
 
-const Admin_workbench = () => {
+export const Admin_workbench = () => {
 	const [mapInstance, setMapInstance] = useState(null);
 	const [coords, setCoords] = useState([56.315309, 43.993506]);
 	const [points, setPoints] = useState([]);

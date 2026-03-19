@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RouteHistoryPage = () => {
+export const RouteHistoryPage = () => {
 	return (
 		<div>
 			<h1>История гуд</h1>

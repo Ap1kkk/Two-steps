@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './SearchRoutsFiltered.css';
 import { BASE_API_URL } from '../../../types/constants/globals';
 
-const SearchRoutsFiltered = ({ filters, searchQuery }) => {
+export const SearchRoutsFiltered = ({ filters, searchQuery }) => {
 	const [routes, setRoutes] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);

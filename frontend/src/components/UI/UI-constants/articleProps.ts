@@ -1,7 +1,4 @@
-export const fontFamilyClasses = [
-	'roboto',
-    'spotify'
-] as const;
+export const fontFamilyClasses = ['roboto', 'spotify'] as const;
 
 export type FontFamiliesClasses = (typeof fontFamilyClasses)[number];
 
@@ -16,7 +13,7 @@ export const fontFamilyOptions: OptionType[] & {
 	optionClassName?: FontFamiliesClasses;
 } = [
 	{ title: 'Roboto', value: 'Roboto', className: fontFamilyClasses[0] },
-    { title: 'Spotify', value: 'Spotify', className: fontFamilyClasses[1] },
+	{ title: 'Spotify', value: 'Spotify', className: fontFamilyClasses[1] },
 ];
 
 export const defaultArticleState = {

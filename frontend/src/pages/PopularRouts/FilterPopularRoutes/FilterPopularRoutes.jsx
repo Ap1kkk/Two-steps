@@ -3,7 +3,7 @@ import ReactSlider from 'react-slider';
 import './FilterPopularRoutes.css';
 import { BASE_API_URL } from '../../../types/constants/globals';
 
-const FilterPopularRoutes = ({ filters, onApply }) => {
+export const FilterPopularRoutes = ({ filters, onApply }) => {
 	const [tempFilters, setTempFilters] = useState({
 		...filters,
 		durationFrom: 0,

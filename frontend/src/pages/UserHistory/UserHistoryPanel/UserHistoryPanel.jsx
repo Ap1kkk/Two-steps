@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ReactSlider from 'react-slider';
 import './UserHistoryPanel.css';
 
-const UserHistoryPanel = ({ categories, onFilterChange, currentFilters }) => {
+export const UserHistoryPanel = ({
+	categories,
+	onFilterChange,
+	currentFilters,
+}) => {
 	const [filters, setFilters] = useState({
 		...currentFilters,
 		durationFrom: 0,

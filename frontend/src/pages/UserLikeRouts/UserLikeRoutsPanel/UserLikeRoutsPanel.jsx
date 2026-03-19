@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ReactSlider from 'react-slider';
 import './UserLikeRoutsPanel.css';
 
-const UserLikeRoutsPanel = ({ categories, onFilterChange, currentFilters }) => {
+export const UserLikeRoutsPanel = ({
+	categories,
+	onFilterChange,
+	currentFilters,
+}) => {
 	const [filters, setFilters] = useState({
 		...currentFilters,
 		durationFrom: 0,

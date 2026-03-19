@@ -3,7 +3,7 @@ import ReactSlider from 'react-slider';
 import './SearchRoutsPanel.css';
 import { BASE_API_URL } from '../../../types/constants/globals';
 
-const SearchRoutsPanel = ({ filters, onApply }) => {
+export const SearchRoutsPanel = ({ filters, onApply }) => {
 	const [tempFilters, setTempFilters] = useState({
 		...filters,
 		durationFrom: 0,

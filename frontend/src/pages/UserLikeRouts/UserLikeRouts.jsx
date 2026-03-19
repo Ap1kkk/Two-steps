@@ -4,7 +4,7 @@ import UserLikeRoutsFiltered from './UserLikeRoutsFiltered/UserLikeRoutsFiltered
 import './UserLikeRouts.css';
 import { BASE_API_URL } from '../../types/constants/globals';
 
-const UserLikeRouts = () => {
+export const UserLikeRouts = () => {
 	const [categories, setCategories] = useState([]);
 	const [filteredRoutes, setFilteredRoutes] = useState([]);
 	const [filterParams, setFilterParams] = useState({

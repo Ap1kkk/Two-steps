@@ -3,7 +3,7 @@ import './Preferences.css';
 import { useNavigate } from 'react-router-dom';
 import { BASE_API_URL } from '../../types/constants/globals';
 
-const Preferences = () => {
+export const Preferences = () => {
 	const [options, setOptions] = useState([]); // Доступные категории из БД
 	const [preferences, setPreferences] = useState([]); // Выбранные предпочтения
 	const [message, setMessage] = useState('');

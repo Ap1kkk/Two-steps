@@ -3,7 +3,7 @@ import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { BASE_API_URL } from '../../types/constants/globals';
 
-const Register = () => {
+export const Register = () => {
 	const [username, setUsername] = useState('');
 	const [usernameDirty, setUsernameDirty] = useState(false);
 	const [usernameError, setUsernameError] = useState(

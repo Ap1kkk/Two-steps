@@ -4,7 +4,7 @@ import './Authorization.css';
 import { useNavigate } from 'react-router-dom';
 import { BASE_API_URL } from '../../types/constants/globals';
 
-const Authorization = () => {
+export const Authorization = () => {
 	const [email, setEmail] = useState('');
 	const [emailDirty, setEmailDirty] = useState(false);
 	const [emailError, setEmailError] = useState('Email не может быть пустым!');

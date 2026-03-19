@@ -3,7 +3,7 @@ import FilterPopularRoutes from './FilterPopularRoutes/FilterPopularRoutes';
 import PopularFilteredRoutes from './PopularFilteredRoutes/PopularFilteredRoutes';
 import './PopularRouts.css';
 
-const PopularRoutes = () => {
+export const PopularRoutes = () => {
 	const [filters, setFilters] = useState({
 		order: 'ASC',
 		difficulties: [],

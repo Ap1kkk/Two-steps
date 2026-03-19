@@ -4,7 +4,7 @@ import UserHistoryRouts from './UserHistoryRouts/UserHistoryRouts';
 import './UserHistory.css';
 import { BASE_API_URL } from '../../types/constants/globals';
 
-const UserHistory = () => {
+export const UserHistory = () => {
 	const [categories, setCategories] = useState([]);
 	const [filteredRoutes, setFilteredRoutes] = useState([]);
 	const [filterParams, setFilterParams] = useState({

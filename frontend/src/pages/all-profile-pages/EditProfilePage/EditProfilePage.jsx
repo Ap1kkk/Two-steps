@@ -7,7 +7,7 @@ const USER_PROFILE_URL = `${BASE_API_URL}/user/profile`;
 const UPDATE_PROFILE_URL = `${BASE_API_URL}/user/edit`;
 const AVATAR_PATH = '/static/avatarProfile';
 
-const EditProfilePage = () => {
+export const EditProfilePage = () => {
 	const [currentAvatar, setCurrentAvatar] = useState(null);
 	const [newAvatar, setNewAvatar] = useState(null);
 	const [preferences, setPreferences] = useState([]);

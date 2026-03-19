@@ -5,7 +5,7 @@ import { BASE_API_URL } from '../../../types/constants/globals';
 
 const USER_INFORMATION_URL = `${BASE_API_URL}/user/profile`;
 
-const ProfilePage = () => {
+export const ProfilePage = () => {
 	const [profile, setProfile] = useState({
 		user: {
 			avatar: 'default',

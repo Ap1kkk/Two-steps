@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserLikeRoutsFiltered.css';
 
-const UserLikeRoutsFiltered = ({ routes }) => {
+export const UserLikeRoutsFiltered = ({ routes }) => {
 	if (!routes.length) {
 		return <p>Нет избранных маршрутов для отображения.</p>;
 	}
