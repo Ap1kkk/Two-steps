@@ -1,58 +1,45 @@
-/* Spotify */
+/* Yandex */
 
 @font-face {
-	font-family: 'Spotify Mix';
-	src: url('./font-files/spotify/SpotifyMix-Light.woff2') format('woff2'),
-		url('./font-files/spotify/SpotifyMix-Light.woff') format('woff'),
-		url('./font-files/spotify/SpotifyMix-Light.ttf') format('truetype');
-	font-weight: 300;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Spotify Mix';
-	src: url('./font-files/spotify/SpotifyMix-LightItalic.woff2') format('woff2'),
-		url('./font-files/spotify/SpotifyMix-LightItalic.woff') format('woff'),
-		url('./font-files/spotify/SpotifyMix-LightItalic.ttf') format('truetype');
-	font-weight: 300;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Spotify Mix';
-	src: url('./font-files/spotify/SpotifyMix-Regular.woff2') format('woff2'),
-		url('./font-files/spotify/SpotifyMix-Regular.woff') format('woff'),
-		url('./font-files/spotify/SpotifyMix-Regular.ttf') format('truetype');
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Spotify Mix';
-	src: url('./font-files/spotify/SpotifyMix-RegularItalic.woff2')
+	font-family: 'yandex';
+	src: url('@fonts/font-files/yandex/YandexSansText-RegularItalic.woff2')
 			format('woff2'),
-		url('./font-files/spotify/SpotifyMix-RegularItalic.woff') format('woff'),
-		url('./font-files/spotify/SpotifyMix-RegularItalic.ttf') format('truetype');
-	font-weight: 400;
+		url('@fonts/font-files/yandex/YandexSansText-RegularItalic.woff')
+			format('woff'),
+		url('@fonts/font-files/yandex/YandexSansText-RegularItalic.ttf')
+			format('truetype');
+	font-weight: normal;
 	font-style: italic;
 }
 
 @font-face {
-	font-family: 'Spotify Mix';
-	src: url('./font-files/spotify/SpotifyMix-Bold.woff2') format('woff2'),
-		url('./font-files/spotify/SpotifyMix-Bold.woff') format('woff'),
-		url('./font-files/spotify/SpotifyMix-Bold.ttf') format('truetype');
-	font-weight: 700;
+	font-family: 'yandex';
+	src: url('@fonts/font-files/yandex/YandexSansText-Regular.woff2')
+			format('woff2'),
+		url('@fonts/font-files/yandex/YandexSansText-Regular.woff') format('woff'),
+		url('@fonts/font-files/yandex/YandexSansText-Regular.ttf')
+			format('truetype');
+	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
-	font-family: 'Spotify Mix';
-	src: url('./font-files/spotify/SpotifyMix-BoldItalic.woff2') format('woff2'),
-		url('./font-files/spotify/SpotifyMix-BoldItalic.woff') format('woff'),
-		url('./font-files/spotify/SpotifyMix-BoldItalic.ttf') format('truetype');
-	font-weight: 700;
-	font-style: italic;
+	font-family: 'yandex';
+	src: url('@fonts/font-files/yandex/YandexSansText-Bold.woff2') format('woff2'),
+		url('@fonts/font-files/yandex/YandexSansText-Bold.woff') format('woff'),
+		url('@fonts/font-files/yandex/YandexSansText-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'yandex';
+	src: url('@fonts/font-files/yandex/YandexSansText-Medium.woff2')
+			format('woff2'),
+		url('@fonts/font-files/yandex/YandexSansText-Medium.woff') format('woff'),
+		url('@fonts/font-files/yandex/YandexSansText-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
 }
 
 /* Roboto */
@@ -62,9 +49,9 @@
 	font-family: 'Roboto';
 	font-style: normal;
 	font-display: swap;
-	src: url('./font-files/roboto/Roboto-Light.woff2') format('woff2'),
-		url('./font-files/roboto/Roboto-Light.woff') format('woff'),
-		url('./font-files/roboto/Roboto-Light.ttf') format('truetype');
+	src: url('@fonts/font-files/roboto/Roboto-Light.woff2') format('woff2'),
+		url('@fonts/font-files/roboto/Roboto-Light.woff') format('woff'),
+		url('@fonts/font-files/roboto/Roboto-Light.ttf') format('truetype');
 }
 
 @font-face {
@@ -72,9 +59,9 @@
 	font-family: 'Roboto';
 	font-style: normal;
 	font-display: swap;
-	src: url('./font-files/roboto/Roboto-Regular.woff2') format('woff2'),
-		url('./font-files/roboto/Roboto-Regular.woff') format('woff'),
-		url('./font-files/roboto/Roboto-Regular.ttf') format('truetype');
+	src: url('@fonts/font-files/roboto/Roboto-Regular.woff2') format('woff2'),
+		url('@fonts/font-files/roboto/Roboto-Regular.woff') format('woff'),
+		url('@fonts/font-files/roboto/Roboto-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -82,7 +69,7 @@
 	font-family: 'Roboto';
 	font-style: normal;
 	font-display: swap;
-	src: url('./font-files/roboto/Roboto-Bold.woff2') format('woff2'),
-		url('./font-files/roboto/Roboto-Bold.woff') format('woff'),
-		url('./font-files/roboto/Roboto-Bold.ttf') format('truetype');
+	src: url('@fonts/font-files/roboto/Roboto-Bold.woff2') format('woff2'),
+		url('@fonts/font-files/roboto/Roboto-Bold.woff') format('woff'),
+		url('@fonts/font-files/roboto/Roboto-Bold.ttf') format('truetype');
 }

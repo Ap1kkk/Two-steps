@@ -1,6 +1,5 @@
 import { RouteData } from 'src/types';
 
-// Нижегородский Кремль
 export const mockRouteKremlin: RouteData = {
 	id: 1,
 	nameRoute: 'Нижегородский Кремль',

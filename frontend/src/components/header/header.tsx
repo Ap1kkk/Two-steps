@@ -26,7 +26,7 @@ export const Header = () => {
 				<Link
 					to='/main_page'
 					className={`${styles.navigation__link} ${styles.navigation__logo}`}>
-					<Text as='h1' size={24} weight={700} family={'spotify'}>
+					<Text as='h1' size={34} weight={700} family={'yandex'}>
 						Sport Line
 					</Text>
 				</Link>

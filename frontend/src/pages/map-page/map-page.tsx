@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RouteMap } from '../../components/routes-on-map/routes-on-map';
 import { RouteData } from 'src/types';
 import { getMockRouteById, mockRouteKremlin, mockRoutes } from './mockData';
 import { Text } from '../../components/UI';
 
-import styles from './route-map.module.scss';
+import styles from './map-page.module.scss';
+import { RouteMap } from '@components';
 
-export const RouteMap = () => {
+export const MapPage = () => {
 	const { routeId } = useParams();
 	const navigate = useNavigate();
 
@@ -88,12 +88,7 @@ export const RouteMap = () => {
 
 	return (
 		<div className={styles.container}>
-			<Text
-				as={'h1'}
-				size={34}
-				weight={700}
-				family={'spotify'}
-				align={'center'}>
+			<Text as={'h1'} size={26} weight={700} family={'yandex'} align={'center'}>
 				{routeData?.nameRoute}
 			</Text>
 
@@ -178,4 +173,4 @@ export const RouteMap = () => {
 	);
 };
 
-export default RouteMap;
+export default MapPage;

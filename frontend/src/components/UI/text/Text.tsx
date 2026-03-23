@@ -24,7 +24,7 @@ type TextProps = {
 		| 54
 		| 58
 		| 60;
-	weight?: 300 | 400 | 700;
+	weight?: 400 | 500 | 700;
 	fontStyle?: 'italic' | 'normal';
 	color?: 'black' | 'white';
 	uppercase?: boolean;
@@ -42,7 +42,7 @@ export const Text = ({
 	color = 'black',
 	uppercase = false,
 	align = 'left',
-	family = 'spotify',
+	family = 'yandex',
 	className,
 }: TextProps) => {
 	const classes = clsx(

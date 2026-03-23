@@ -15,7 +15,7 @@ export * from './PopularRouts/FilterPopularRoutes';
 export * from './PopularRouts/PopularFilteredRoutes';
 export * from './Preferences';
 export * from './Register';
-export * from './route-map';
+export * from './map-page';
 export * from './SearchRouts/SearchRoutsFiltered';
 export * from './SearchRouts/SearchRoutsPanel';
 export * from './SearchRouts';

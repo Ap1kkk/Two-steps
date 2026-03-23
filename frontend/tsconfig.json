@@ -18,11 +18,11 @@
     "types": ["node", "cypress"],
     "baseUrl": ".",
     "paths": {
-      "@fonts": ["src/assets/fonts"],
+      "@fonts": ["src/assets/*"],
       "@styles": ["src/assets/styles"],
       "@images": ["src/assets/images"],
       "@components": ["src/components"],
-      "@ui": ["src/components/ui"],
+      "@ui": ["src/components/UI"],
       "@pages": ["src/pages"],
       "@selectors": ["src/services/selectors"],
       "@slices": ["src/services/slices"],

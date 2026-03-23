@@ -15,7 +15,7 @@ import {
 	ProfilePage,
 	Recommendation,
 	Register,
-	RouteMap,
+	MapPage,
 	SearchRouts,
 	StatisticsPage,
 	UserHistory,
@@ -23,6 +23,8 @@ import {
 } from '@pages';
 import { Layout } from '@components';
 import PopularRouts from './pages/PopularRouts/PopularRouts';
+
+import '@styles/index.scss';
 
 export const router = createBrowserRouter([
 	{
@@ -70,7 +72,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/map/:routeId',
-				element: <RouteMap />,
+				element: <MapPage />,
 			},
 			{
 				path: '/favourites',

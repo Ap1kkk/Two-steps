@@ -13,7 +13,7 @@ export const Footer = () => {
 					<Text
 						className={styles.copyright}
 						size={18}
-						family={'spotify'}
+						family={'yandex'}
 						weight={400}>
 						© {currentYear} Sport Line. Все права защищены
 					</Text>
