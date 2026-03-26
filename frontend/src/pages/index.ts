@@ -4,7 +4,7 @@ export * from './all-profile-pages/EditProfilePage';
 export * from './all-profile-pages/ProfilePage';
 export * from './all-profile-pages/RouteHistoryPage';
 export * from './all-profile-pages/StatisticsPage';
-export * from './Authorization';
+export * from './authorization'
 export * from './favorites';
 export * from './Filters/FilteredRoutes';
 export * from './Filters/FilterPanel';
@@ -14,7 +14,7 @@ export * from './PopularRouts';
 export * from './PopularRouts/FilterPopularRoutes';
 export * from './PopularRouts/PopularFilteredRoutes';
 export * from './Preferences';
-export * from './Register';
+export * from './registration';
 export * from './map-page';
 export * from './SearchRouts/SearchRoutsFiltered';
 export * from './SearchRouts/SearchRoutsPanel';
