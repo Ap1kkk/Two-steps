@@ -83,7 +83,7 @@ module.exports = {
 			'@styles': path.resolve(__dirname, '..', './src/assets/styles'),
 			'@images': path.resolve(__dirname, '..', './src/assets/images'),
 			'@components': path.resolve(__dirname, '..', './src/components'),
-			'@ui': path.resolve(__dirname, '..', './src/components/UI'),
+			'@UI': path.resolve(__dirname, '..', './src/components/UI'),
 			'@pages': path.resolve(__dirname, '..', './src/pages'),
 			'@selectors': path.resolve(__dirname, '..', './src/services/selectors'),
 			'@slices': path.resolve(__dirname, '..', './src/services/slices'),

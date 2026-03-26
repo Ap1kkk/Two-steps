@@ -24,7 +24,7 @@ export const Preferences = () => {
 				/*const response = await fetch(`${BASE_API_URL}/category/all`, {
 					method: 'GET',
 					headers: {
-						Authorization: `Bearer ${user.token}`,
+						authorization: `Bearer ${user.token}`,
 					},
 				});*/
 

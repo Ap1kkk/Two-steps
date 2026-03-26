@@ -22,7 +22,7 @@
       "@styles": ["src/assets/styles"],
       "@images": ["src/assets/images"],
       "@components": ["src/components"],
-      "@ui": ["src/components/UI"],
+      "@UI": ["src/components/UI"],
       "@pages": ["src/pages"],
       "@selectors": ["src/services/selectors"],
       "@slices": ["src/services/slices"],

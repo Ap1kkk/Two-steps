@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Route } from 'src/types';
+import { Route } from '../../types/route';
 import { BASE_API_URL } from '../../types/constants/globals';
 import styles from './main-page.module.scss';
 import { PopularRoutes, RecommendedRoutes, RouteOfTheDay } from '@components';

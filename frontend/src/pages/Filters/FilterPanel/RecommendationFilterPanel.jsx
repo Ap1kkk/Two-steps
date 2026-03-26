@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactSlider from 'react-slider';
-import './RecommendationFilterPanel.css';
+import './RecommendationFilterPanel.module.scss';
 import { BASE_API_URL } from '../../../types/constants/globals';
 
 export const RecommendationFilterPanel = ({ filters, onApply }) => {

@@ -1,6 +1,9 @@
 import React, { forwardRef, useState } from 'react';
 import styles from './input.module.scss';
 
+import OpenEye from '../../../assets/images/icons/open_eye.svg'
+import CloseEye from '../../../assets/images/icons/close_eye.svg'
+
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     label?: string;
     type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url';
@@ -108,7 +111,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({
                                 tabIndex={-1}
                                 aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
                             >
-                                {showPassword ? '🙈' : '👁️'}
+                                {showPassword ?
+                                    <img src={CloseEye}  alt={'Скрыть пароль'} className={styles.eyes}/>
+                                    :
+                                    <img src={OpenEye}  alt={'Скрыть пароль'} className={styles.eyes}/>
+                                }
                             </button>
                         ) : (
                             rightIcon

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Input } from "../UI/input/input";
 import { Text } from "../UI/text/Text";
 import styles from './authorization-form.module.scss';
+import {Button} from "../UI/button/button";
 
 interface AuthorizationFormProps {
     formData: {
@@ -17,24 +18,24 @@ interface AuthorizationFormProps {
 }
 
 export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
-                                                        formData,
-                                                        onChange,
-                                                        onSubmit,
-                                                        isFormValid,
-                                                        isLoading = false,
-                                                        error = null,
-                                                    }) => {
+    formData,
+    onChange,
+    onSubmit,
+    isFormValid,
+    isLoading = false,
+    error = null,
+    }) => {
     return (
         <main className={styles.container}>
             <Text
                 as={'h1'}
                 weight={500}
                 family={'yandex'}
-                size={26}
+                size={24}
                 align={'center'}
                 className={styles.title}
             >
-                Вход в личный кабинет
+                Вход в профиль
             </Text>
 
             {error && (
@@ -71,17 +72,24 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
                     placeholder={'Введите пароль'}
                 />
 
-                <button
-                    className={styles.button}
-                    type='submit'
+                <Button
                     disabled={!isFormValid || isLoading}
+                    type='submit'
+                    fullWidth={true}
+                    variant="primary"
                 >
-                    {isLoading ? 'Вход...' : 'Войти'}
-                </button>
+                    <Text
+                        as={'text'}
+                        weight={400}
+                        family={'yandex'}
+                        size={14}
+                        children={isLoading ? 'Вход...' : 'Войти'}
+                    />
+                </Button>
             </form>
 
             <div className={styles.links}>
-                <Link to='/forgot-password' className={styles.forgotLink}>
+                <Link to='/forgot-password' className={styles.link}>
                     <Text
                         as={'span'}
                         weight={400}

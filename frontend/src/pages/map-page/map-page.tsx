@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RouteData } from 'src/types';
+import { RouteData } from '../../types/route';
 import { getMockRouteById, mockRouteKremlin, mockRoutes } from './mockData';
 import { Text } from '../../components/UI';
 

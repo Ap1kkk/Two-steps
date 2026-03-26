@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RecommendationFilterPanel from './FilterPanel/RecommendationFilterPanel';
 import RecommendationFilteredRoutes from './FilteredRoutes/RecommendationFilteredRoutes';
-import './Recommendation.css';
+import './Recommendation.module.scss';
 
 export const Recommendation = () => {
 	const [filters, setFilters] = useState({

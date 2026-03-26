@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LikeButton } from '../UI/like-button/like-button';
-import { Route } from '../../types';
+import { LikeButton } from '@UI';
+import { Route } from '../../types/route';
 import { BASE_STATIC_URL } from '../../types/constants/globals';
 import styles from './popular-routes.module.scss';
 

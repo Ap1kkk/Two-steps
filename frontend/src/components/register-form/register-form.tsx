@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Input } from "../UI/input/input";
 import { Text } from "../UI/text/Text";
 import styles from './register-form.module.scss';
+import {Button} from "../UI/button/button";
 
 interface RegisterFormProps {
 	formData: {
@@ -38,18 +39,17 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 				as={'h1'}
 				weight={500}
 				family={'yandex'}
-				size={26}
+				size={24}
 				align={'center'}
 				className={styles.title}
 			>
-				Создание личного кабинета
+				Регистрация профиля
 			</Text>
 
 			{error && (
 				<Text
 					as="p"
 					family="yandex"
-					size={12}
 					align="center"
 					className={styles.error}
 				>
@@ -101,13 +101,20 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 					padding={14}
 				/>
 
-				<button
-					className={styles.button}
-					type='submit'
+				<Button
 					disabled={!isFormValid || isLoading}
+					type='submit'
+					fullWidth={true}
+					variant="primary"
 				>
-					{isLoading ? 'Регистрация...' : 'Продолжить'}
-				</button>
+					<Text
+						as={'text'}
+						weight={400}
+						family={'yandex'}
+						size={14}
+						children={isLoading ? 'Регистрация...' : 'Продолжить'}
+					/>
+				</Button>
 			</form>
 
 			<div className={styles.login}>

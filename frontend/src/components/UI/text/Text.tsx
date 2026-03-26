@@ -9,6 +9,8 @@ type TextProps = {
 	as?: ElementType;
 	size?:
 		| 12
+		| 14
+		| 16
 		| 18
 		| 22
 		| 24

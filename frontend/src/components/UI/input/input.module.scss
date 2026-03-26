@@ -85,6 +85,8 @@
 }
 
 .passwordToggle {
+  display: flex;
+  align-items: center;
   background: none;
   border: none;
   cursor: pointer;
@@ -95,6 +97,16 @@
   &:focus-visible {
     outline: 2px solid #69735D;
     border-radius: 4px;
+  }
+}
+
+.eyes {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1) ;
   }
 }
 
