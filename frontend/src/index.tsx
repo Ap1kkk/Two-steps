@@ -11,24 +11,24 @@ import {
 	Authorization,
 	EditProfilePage,
 	MainPage,
-	//Preferences,
 	ProfilePage,
 	Recommendation,
-	//Register,
 	MapPage,
 	SearchRouts,
 	StatisticsPage,
 	UserHistory,
 	UserLikeRouts,
+	Registration,
 } from '@pages';
 
+import {Provider} from "react-redux";
+import store from "@store";
+
 import { Layout } from '@components';
-import PopularRouts from './pages/PopularRouts/PopularRouts';
-import Registration from "./components/registration/registration";
-import Preferences from "./components/preferences/preferences";
+import Preferences from './components/preferences/preferences';
 
 import '@styles/index.scss';
-
+import PopularRouts from "./pages/PopularRouts/PopularRouts";
 
 export const router = createBrowserRouter([
 	{
@@ -115,6 +115,8 @@ const root = createRoot(domNode);
 
 root.render(
 	<StrictMode>
-		<RouterProvider router={router}></RouterProvider>
+		<Provider store={store}>
+			<RouterProvider router={router}></RouterProvider>
+		</Provider>
 	</StrictMode>
 );
