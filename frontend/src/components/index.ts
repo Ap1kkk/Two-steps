@@ -5,3 +5,5 @@ export * from './popular-routes';
 export * from './recommended-routes';
 export * from './routes-on-map';
 export * from './route-of-day';
+export * from './register-form';
+export * from './authorization-form';
