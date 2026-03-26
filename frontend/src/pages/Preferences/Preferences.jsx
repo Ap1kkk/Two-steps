@@ -13,11 +13,22 @@ export const Preferences = () => {
 		const fetchCategories = async () => {
 			try {
 				const user = JSON.parse(localStorage.getItem('user'));
-				if (!user || !user.token) {
+				/*if (!user || !user.token) {
+					throw new Error('Пользователь не авторизован');
+				}*/
+
+				if (!user) {
 					throw new Error('Пользователь не авторизован');
 				}
 
-				const response = await fetch(`${BASE_API_URL}/category/all`, {
+				/*const response = await fetch(`${BASE_API_URL}/category/all`, {
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				});*/
+
+				const response = await fetch(`http://localhost:3001/categories`, {
 					method: 'GET',
 					headers: {
 						Authorization: `Bearer ${user.token}`,
@@ -57,9 +68,12 @@ export const Preferences = () => {
 
 		try {
 			const user = JSON.parse(localStorage.getItem('user'));
-			if (!user || !user.token) {
-				setMessage('Пользователь не авторизован');
-				return;
+			/*if (!user || !user.token) {
+                throw new Error('Пользователь не авторизован');
+            }*/
+
+			if (!user) {
+				throw new Error('Пользователь не авторизован');
 			}
 
 			console.log('Отправляемые предпочтения:', preferences);

@@ -11,20 +11,24 @@ import {
 	Authorization,
 	EditProfilePage,
 	MainPage,
-	Preferences,
+	//Preferences,
 	ProfilePage,
 	Recommendation,
-	Register,
+	//Register,
 	MapPage,
 	SearchRouts,
 	StatisticsPage,
 	UserHistory,
 	UserLikeRouts,
 } from '@pages';
+
 import { Layout } from '@components';
 import PopularRouts from './pages/PopularRouts/PopularRouts';
+import Registration from "./components/registration/registration";
+import Preferences from "./components/preferences/preferences";
 
 import '@styles/index.scss';
+
 
 export const router = createBrowserRouter([
 	{
@@ -33,7 +37,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: '/register',
-		element: <Register />,
+		element: <Registration />,
 	},
 	{
 		path: '/register/preferences',
