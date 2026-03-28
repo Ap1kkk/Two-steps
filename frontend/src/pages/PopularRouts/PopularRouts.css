@@ -1,0 +1,25 @@
+.popular-routes-container {
+	padding: 20px;
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+.routes-title {
+	text-align: center;
+}
+
+.search-bar-popular {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+}
+
+.search-bar-popular input {
+	position: relative;
+	width: 100%;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}

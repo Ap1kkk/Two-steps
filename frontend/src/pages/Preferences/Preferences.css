@@ -1,0 +1,70 @@
+/* Основной контейнер */
+._container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* Пространство между элементами */
+	align-items: center;
+	padding: 20px;
+	width: 100%;
+	min-height: 80vh; /* Контейнер занимает всю высоту экрана */
+	background-color: #f8f9fa;
+	box-sizing: border-box;
+}
+
+/* Заголовок */
+
+/* Кнопки предпочтений */
+._preferences-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px; /* Расстояние между кнопками */
+	width: 100%; /* Контейнер кнопок занимает всю ширину */
+	justify-content: flex-start;
+}
+
+/* Кнопки */
+._preference-button {
+	padding: 10px 15px; /* Отступы внутри кнопки */
+	font-size: 14px;
+	border-radius: 10px;
+	background-color: #ebedf0;
+	color: #495057;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	text-align: center;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+/* Активное состояние кнопки */
+._preference-button.active {
+	color: #ffffff;
+	background-color: #99a2ad;
+}
+
+/* Ховер эффект для кнопки */
+._preference-button:hover {
+	background-color: #e9ecef; /* Легкий серый фон при наведении */
+}
+
+/* Кнопка продолжения */
+._submit-button {
+	padding: 12px 20px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #007bff; /* Синий текст */
+	background-color: #ffffff; /* Белый фон */
+	border: 2px solid #007bff; /* Голубая рамка */
+	border-radius: 30px; /* Скругленные углы */
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	width: 100%; /* Кнопка занимает всю ширину контейнера */
+	max-width: none; /* Убираем ограничение ширины */
+	margin-top: auto; /* Автоматическое размещение снизу */
+	box-sizing: border-box; /* Учитываем padding в ширине */
+}
+
+._submit-button:hover {
+	background-color: #007bff; /* Синий фон при наведении */
+	color: #ffffff; /* Белый текст при наведении */
+}

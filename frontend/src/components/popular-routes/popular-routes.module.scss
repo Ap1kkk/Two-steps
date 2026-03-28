@@ -1,0 +1,133 @@
+.popularSection {
+	padding: 0 16px 24px 20px;
+
+	@media (max-width: 768px) {
+		padding: 0 12px 20px 16px;
+	}
+
+	@media (max-width: 480px) {
+		padding: 0 8px 16px 12px;
+	}
+}
+
+.mainTitle {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 16px;
+}
+
+.sectionTitle {
+	font-size: 18px;
+	font-weight: bold;
+	color: #333;
+
+	@media (max-width: 768px) {
+		font-size: 16px;
+	}
+}
+
+.popularCard {
+	margin-bottom: 16px;
+	background-color: #f3f3f3;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: all 0.2s ease;
+
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+	}
+
+	@media (max-width: 768px) {
+		margin-bottom: 12px;
+	}
+}
+
+.popularLink {
+	display: flex;
+	text-decoration: none;
+	color: inherit;
+}
+
+.popularImage {
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+
+	@media (max-width: 768px) {
+		width: 100px;
+		height: 100px;
+	}
+
+	@media (max-width: 480px) {
+		width: 80px;
+		height: 80px;
+	}
+}
+
+.popularContent {
+	padding: 12px;
+	flex: 1;
+	position: relative;
+
+	@media (max-width: 768px) {
+		padding: 10px;
+	}
+}
+
+.popularTitle {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 6px;
+
+	@media (max-width: 768px) {
+		font-size: 15px;
+	}
+
+	@media (max-width: 480px) {
+		font-size: 14px;
+	}
+}
+
+.popularInfo {
+	font-size: 14px;
+	color: #555;
+	margin-top: 4px;
+
+	@media (max-width: 768px) {
+		font-size: 13px;
+	}
+
+	@media (max-width: 480px) {
+		font-size: 12px;
+	}
+}
+
+.tagContainer {
+	margin-top: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+
+	@media (max-width: 768px) {
+		margin-top: 8px;
+		gap: 4px;
+	}
+}
+
+.tag {
+	padding: 4px 10px;
+	background: linear-gradient(135deg, #007bff, #0056b3);
+	color: #fff;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 500;
+
+	@media (max-width: 768px) {
+		padding: 3px 8px;
+		font-size: 11px;
+	}
+}

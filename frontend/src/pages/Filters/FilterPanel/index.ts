@@ -1,0 +1,1 @@
+export { RecommendationFilterPanel } from './RecommendationFilterPanel';

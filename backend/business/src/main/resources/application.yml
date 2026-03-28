@@ -1,3 +1,60 @@
+server:
+  host: localhost
+  protocol: http
+
 spring:
   application:
     name: business-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${spring.datasource.database.host}:${spring.datasource.database.port}/${spring.datasource.database.name}
+    password: postgres
+    username: postgres
+    database:
+      host: localhost
+      port: 5432
+      name: sportline
+
+  jackson:
+    default-property-inclusion: non_null
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+#    show-sql: true
+#    properties:
+#      hibernate.format_sql: true
+
+  flyway:
+    enabled: true
+    validate-migration-naming: false
+    out-of-order: true
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+mvc:
+  date-format: "yyyy-MM-dd"
+  resource-location: "/uploads/"
+  resource-path-pattern: "/static/image/**"
+
+security:
+  jwt:
+    secret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+  cors:
+    allowed-origin: ${server.protocol}://${server.host}:3000
+
+clients:
+  analytics:
+    url: ${server.protocol}://${server.host}:8000/analytics
+
+logging:
+  level:
+    feign: DEBUG
+    root: INFO
+    ru.gorkycode.ngtu.sportline: DEBUG

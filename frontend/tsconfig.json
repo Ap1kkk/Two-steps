@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "types": ["node", "cypress"],
+    "baseUrl": ".",
+    "paths": {
+      "@fonts": ["src/assets/*"],
+      "@styles": ["src/assets/styles"],
+      "@images": ["src/assets/images"],
+      "@components": ["src/components"],
+      "@UI": ["src/components/UI"],
+      "@pages": ["src/pages"],
+      "@selectors": ["src/services/selectors"],
+      "@slices": ["src/services/slices"],
+      "@store": ["src/services/store"],
+      "@types": ["src/types"],
+      "@utils": ["src/utils"]
+    }
+  },
+  "outDir": "./dist/",
+  "include": ["src/**/*", "src/custom.d.ts"],
+  "exclude": [
+    "../frontend/node_modules"
+  ]
+}

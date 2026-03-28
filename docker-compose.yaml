@@ -1,5 +1,3 @@
-version: "3.4"
-
 x-project-name:
   &project-name sportline
 
@@ -19,36 +17,33 @@ x-profiles:
   &profiles dev, in-docker
 
 services:
-  backend_api_gateway:
-    build:
-      context: backend/api-gateway
-      dockerfile: Dockerfile
-    container_name: sportline_backend_api_gateway
-    ports:
-      - "9000:9000"
-    environment:
-      SERVER_HOST: *host
-      SERVER_PROTOCOL: *protocol
-
-      SPRING_PROFILES_ACTIVE: *profiles
-
-  backend_analytics:
+  backend-analytics:
     build:
       context: backend/analytics
       dockerfile: Dockerfile
     container_name: sportline_backend_analytics
     ports:
       - "8000:8000"
+    working_dir: /routes/sportline_project/  # Устанавливаем рабочую директорию контейнера
+    depends_on:
+      - postgres
+    env_file:
+      - frontend/.env  # Подключаем файл .env с переменными окружения
+    command: >
+      bash -c "python manage.py makemigrations &&
+               python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8000"
 
-  backend_business:
+
+  backend-business:
     build:
       context: backend/business
       dockerfile: Dockerfile
     container_name: sportline_backend_business
     ports:
       - "8080:8080"
-#    depends_on:
-#      - postgres
+    depends_on:
+      - postgres
     environment:
       SERVER_HOST: *host
       SERVER_PROTOCOL: *protocol
@@ -62,8 +57,14 @@ services:
       SPRING_DATASOURCE_DATABASE_PORT: 5432
       SPRING_DATASOURCE_DATABASE_NAME: *project-name
 
+      SECURITY_CORS_ALLOWED_ORIGIN: "*"
+
+      CLIENTS_ANALYTICS_URL: http://backend-analytics:8000/analytics
+
+      MVC_RESOURCE_PATH_PATTERN: "/static/image/**"
+
     volumes:
-      - ./uploads:/app/uploads
+      - ./uploads:/routes/uploads
 
   postgres:
     restart: always
