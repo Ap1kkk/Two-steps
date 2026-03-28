@@ -1,7 +1,7 @@
 FROM gradle:jdk21-alpine AS builder
 
 WORKDIR /app
-COPY business .
+COPY . .
 RUN gradle build --no-daemon -x test
 
 FROM openjdk:21-ea-21-slim-buster
