@@ -8,9 +8,7 @@ x-profiles:
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ap1k/two-steps-backend:latest
     container_name: two-steps-backend
     ports:
       - "8080:8080"
@@ -50,9 +48,7 @@ services:
 #      - ./postgres-data:/var/lib/postgresql/data
 
   frontend:
-    build:
-      context: frontend
-      dockerfile: Dockerfile
+    image: ap1k/two-steps-frontend:latest
     container_name: two-steps-frontend
     ports:
       - "80:80"
