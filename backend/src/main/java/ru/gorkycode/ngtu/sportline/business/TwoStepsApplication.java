@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TwoStepsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SportLineApplication.class, args);
+        SpringApplication.run(TwoStepsApplication.class, args);
     }
 
 }
