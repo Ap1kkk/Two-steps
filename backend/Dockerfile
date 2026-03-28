@@ -3,7 +3,7 @@ FROM gradle:8.5-jdk17-alpine AS builder
 WORKDIR /app
 
 # Копируем только gradle конфигурацию для кэширования зависимостей
-COPY build.gradle settings.gradle gradle.properties ./
+COPY build.gradle settings.gradle ./
 COPY gradle gradle
 COPY gradlew ./
 
