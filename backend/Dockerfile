@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM gradle:8.5-jdk17-alpine AS builder
+FROM gradle:9-jdk21-alpine AS builder
 WORKDIR /app
 
 # Копируем только gradle конфигурацию для кэширования зависимостей
@@ -20,7 +20,7 @@ COPY src src
 RUN ./gradlew build --no-daemon -x test
 
 # Stage 2: Run
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # Создаем пользователя для безопасности
