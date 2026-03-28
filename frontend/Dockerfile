@@ -16,4 +16,4 @@ CMD node server/server.mjs
 FROM nginx:stable-alpine3.19
 
 COPY --from=build /app/src/build /usr/share/nginx/html
-#LABEL org.opencontainers.image.source=https://github.com/Ap1kkk/Sport-Line
+#LABEL org.opencontainers.image.source=https://github.com/Ap1kkk/Two-steps
