@@ -6,36 +6,11 @@ x-host:
 x-protocol:
   &protocol http
 
-x-db-host:
-  &db-host postgres
-x-db-username:
-  &db-username postgres
-x-db-password:
-  &db-password postgres
-
 x-profiles:
   &profiles dev, in-docker
 
 services:
-  backend-analytics:
-    build:
-      context: backend/analytics
-      dockerfile: Dockerfile
-    container_name: sportline_backend_analytics
-    ports:
-      - "8000:8000"
-    working_dir: /routes/sportline_project/  # Устанавливаем рабочую директорию контейнера
-    depends_on:
-      - postgres
-    env_file:
-      - frontend/.env  # Подключаем файл .env с переменными окружения
-    command: >
-      bash -c "python manage.py makemigrations &&
-               python manage.py migrate &&
-               python manage.py runserver 0.0.0.0:8000"
-
-
-  backend-business:
+  backend:
     build:
       context: backend/business
       dockerfile: Dockerfile
@@ -51,15 +26,13 @@ services:
       SPRING_PROFILES_ACTIVE: *profiles
 
       #     Database
-      SPRING_DATASOURCE_USERNAME: *db-username
-      SPRING_DATASOURCE_PASSWORD: *db-password
-      SPRING_DATASOURCE_DATABASE_HOST: *db-host
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATASOURCE_DATABASE_HOST: postgres
       SPRING_DATASOURCE_DATABASE_PORT: 5432
-      SPRING_DATASOURCE_DATABASE_NAME: *project-name
+      SPRING_DATASOURCE_DATABASE_NAME: ${POSTGRES_DB}
 
       SECURITY_CORS_ALLOWED_ORIGIN: "*"
-
-      CLIENTS_ANALYTICS_URL: http://backend-analytics:8000/analytics
 
       MVC_RESOURCE_PATH_PATTERN: "/static/image/**"
 
@@ -71,9 +44,9 @@ services:
     image: postgres:14.8-alpine3.18
     container_name: sportline_postgres
     environment:
-      POSTGRES_PASSWORD: *db-password
-      POSTGRES_USER: *db-username
-      POSTGRES_DB: *project-name
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
 #    volumes:
