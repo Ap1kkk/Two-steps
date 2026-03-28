@@ -7,8 +7,8 @@ on:
 
 env:
   DOCKER_REGISTRY: docker.io
-  IMAGE_NAME_BACKEND: ap1kkk/two-steps-backend
-  IMAGE_NAME_FRONTEND: ap1kkk/two-steps-frontend
+  IMAGE_NAME_BACKEND: ap1k/two-steps-backend
+  IMAGE_NAME_FRONTEND: ap1k/two-steps-frontend
 
 jobs:
   build-and-deploy:
