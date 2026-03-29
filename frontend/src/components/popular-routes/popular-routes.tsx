@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LikeButton } from '@UI';
 import { Route } from '../../types/route';
 import { BASE_STATIC_URL } from '../../types/constants/globals';
 import styles from './popular-routes.module.scss';
@@ -52,11 +51,6 @@ export const PopularRoutes: React.FC<PopularRoutesProps> = ({
 								{difficultyTranslation[route.difficulty] || route.difficulty}
 							</p>
 							{renderTags(route.categories)}
-							<LikeButton
-								routeId={route.id}
-								isLiked={!!likedRoutes[route.id]}
-								onToggle={onToggleLike}
-							/>
 						</div>
 					</Link>
 				</div>

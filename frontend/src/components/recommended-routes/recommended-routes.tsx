@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LikeButton } from '../UI/like-button/like-button';
 import { Route } from '../../types/route';
 import { BASE_STATIC_URL } from '../../types/constants/globals';
 import styles from './recommended-routes.module.scss';
@@ -34,11 +33,6 @@ export const RecommendedRoutes: React.FC<RecommendedRoutesProps> = ({
 										className={styles.image}
 									/>
 									<p className={styles.name}>{route.name}</p>
-									<LikeButton
-										routeId={route.id}
-										isLiked={!!likedRoutes[route.id]}
-										onToggle={onToggleLike}
-									/>
 								</div>
 							</Link>
 						</div>
