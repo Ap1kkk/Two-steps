@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Preferences.css';
-import { useNavigate } from 'react-router-dom';
-import { BASE_API_URL } from '../../types/constants/globals';
+import {useNavigate} from "react-router-dom";
 
 export const Preferences = () => {
 	const [options, setOptions] = useState([]); // Доступные категории из БД
@@ -13,9 +11,6 @@ export const Preferences = () => {
 		const fetchCategories = async () => {
 			try {
 				const user = JSON.parse(localStorage.getItem('user'));
-				/*if (!user || !user.token) {
-					throw new Error('Пользователь не авторизован');
-				}*/
 
 				if (!user) {
 					throw new Error('Пользователь не авторизован');
