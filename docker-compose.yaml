@@ -1,38 +1,46 @@
-x-host:
-  &host localhost
-x-protocol:
-  &protocol http
-
-x-profiles:
-  &profiles dev, in-docker
+version: '3.8'
 
 services:
   backend:
     image: ap1k/two-steps-backend:latest
     container_name: two-steps-backend
-    ports:
-      - "8080:8080"
     depends_on:
       - postgres
+      - elasticsearch
     environment:
-      SERVER_HOST: *host
-      SERVER_PROTOCOL: *protocol
-
-      SPRING_PROFILES_ACTIVE: *profiles
-
-      #     Database
+      SERVER_HOST: ${SERVER_HOST:localhost}
+      SERVER_PROTOCOL: ${SERVER_PROTOCOL:http}
+      
+      SPRING_PROFILES_ACTIVE: ${BACKEND_PROFILES}
+      
+      # Database
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_DATABASE_HOST: postgres
       SPRING_DATASOURCE_DATABASE_PORT: 5432
       SPRING_DATASOURCE_DATABASE_NAME: ${POSTGRES_DB}
-
+      
       SECURITY_CORS_ALLOWED_ORIGIN: "*"
-
+      
       MVC_RESOURCE_PATH_PATTERN: "/static/image/**"
+      
+      # Logging configuration for JSON format (для Elasticsearch)
+      LOGGING_FILE_NAME: /var/log/backend/application.log
+      LOGGING_LEVEL_ROOT: INFO
+      LOGGING_PATTERN_CONSOLE: "{\"timestamp\":\"%d{ISO8601}\",\"level\":\"%p\",\"thread\":\"%t\",\"class\":\"%c{40}\",\"message\":\"%m\",\"exception\":\"%wEx\"}%n"
+      
+      # Prometheus metrics
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info,prometheus,metrics
+      MANAGEMENT_ENDPOINTS_JMX_EXPOSURE_INCLUDE: "*"
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: "true"
+      MANAGEMENT_METRICS_TAGS_APPLICATION: two-steps-backend
 
     volumes:
       - ./uploads:/routes/uploads
+      - ./logs/backend:/var/log/backend
+    ports:
+      - "8080:8080"
+      - "8081:8081"  # For metrics endpoint (если отдельный порт)
 
   postgres:
     restart: always
@@ -44,8 +52,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
-#    volumes:
-#      - ./postgres-data:/var/lib/postgresql/data
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
 
   frontend:
     image: ap1k/two-steps-frontend:latest
@@ -54,3 +62,119 @@ services:
       - "80:80"
     volumes:
       - ./nginx:/etc/nginx/conf.d
+
+  # ========== LOGGING STACK ==========
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: two-steps-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - monitoring
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: two-steps-logstash
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - ./logs/backend:/var/log/backend  # Монтируем логи бэкенда
+    ports:
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    depends_on:
+      - elasticsearch
+    environment:
+      - LS_JAVA_OPTS=-Xms256m -Xmx256m
+    networks:
+      - monitoring
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: two-steps-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - monitoring
+
+  # ========== MONITORING STACK ==========
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: two-steps-prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    depends_on:
+      - backend
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: two-steps-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - monitoring
+
+  # Optional: Node exporter для метрик хоста
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: two-steps-node-exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+    networks:
+      - monitoring
+
+  # Optional: cAdvisor для метрик Docker контейнеров
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: two-steps-cadvisor
+    ports:
+      - "8082:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
