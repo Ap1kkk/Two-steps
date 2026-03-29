@@ -2,13 +2,15 @@ name: Deploy backend to VPS
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch: # ручной запуск
+    branches:
+      - main
+    paths:
+      - "**/backend/**"
+  workflow_dispatch:
 
 env:
   DOCKER_REGISTRY: docker.io
   IMAGE_NAME_BACKEND: ap1k/two-steps-backend
-  IMAGE_NAME_FRONTEND: ap1k/two-steps-frontend
 
 jobs:
   build-and-deploy:
