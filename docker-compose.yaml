@@ -47,10 +47,10 @@ services:
 #    volumes:
 #      - ./postgres-data:/var/lib/postgresql/data
 
-#  frontend:
-#    image: ap1k/two-steps-frontend:latest
-#    container_name: two-steps-frontend
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - ./nginx:/etc/nginx/conf.d
+  frontend:
+    image: ap1k/two-steps-frontend:latest
+    container_name: two-steps-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
