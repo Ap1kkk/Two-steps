@@ -8,8 +8,8 @@ services:
       - postgres
       - elasticsearch
     environment:
-      SERVER_HOST: ${SERVER_HOST:localhost}
-      SERVER_PROTOCOL: ${SERVER_PROTOCOL:http}
+      SERVER_HOST: ${SERVER_HOST}
+      SERVER_PROTOCOL: ${SERVER_PROTOCOL}
       
       SPRING_PROFILES_ACTIVE: ${BACKEND_PROFILES}
       
