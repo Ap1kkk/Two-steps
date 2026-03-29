@@ -6,7 +6,7 @@ import Profile from '../../assets/images/icons/profile.svg';
 import Loupe from '../../assets/images/icons/loupe.svg';
 
 import styles from './header.module.scss';
-import {Button} from "../UI/button/button";
+import {Button} from "@UI";
 
 export const Header = () => {
     const isAuthenticated = false;
@@ -20,7 +20,7 @@ export const Header = () => {
 
                 <Link to='/main_page' className={`${styles.link} ${styles.logo}`}>
                     <Text as='h1' size={34} weight={700} family={'yandex'}>
-                        Sport Line
+                        Два шага
                     </Text>
                 </Link>
 
