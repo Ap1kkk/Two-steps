@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './route-of-day.module.scss';
+import {Button} from "../UI/button/button";
 
 interface RouteOfTheDayProps {
 	onNavigate: () => void;
@@ -11,9 +12,12 @@ export const RouteOfTheDay: React.FC<RouteOfTheDayProps> = ({ onNavigate }) => {
 			<div className={styles.mapSection}>
 				<div className={styles.mapOverlay}>
 					<h2 className={styles.mapTitle}>Маршрут дня</h2>
-					<button className={styles.mapButton} onClick={onNavigate}>
+					<Button
+						variant='primary'
+						onClick={onNavigate}
+					>
 						Поехали
-					</button>
+					</Button>
 				</div>
 			</div>
 		</div>

@@ -42,7 +42,6 @@ export const Registration = () => {
 		}));
 	};
 
-	// Валидация с проверкой подтверждения пароля
 	const isFormValid = Boolean(
 		formData.username &&
 		formData.email &&
