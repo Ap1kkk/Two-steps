@@ -1,131 +1,127 @@
 version: '3.8'
 
 services:
+  # ==================== БЭКЕНД ====================
   backend:
     image: ap1k/two-steps-backend:latest
     container_name: two-steps-backend
     depends_on:
       - postgres
-      - elasticsearch
+      - victoriametrics  # Ждем готовности баз
+      - loki
     environment:
       SERVER_HOST: ${SERVER_HOST}
       SERVER_PROTOCOL: ${SERVER_PROTOCOL}
-      
       SPRING_PROFILES_ACTIVE: ${BACKEND_PROFILES}
-      
-      # Database
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_DATABASE_HOST: postgres
       SPRING_DATASOURCE_DATABASE_PORT: 5432
       SPRING_DATASOURCE_DATABASE_NAME: ${POSTGRES_DB}
-      
       SECURITY_CORS_ALLOWED_ORIGIN: "*"
-      
       MVC_RESOURCE_PATH_PATTERN: "/static/image/**"
-      
-      # Logging configuration for JSON format (для Elasticsearch)
-      LOGGING_FILE_NAME: /var/log/backend/application.log
-      LOGGING_LEVEL_ROOT: INFO
-      LOGGING_PATTERN_CONSOLE: "{\"timestamp\":\"%d{ISO8601}\",\"level\":\"%p\",\"thread\":\"%t\",\"class\":\"%c{40}\",\"message\":\"%m\",\"exception\":\"%wEx\"}%n"
-      
-      # Prometheus metrics
-      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info,prometheus,metrics
-      MANAGEMENT_ENDPOINTS_JMX_EXPOSURE_INCLUDE: "*"
-      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: "true"
-      MANAGEMENT_METRICS_TAGS_APPLICATION: two-steps-backend
 
+      # --- Метрики для VictoriaMetrics (через push) ---
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info,prometheus,metrics"
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED: "true"
+      # Шлем метрики прямо в vmagent (который отправит в VictoriaMetrics)
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_PUSHGATEWAY_ENABLED: "true"
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_PUSHGATEWAY_BASEURL: "http://vmagent:8429"
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_PUSHGATEWAY_JOB: "two-steps-backend"
+      MANAGEMENT_METRICS_EXPORT_PROMETHEUS_PUSHGATEWAY_PUSH_RATE: "10s"
+
+      # --- Логи в формате JSON (чтобы Loki понимал) ---
+      LOGGING_FILE_NAME: /var/log/backend/application.log
+      LOGGING_PATTERN_CONSOLE: "{\"timestamp\":\"%d{ISO8601}\",\"level\":\"%p\",\"thread\":\"%t\",\"class\":\"%c{40}\",\"message\":\"%m\",\"exception\":\"%wEx\"}%n"
+      LOGGING_LEVEL_ROOT: "INFO"
     volumes:
       - ./uploads:/routes/uploads
-      - ./logs/backend:/var/log/backend
+      - ./logs:/var/log/backend
     ports:
       - "8080:8080"
-      - "8081:8081"  # For metrics endpoint (если отдельный порт)
+    restart: unless-stopped
 
+  # ==================== БАЗА ДАННЫХ ====================
   postgres:
-    restart: always
     image: postgres:14.8-alpine3.18
     container_name: two-steps-postgres
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - "5432:5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    # ports:
+    #   - "5432:5432"
 
+  # ==================== ФРОНТЕНД ====================
   frontend:
     image: ap1k/two-steps-frontend:latest
     container_name: two-steps-frontend
     ports:
       - "80:80"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - ./infra/nginx:/etc/nginx/conf.d
+    restart: unless-stopped
 
-  # ========== LOGGING STACK ==========
-  
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-    container_name: two-steps-elasticsearch
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    volumes:
-      - ./elasticsearch-data:/usr/share/elasticsearch/data
-    networks:
-      - monitoring
+  # ================ ЛОГИ (Loki + Vector) ================
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash:8.11.0
-    container_name: two-steps-logstash
+  vector:
+    image: timberio/vector:0.42.0-alpine
+    container_name: two-steps-vector
     volumes:
-      - ./logstash/pipeline:/usr/share/logstash/pipeline
-      - ./logs/backend:/var/log/backend  # Монтируем логи бэкенда
-    ports:
-      - "5000:5000/tcp"
-      - "5000:5000/udp"
-      - "9600:9600"
+      - ./logs:/var/log/backend:ro   # Монтируем папку с логами (только чтение)
+      - ./infra/vector.yaml:/etc/vector/vector.yaml:ro  # Конфиг
+    command: ["--config", "/etc/vector/vector.yaml"]
     depends_on:
-      - elasticsearch
-    environment:
-      - LS_JAVA_OPTS=-Xms256m -Xmx256m
-    networks:
-      - monitoring
+      - loki
+    restart: unless-stopped
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:8.11.0
-    container_name: two-steps-kibana
-    ports:
-      - "5601:5601"
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    depends_on:
-      - elasticsearch
-    networks:
-      - monitoring
-
-  # ========== MONITORING STACK ==========
-
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: two-steps-prometheus
+  # 2. База для логов (легковесная альтернатива Elasticsearch)
+  loki:
+    image: grafana/loki:2.9.4
+    container_name: two-steps-loki
+    command: -config.file=/etc/loki/loki-config.yaml
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./prometheus/data:/prometheus
+      - ./infra/loki-config.yaml:/etc/loki/loki-config.yaml:ro
+      - ./loki-data:/loki  # Персистентные данные
     ports:
-      - "9090:9090"
+      - "3100:3100"  # Порт для запросов из Grafana
+    restart: unless-stopped
+
+  # ================ МЕТРИКИ (VictoriaMetrics + vmagent) ================
+
+  # 1. Агент для сбора метрик (кушает push от Spring и тянет метрики)
+  vmagent:
+    image: victoriametrics/vmagent:latest
+    container_name: two-steps-vmagent
+    volumes:
+      - ./infra/vmagent-config.yaml:/etc/vmagent/config.yaml:ro
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
+      - '-remoteWrite.url=http://victoriametrics:8428/api/v1/write'
+      - '-promscrape.config=/etc/vmagent/config.yaml'
+      - '-remoteWrite.retryInterval=5s'
+    ports:
+      - "8429:8429" # Порт для Push Gateway (куда Spring будет слать метрики)
     depends_on:
-      - backend
-    networks:
-      - monitoring
+      - victoriametrics
+    restart: unless-stopped
+
+  # 2. База для метрик (эффективная замена Prometheus)
+  victoriametrics:
+    image: victoriametrics/victoria-metrics:latest
+    container_name: two-steps-victoriametrics
+    volumes:
+      - ./victoria-metrics-data:/victoria-metrics-data
+    command:
+      - '-storageDataPath=/victoria-metrics-data'
+      - '-retentionPeriod=1'  # Храним метрики 1 месяц
+    ports:
+      - "8428:8428"  # Порт для запросов
+    restart: unless-stopped
+
+  # ================ ВИЗУАЛИЗАЦИЯ (Grafana) ================
 
   grafana:
     image: grafana/grafana:latest
@@ -133,48 +129,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Пароль по умолчанию
       - GF_SECURITY_ADMIN_USER=admin
-      - GF_INSTALL_PLUGINS=grafana-piechart-panel
     volumes:
-      - ./grafana/data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana-data:/var/lib/grafana
     depends_on:
-      - prometheus
-    networks:
-      - monitoring
-
-  # Optional: Node exporter для метрик хоста
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: two-steps-node-exporter
-    ports:
-      - "9100:9100"
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--path.rootfs=/rootfs'
-    networks:
-      - monitoring
-
-  # Optional: cAdvisor для метрик Docker контейнеров
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: two-steps-cadvisor
-    ports:
-      - "8082:8080"
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-      - monitoring
-
-networks:
-  monitoring:
-    driver: bridge
+      - loki
+      - victoriametrics
+    restart: unless-stopped
