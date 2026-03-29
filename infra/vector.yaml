@@ -4,24 +4,23 @@ sources:
     include:
       - /var/log/backend/*.log
     read_from: beginning
+    ignore_older_secs: 0
 
 transforms:
   parse_json:
     type: remap
     inputs: ["application_logs"]
     source: |
-      parsed = parse_json(.message) ?? {}
-      if !is_empty(parsed) {
-        . = merge(., parsed)
-      }
+      . = parse_json!(.message)
 
 sinks:
   to_loki:
     type: loki
     inputs: ["parse_json"]
-    endpoint: http://loki:3100
+    endpoint: "http://loki:3100"
     encoding:
       codec: json
     labels:
       job: "backend"
       container: "two-steps-backend"
+      environment: "production"

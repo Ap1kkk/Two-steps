@@ -12,6 +12,8 @@ ingester:
       replication_factor: 1
   chunk_idle_period: 5m
   chunk_retain_period: 30s
+  wal:
+    dir: /loki/wal   # явно указываем
 
 schema_config:
   configs:
@@ -31,15 +33,20 @@ storage_config:
   filesystem:
     directory: /loki/chunks
 
+compactor:
+  working_directory: /loki/compactor
+  shared_store: filesystem
+  compaction_interval: 10m
+  retention_enabled: true
+  retention_delete_delay: 2h
+
 limits_config:
+  volume_enabled: true
   max_query_length: 721h
   max_query_parallelism: 4
   ingestion_rate_mb: 4
   ingestion_burst_size_mb: 6
 
-chunk_store_config:
-  max_look_back_period: 336h
-
 table_manager:
   retention_deletes_enabled: true
-  retention_period: 336h  # Храним логи 14 дней
+  retention_period: 336h

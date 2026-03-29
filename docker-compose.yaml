@@ -99,11 +99,12 @@ services:
     volumes:
       - ./infra/vmagent-config.yaml:/etc/vmagent/config.yaml:ro
     command:
-      - '-remoteWrite.url=http://victoriametrics:8428/api/v1/write'
       - '-promscrape.config=/etc/vmagent/config.yaml'
-      - '-remoteWrite.retryInterval=5s'
+      - '-remoteWrite.url=http://victoriametrics:8428/api/v1/write'
+      - '-remoteWrite.retryMaxInterval=10s'
+      - '-remoteWrite.maxDiskUsagePerURL=500MB'   # лимит буфера на диске
     ports:
-      - "8429:8429" # Порт для Push Gateway (куда Spring будет слать метрики)
+      - "8429:8429"
     depends_on:
       - victoriametrics
     restart: unless-stopped
