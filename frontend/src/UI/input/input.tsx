@@ -1,8 +1,8 @@
 import React, { forwardRef, useState } from 'react';
 import styles from './input.module.scss';
 
-import OpenEye from '../../../assets/images/icons/open_eye.svg'
-import CloseEye from '../../../assets/images/icons/close_eye.svg'
+import OpenEye from '../../assets/images/icons/open_eye.svg'
+import CloseEye from '../../assets/images/icons/close_eye.svg'
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     label?: string;
