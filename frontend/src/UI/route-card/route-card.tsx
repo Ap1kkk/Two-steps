@@ -1,8 +1,8 @@
 import React from "react";
-import {Route} from "../../../types/route";
+import {Route} from "../../types/route";
 import { Link } from 'react-router-dom';
 import styles from './route-card.module.scss'
-import {BASE_STATIC_URL} from "../../../types/constants/globals";
+import {BASE_STATIC_URL} from "../../types/constants/globals";
 
 interface RouteCardProps {
     route: Route;

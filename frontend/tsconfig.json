@@ -18,22 +18,19 @@
     "types": ["node", "cypress"],
     "baseUrl": ".",
     "paths": {
-      "@fonts": ["src/assets/*"],
-      "@styles": ["src/assets/styles"],
-      "@images": ["src/assets/images"],
-      "@components": ["src/components"],
-      "@UI": ["src/components/UI"],
-      "@pages": ["src/pages"],
-      "@selectors": ["src/services/selectors"],
-      "@slices": ["src/services/slices"],
-      "@store": ["src/services/store"],
-      "@types": ["src/types"],
-      "@utils": ["src/utils"]
+      "@fonts/*": ["src/assets/fonts/*"],
+      "@icons/*": ["src/assets/icons/*"],
+      "@images/*": ["src/assets/images/*"],
+      "@components/*": ["src/components/*"],
+      "@ui/*": ["src/ui/*"],
+      "@pages/*": ["src/pages/*"],
+      "@selectors/*": ["src/services/selectors/*"],
+      "@slices/*": ["src/services/slices/*"],
+      "@store/*": ["src/services/store/*"],
+      "@types/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
-  "outDir": "./dist/",
   "include": ["src/**/*", "src/custom.d.ts"],
-  "exclude": [
-    "../frontend/node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
