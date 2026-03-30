@@ -30,10 +30,6 @@ services:
       MANAGEMENT_METRICS_EXPORT_PROMETHEUS_PUSHGATEWAY_JOB: "two-steps-backend"
       MANAGEMENT_METRICS_EXPORT_PROMETHEUS_PUSHGATEWAY_PUSH_RATE: "10s"
 
-      # --- Логи в формате JSON (чтобы Loki понимал) ---
-      LOGGING_FILE_NAME: /var/log/backend/application.log
-      LOGGING_PATTERN_CONSOLE: "{\"timestamp\":\"%d{ISO8601}\",\"level\":\"%p\",\"thread\":\"%t\",\"class\":\"%c{40}\",\"message\":\"%m\",\"exception\":\"%wEx\"}%n"
-      LOGGING_LEVEL_ROOT: "INFO"
     volumes:
       - ./uploads:/routes/uploads
       - ./logs:/var/log/backend
