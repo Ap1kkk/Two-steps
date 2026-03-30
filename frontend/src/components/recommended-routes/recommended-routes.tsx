@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Route } from '../../types/route';
 import { BASE_STATIC_URL } from '../../types/constants/globals';
 import styles from './recommended-routes.module.scss';
+import {RouteCard} from "../UI/route-card/route-card";
 
 interface RecommendedRoutesProps {
 	routes: Route[];
@@ -24,18 +25,11 @@ export const RecommendedRoutes: React.FC<RecommendedRoutesProps> = ({
 			<div className={styles.scrollContainer}>
 				<div className={styles.cardsRow}>
 					{routes.map((route) => (
-						<div key={route.id} className={styles.cardWrapper}>
-							<Link to={`/map/${route.id}`} className={styles.cardLink}>
-								<div className={styles.card}>
-									<img
-										src={BASE_STATIC_URL + route.imagePath}
-										alt={route.name}
-										className={styles.image}
-									/>
-									<p className={styles.name}>{route.name}</p>
-								</div>
-							</Link>
-						</div>
+						<RouteCard
+							key={route.id}
+							route={route}
+							variant="compact"
+						/>
 					))}
 				</div>
 			</div>

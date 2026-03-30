@@ -4,6 +4,7 @@ import { Route } from '../../types/route';
 import { BASE_API_URL } from '../../types/constants/globals';
 import styles from './main-page.module.scss';
 import { PopularRoutes, RecommendedRoutes, RouteOfTheDay } from '@components';
+import {Modal} from "../../components/UI/modal/modal";
 
 const LIMIT = 5;
 
@@ -137,6 +138,7 @@ export const MainPage: React.FC = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
 		const checkAuth = () => {
@@ -296,6 +298,21 @@ export const MainPage: React.FC = () => {
 
 	return (
 		<div className={styles.container}>
+			<div>
+				<button onClick={() => setIsModalOpen(true)}>
+					Открыть окно
+				</button>
+				<Modal
+					isOpen={isModalOpen}
+					onClose={() => setIsModalOpen(false)}
+					closeOnOverlayClick={true}
+				>
+					<div style={{padding: '24px'}}>
+						<h2>Заголовок</h2>
+						<p>Содержимое модального онка</p>
+					</div>
+				</Modal>
+			</div>
 			<div className={styles.mapBackground} />
 
 			{error && (
@@ -303,7 +320,6 @@ export const MainPage: React.FC = () => {
 					<p>{error}</p>
 				</div>
 			)}
-
 			<div className={styles.content}>
 				<RouteOfTheDay onNavigate={handleRouteOfTheDay} />
 
