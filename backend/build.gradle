@@ -1,18 +1,20 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.4'
-    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.springframework.boot' version '3.4.1'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'ru.gorkycode.ngtu'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = "17"
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 ext {
-    springCloudVersion = "2023.0.2"
+    springCloudVersion = "2024.0.1"
 }
 
 configurations {
@@ -25,15 +27,35 @@ repositories {
     mavenCentral()
 }
 
+//configurations.all {
+//    exclude group: 'ch.qos.logback', module: 'logback-classic'
+//    exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+//    exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+//}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.4.0'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
+
+//    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+//    implementation 'org.apache.httpcomponents:httpcore:4.4.13'
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    implementation 'org.apache.logging.log4j:log4j-layout-template-json:2.24.3'
+    implementation 'io.micrometer:micrometer-tracing:1.5.0'
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel:1.5.0'
+    implementation 'io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.14.0'
+    implementation 'io.opentelemetry:opentelemetry-context:1.48.0'
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.7.3'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.14.5'
+    implementation 'io.github.kostaskougios:cloning:1.12.0'
+    implementation 'com.google.code.gson:gson:2.13.2'
 
     implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'
@@ -43,7 +65,7 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.core:jackson-databind'
 
-    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.liquibase:liquibase-core:4.29.2'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
     compileOnly 'org.projectlombok:lombok'
@@ -60,12 +82,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
     }
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
 }
