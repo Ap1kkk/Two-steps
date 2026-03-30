@@ -4,7 +4,7 @@ server:
 
 spring:
   application:
-    name: business-service
+    name: two-steps
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -14,7 +14,12 @@ spring:
     database:
       host: localhost
       port: 5432
-      name: sportline
+      name: two_steps
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/migration/db.changelog-main.yaml
+    default-schema: public
 
   jackson:
     default-property-inclusion: non_null
@@ -25,11 +30,6 @@ spring:
 #    show-sql: true
 #    properties:
 #      hibernate.format_sql: true
-
-  flyway:
-    enabled: true
-    validate-migration-naming: false
-    out-of-order: true
 
   servlet:
     multipart:
@@ -53,8 +53,36 @@ clients:
   analytics:
     url: ${server.protocol}://${server.host}:8000/analytics
 
+management:
+  endpoints:
+    web.exposure.include: health,info,prometheus,heapdump,threaddump,loggers,refresh
+  endpoint:
+    health:
+      probes.enabled: true
+      show-details: always
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+    tags:
+      application: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  health:
+    audit:
+      kafka:
+        enabled: false
+
 logging:
   level:
     feign: DEBUG
     root: INFO
     ru.gorkycode.ngtu.sportline: DEBUG
+  http-logging:
+    enabled: true
+    exclude: /actuator/prometheus,/actuator/health
