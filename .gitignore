@@ -6,6 +6,7 @@ frontend/.env
 /loki-data
 /postgres-data
 /victoria-metrics-data
+/logs
 
 # Ignoring virtual environment
 /backend/analytics/venv/
