@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 
-import {Button} from "../../UI";
+import {Button} from "@ui/index";
 
 import Profile from '../../assets/images/icons/profile.svg';
 import Loupe from '../../assets/images/icons/loupe.svg';

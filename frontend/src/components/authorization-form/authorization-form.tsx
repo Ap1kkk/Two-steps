@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Input } from "../../UI/input/input";
+import { Input } from "@ui/input/input";
 import styles from './authorization-form.module.scss';
-import {Button} from "../../UI/button/button";
+import {Button} from "@ui/button/button";
 
 interface AuthorizationFormProps {
     formData: {

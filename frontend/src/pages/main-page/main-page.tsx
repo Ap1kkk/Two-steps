@@ -4,7 +4,7 @@ import { Route } from '../../types/route';
 import { BASE_API_URL } from '../../types/constants/globals';
 import styles from './main-page.module.scss';
 import { PopularRoutes, RecommendedRoutes, RouteOfTheDay } from '@components';
-import {Modal} from "../../UI/modal/modal";
+import {Modal} from "@ui/modal/modal";
 
 const LIMIT = 5;
 

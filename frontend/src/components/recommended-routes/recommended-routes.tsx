@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Route } from '../../types/route';
 import { BASE_STATIC_URL } from '../../types/constants/globals';
 import styles from './recommended-routes.module.scss';
-import {RouteCard} from "../../UI/route-card/route-card";
+import {RouteCard} from "@ui/route-card/route-card";
 
 interface RecommendedRoutesProps {
 	routes: Route[];
