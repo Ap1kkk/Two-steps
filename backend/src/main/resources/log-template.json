@@ -1,5 +1,4 @@
 {
-  "appName": "${appName}",
   "localTime": {
     "$resolver": "timestamp",
     "pattern": {
@@ -19,7 +18,6 @@
     "$resolver": "mdc",
     "key": "extEventId"
   },
-  "envType": "${env:ENV_TYPE:-K8S}",
   "parentId": null,
   "agrType": "TRACING",
   "traceId": {
@@ -42,7 +40,6 @@
     "$resolver": "mdc",
     "key": "logicTime"
   },
-  "appType": "${appType}",
   "stack": {
     "$resolver": "exception",
     "field": "stackTrace",
@@ -105,8 +102,6 @@
     "$resolver": "mdc",
     "key": "sessionId"
   },
-  "esIndexLevelSuffix": "${esIndexLevelSuffix:level}",
-  "tslgClientVersion": "${env:INTEGRATION_1404_CLIENT_VERSION:-1.7.10}",
   "tec": {
     "$resolver": "mdc",
     "pattern": "(?=zoneId|standName).+"
