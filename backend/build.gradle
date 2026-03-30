@@ -35,11 +35,11 @@ configurations.all {
 
 dependencies {
     // Основные стартеры Spring Boot БЕЗ логирования
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-security')
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-    implementation('org.springframework.boot:spring-boot-starter-data-rest')
-    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // Log4j2 вместо Logback
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
@@ -48,7 +48,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-layout-template-json'
 
     // Остальные зависимости
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.liquibase:liquibase-core:4.29.2'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.14.5'
