@@ -27,59 +27,46 @@ repositories {
     mavenCentral()
 }
 
-//configurations.all {
-//    exclude group: 'ch.qos.logback', module: 'logback-classic'
-//    exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
-//    exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
-//}
+configurations.all {
+    exclude group: 'ch.qos.logback', module: 'logback-classic'
+    exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+    exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j-impl'
+}
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // Основные стартеры Spring Boot БЕЗ логирования
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-security')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-data-rest')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
 
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-api:2.4.0'
+    // Log4j2 вместо Logback
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+    // JSON layout для Log4j2 (очень рекомендуется)
+    implementation 'org.apache.logging.log4j:log4j-layout-template-json'
+
+    // Остальные зависимости
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
-
-//    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
-//    implementation 'org.apache.httpcomponents:httpcore:4.4.13'
-    implementation 'org.mapstruct:mapstruct:1.6.3'
-    implementation 'org.apache.logging.log4j:log4j-layout-template-json:2.24.3'
-    implementation 'io.micrometer:micrometer-tracing:1.5.0'
-    implementation 'io.micrometer:micrometer-tracing-bridge-otel:1.5.0'
-    implementation 'io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.14.0'
-    implementation 'io.opentelemetry:opentelemetry-context:1.48.0'
-    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.7.3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.liquibase:liquibase-core:4.29.2'
     implementation 'io.micrometer:micrometer-registry-prometheus:1.14.5'
-    implementation 'io.github.kostaskougios:cloning:1.12.0'
-    implementation 'com.google.code.gson:gson:2.13.2'
-
     implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.10.5'
-
     implementation 'net.datafaker:datafaker:2.3.1'
-
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
-
-    implementation 'org.liquibase:liquibase-core:4.29.2'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-
-    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.7.3'
 
     runtimeOnly 'org.postgresql:postgresql'
 
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    compileOnly 'org.mapstruct:mapstruct:1.6.0'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0'
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
