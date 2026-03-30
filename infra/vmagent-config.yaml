@@ -3,7 +3,7 @@ scrape_configs:
     scrape_interval: 10s
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['vmagent:8429']
+      - targets: ['backend:8429']
 
   # Служебные метрики vmagent
   - job_name: 'vmagent'
