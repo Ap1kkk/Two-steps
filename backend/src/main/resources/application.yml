@@ -9,12 +9,12 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://${spring.datasource.database.host}:${spring.datasource.database.port}/${spring.datasource.database.name}
-    password: postgres
-    username: postgres
+    password: ${POSTGRES_PASSWORD:postgres}
+    username: ${POSTGRES_USER:postgres}
     database:
-      host: localhost
+      host: ${POSTGRES_HOST:localhost}
       port: 5432
-      name: two_steps
+      name: ${POSTGRES_DB:two-steps}
 
   liquibase:
     enabled: true
@@ -45,7 +45,7 @@ mvc:
 
 security:
   jwt:
-    secret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+    secret: ${JWT_SECRET:some-mock-jwt-secret}
   cors:
     allowed-origin: ${server.protocol}://${server.host}:3000
 
