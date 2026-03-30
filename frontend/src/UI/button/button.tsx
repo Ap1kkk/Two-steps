@@ -16,7 +16,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button: React.FC<ButtonProps> = ({
 	variant = 'primary',
-	padding = 10,
+	padding = 6,
 	fullWidth = false,
 	isLoading = false,
 	leftIcon,
@@ -27,8 +27,8 @@ export const Button: React.FC<ButtonProps> = ({
 	...props
 	}) => {
 	const buttonStyle: React.CSSProperties = {
-		paddingTop: 6,
-		paddingBottom: 6,
+		paddingTop: 12,
+		paddingBottom: 12,
 		paddingLeft: padding,
 		paddingRight: padding,
 	};
