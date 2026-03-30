@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RouteData } from '../../types/route';
 import { getMockRouteById, mockRouteKremlin, mockRoutes } from './mockData';
-import { Text } from '../../components/UI';
 
 import styles from './map-page.module.scss';
 import { RouteMap } from '@components';
@@ -88,9 +87,9 @@ export const MapPage = () => {
 
 	return (
 		<div className={styles.container}>
-			<Text as={'h1'} size={26} weight={700} family={'yandex'} align={'center'}>
+			<h1>
 				{routeData?.nameRoute}
-			</Text>
+			</h1>
 
 			<div className={styles.routeInfo}>
 				<div className={styles.infoCard}>

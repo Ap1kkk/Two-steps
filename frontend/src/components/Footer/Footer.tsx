@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './footer.module.scss';
-import { Text } from '../UI/text';
+import styles from './Footer.module.scss';
 
 export const Footer = () => {
 	const currentYear = new Date().getFullYear();
@@ -10,13 +9,9 @@ export const Footer = () => {
 		<footer className={styles.footer}>
 			<div className={styles.container}>
 				<div className={styles.content}>
-					<Text
-						className={styles.copyright}
-						size={18}
-						family={'yandex'}
-						weight={400}>
+					<p className={styles.copyright}>
 						© {currentYear} Sport Line. Все права защищены
-					</Text>
+					</p>
 
 					<div className={styles.links}>
 						<Link to='/about' className={styles.link}>

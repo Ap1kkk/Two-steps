@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './route-of-day.module.scss';
-import {Button} from "../UI/button/button";
+import {Button} from "../../UI/button/button";
 
 interface RouteOfTheDayProps {
 	onNavigate: () => void;

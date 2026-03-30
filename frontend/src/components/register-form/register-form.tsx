@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Input } from "../UI/input/input";
-import { Text } from "../UI/text/Text";
+import { Input } from "../../UI/input/input";
 import styles from './register-form.module.scss';
-import { Button } from "../UI/button/button";
+import { Button } from "../../UI";
 
 interface RegisterFormProps {
     formData: {
@@ -35,26 +34,14 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 
     return (
         <main className={styles.container}>
-            <Text
-                as={'h1'}
-                weight={500}
-                family={'yandex'}
-                size={24}
-                align={'center'}
-                className={styles.title}
-            >
+            <h2 className={styles.title}>
                 Регистрация профиля
-            </Text>
+            </h2>
 
             {error && (
-                <Text
-                    as="p"
-                    family="yandex"
-                    align="center"
-                    className={styles.error}
-                >
+                <p className={styles.error}>
                     {error}
-                </Text>
+                </p>
             )}
 
             <form className={styles.form} onSubmit={onSubmit}>
@@ -103,34 +90,20 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
                     fullWidth={true}
                     variant="primary"
                 >
-                    <Text
-                        as={'text'}
-                        weight={400}
-                        family={'yandex'}
-                        size={14}
+                    <p
                         children={isLoading ? 'Регистрация...' : 'Продолжить'}
                     />
                 </Button>
             </form>
 
             <div className={styles.login}>
-                <Text
-                    as={'span'}
-                    weight={400}
-                    family={'yandex'}
-                    className={styles.login__text}
-                >
+                <span className={styles.login__text}>
                     Уже есть аккаунт?
-                </Text>
+                </span>
                 <Link to='/login' className={styles.link}>
-                    <Text
-                        as={'a'}
-                        weight={400}
-                        family={'yandex'}
-                        className={styles.text}
-                    >
+                    <a className={styles.text}>
                         Авторизация
-                    </Text>
+                    </a>
                 </Link>
             </div>
         </main>

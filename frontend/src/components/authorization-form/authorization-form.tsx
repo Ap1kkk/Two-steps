@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Input } from "../UI/input/input";
-import { Text } from "../UI/text/Text";
+import { Input } from "../../UI/input/input";
 import styles from './authorization-form.module.scss';
-import {Button} from "../UI/button/button";
+import {Button} from "../../UI/button/button";
 
 interface AuthorizationFormProps {
     formData: {
@@ -27,26 +26,18 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
     }) => {
     return (
         <main className={styles.container}>
-            <Text
-                as={'h1'}
-                weight={500}
-                family={'yandex'}
-                size={24}
-                align={'center'}
+            <h2
                 className={styles.title}
             >
                 Вход в профиль
-            </Text>
+            </h2>
 
             {error && (
-                <Text
-                    as="p"
-                    family="yandex"
-                    align="center"
+                <p
                     className={styles.error}
                 >
                     {error}
-                </Text>
+                </p>
             )}
 
             <form className={styles.form} onSubmit={onSubmit}>
@@ -78,11 +69,7 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
                     fullWidth={true}
                     variant="primary"
                 >
-                    <Text
-                        as={'text'}
-                        weight={400}
-                        family={'yandex'}
-                        size={14}
+                    <p
                         children={isLoading ? 'Вход...' : 'Войти'}
                     />
                 </Button>
@@ -90,32 +77,19 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 
             <div className={styles.links}>
                 <Link to='/forgot-password' className={styles.link}>
-                    <Text
-                        as={'span'}
-                        weight={400}
-                        family={'yandex'}
-                    >
+                    <span>
                         Забыли пароль?
-                    </Text>
+                    </span>
                 </Link>
 
                 <div className={styles.register}>
-                    <Text
-                        as={'span'}
-                        weight={400}
-                        family={'yandex'}
-                        className={styles.register__text}
-                    >
+                    <p className={styles.register__text}>
                         Нет аккаунта?
-                    </Text>
+                    </p>
                     <Link to='/register' className={styles.link}>
-                        <Text
-                            as={'a'}
-                            weight={400}
-                            family={'yandex'}
-                        >
+                        <span>
                             Зарегистрироваться
-                        </Text>
+                        </span>
                     </Link>
                 </div>
             </div>
