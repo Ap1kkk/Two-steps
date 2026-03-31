@@ -1,0 +1,97 @@
+.categoryTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+
+  // Базовый стиль
+  &.default {
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #abd27a, #03a11e);
+    color: #2e3b1e;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+
+    @media (max-width: 768px) {
+      padding: 3px 8px;
+      font-size: 11px;
+    }
+  }
+
+  // Маленькая версия (для карточки)
+  &.small {
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #abd27a, #03a11e);
+    color: #2e3b1e;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+
+    @media (max-width: 768px) {
+      padding: 3px 8px;
+      font-size: 11px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 2px 6px;
+      font-size: 10px;
+    }
+  }
+
+  // Большая версия (для регистрации)
+  &.large {
+    padding: 10px 15px;
+    background-color: #EBEDF0;
+    color: #495057;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: normal;
+
+    @media (max-width: 768px) {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+  }
+
+  // Выбираемая версия (для регистрации)
+  &.selectable {
+    padding: 10px 15px;
+    background-color: #EBEDF0;
+    color: #495057;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: normal;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #e9ecef;
+    }
+
+    &.active {
+      color: #253017;
+      background-color: #abd27a;
+    }
+
+    @media (max-width: 768px) {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+  }
+
+  // Кликабельный стиль
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
