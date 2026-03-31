@@ -1,222 +1,221 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 /* Yandex */
 
 @font-face {
-  font-family: 'Yandex';
-  src: url('assets/fonts/YandexSansText-RegularItalic.woff2') format('woff2'),
-  url('assets/fonts/YandexSansText-RegularItalic.woff') format('woff');
-  font-weight: normal;
-  font-style: italic;
+	font-family: 'Yandex';
+	src: url('assets/fonts/YandexSansText-RegularItalic.woff2') format('woff2'),
+		url('assets/fonts/YandexSansText-RegularItalic.woff') format('woff');
+	font-weight: normal;
+	font-style: italic;
 }
 
 @font-face {
-  font-family: 'Yandex';
-  src: url('assets/fonts/YandexSansText-Regular.woff2') format('woff2'),
-  url('assets/fonts/YandexSansText-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Yandex';
+	src: url('assets/fonts/YandexSansText-Regular.woff2') format('woff2'),
+		url('assets/fonts/YandexSansText-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Yandex';
-  src: url('assets/fonts/YandexSansText-Bold.woff2') format('woff2'),
-  url('assets/fonts/YandexSansText-Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
+	font-family: 'Yandex';
+	src: url('assets/fonts/YandexSansText-Bold.woff2') format('woff2'),
+		url('assets/fonts/YandexSansText-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
 }
 
 @font-face {
-  font-family: 'Yandex';
-  src: url('assets/fonts/YandexSansText-Medium.woff2') format('woff2'),
-  url('assets/fonts/YandexSansText-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
+	font-family: 'Yandex';
+	src: url('assets/fonts/YandexSansText-Medium.woff2') format('woff2'),
+		url('assets/fonts/YandexSansText-Medium.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
 }
 
 /* Roboto */
 
 @font-face {
-  font-weight: 300;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-display: swap;
-  src: url('assets/fonts/Roboto-Light.woff2') format('woff2'),
-  url('assets/fonts/Roboto-Light.woff') format('woff');
+	font-weight: 300;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-display: swap;
+	src: url('assets/fonts/Roboto-Light.woff2') format('woff2'),
+		url('assets/fonts/Roboto-Light.woff') format('woff');
 }
 
 @font-face {
-  font-weight: 400;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-display: swap;
-  src: url('assets/fonts/Roboto-Regular.woff2') format('woff2'),
-  url('assets/fonts/Roboto-Regular.woff') format('woff');
+	font-weight: 400;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-display: swap;
+	src: url('assets/fonts/Roboto-Regular.woff2') format('woff2'),
+		url('assets/fonts/Roboto-Regular.woff') format('woff');
 }
 
 @font-face {
-  font-weight: 700;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-display: swap;
-  src: url('assets/fonts/Roboto-Bold.woff2') format('woff2'),
-  url('assets/fonts/Roboto-Bold.woff') format('woff');
+	font-weight: 700;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-display: swap;
+	src: url('assets/fonts/Roboto-Bold.woff2') format('woff2'),
+		url('assets/fonts/Roboto-Bold.woff') format('woff');
 }
 
 :root {
+	/* Текст */
+	--color-text: #253017; /* основной текст */
+	--color-caption: #69735d; /* подписи, второстепенный текст */
+	--color-disabled-text: #9ca197; /* неактивный текст */
+	--color-toggle: #b2b9a9; /* текст на переключателях */
 
-  /* Текст */
-  --color-text: #253017; /* основной текст */
-  --color-caption: #69735d; /* подписи, второстепенный текст */
-  --color-disabled-text: #9ca197; /* неактивный текст */
-  --color-toggle: #b2b9a9; /* текст на переключателях */
+	/* Фоны и поверхности */
+	--color-disabled: #e4e8df; /* фон неактивных элементов */
+	--color-card: #fff; /* фон карточек, инпутов */
+	--color-background: #f9faf7; /* фон всей страницы */
 
-  /* Фоны и поверхности */
-  --color-disabled: #e4e8df; /* фон неактивных элементов */
-  --color-card: #fff; /* фон карточек, инпутов */
-  --color-background: #f9faf7; /* фон всей страницы */
+	/* Акценты и кнопки */
+	--color-link-pressed: #508826; /* текстовая ссылка / кнопка в нажатом состоянии */
+	--color-accent: #abd27a; /* основной акцентный цвет */
+	--color-button-hover: #deebc5; /* кнопка при наведении */
 
-  /* Акценты и кнопки */
-  --color-link-pressed: #508826; /* текстовая ссылка / кнопка в нажатом состоянии */
-  --color-accent: #abd27a; /* основной акцентный цвет */
-  --color-button-hover: #deebc5; /* кнопка при наведении */
+	/* Статусы */
+	--color-alarm: #e0796e; /* предупреждения, уведомления */
+	--color-error: #bf3920; /* ошибки */
 
-  /* Статусы */
-  --color-alarm: #e0796e; /* предупреждения, уведомления */
-  --color-error: #bf3920; /* ошибки */
+	/* Теги (категории) */
+	--color-tag-business: #eee7f7;
+	--color-tag-creative: #f7e7f2;
+	--color-tag-languages: #ebe5c5;
+	--color-tag-education: #e7f2f6;
+	--color-tag-home: #f7ebe5;
+	--color-tag-health: #e9f7e7;
+	--color-tag-other: #ebecf7;
 
-  /* Теги (категории) */
-  --color-tag-business: #eee7f7;
-  --color-tag-creative: #f7e7f2;
-  --color-tag-languages: #ebe5c5;
-  --color-tag-education: #e7f2f6;
-  --color-tag-home: #f7ebe5;
-  --color-tag-health: #e9f7e7;
-  --color-tag-other: #ebecf7;
+	/* -------------------- ТИПОГРАФИКА -------------------- */
 
-  /* -------------------- ТИПОГРАФИКА -------------------- */
+	/* Шрифты */
+	--font-heading: Yandex;
+	--font-body: Yandex;
+	--font-body-medium: Roboto;
 
-  /* Шрифты */
-  --font-heading: Yandex, sans-serif;
-  --font-body: Yandex, sans-serif;
-  --font-body-medium: Roboto, sans-serif;
+	/* Веса шрифтов */
+	--font-regular: 400;
+	--font-medium: 500;
 
-  /* Веса шрифтов */
-  --font-regular: 400;
-  --font-medium: 500;
-
-  /* Размеры и интерлиньяж */
-  --text-h1-size: 32px;
-  --text-h1-lineheight: 40px;
-  --text-h2-size: 24px;
-  --text-h2-lineheight: 32px;
-  --text-h3-size: 20px;
-  --text-h3-lineheight: 24px;
-  --text-h4-size: 16px;
-  --text-h4-lineheight: 24px;
-  --text-body-size: 16px;
-  --text-body-lineheight: 24px;
-  --text-caption-size: 12px;
-  --text-caption-lineheight: 16px;
+	/* Размеры и интерлиньяж */
+	--text-h1-size: 32px;
+	--text-h1-lineheight: 40px;
+	--text-h2-size: 24px;
+	--text-h2-lineheight: 32px;
+	--text-h3-size: 20px;
+	--text-h3-lineheight: 24px;
+	--text-h4-size: 16px;
+	--text-h4-lineheight: 24px;
+	--text-body-size: 16px;
+	--text-body-lineheight: 24px;
+	--text-caption-size: 12px;
+	--text-caption-lineheight: 16px;
 }
 
 /* ==================== БАЗОВЫЕ СТИЛИ ДОКУМЕНТА ==================== */
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  font-weight: var(--font-regular);
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-lineheight);
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	font-size: var(--text-body-size);
+	line-height: var(--text-body-lineheight);
 }
 
 /* ==================== СТИЛИ ДЛЯ ТЕГОВ ==================== */
 
 h1 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h1-size);
-  line-height: var(--text-h1-lineheight);
-  margin: 0 0 16px;
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h1-size);
+	line-height: var(--text-h1-lineheight);
+	margin: 0 0 16px;
 }
 
 h2 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h2-size);
-  line-height: var(--text-h2-lineheight);
-  margin: 0 0 12px;
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h2-size);
+	line-height: var(--text-h2-lineheight);
+	margin: 0 0 12px;
 }
 
 h3 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h3-size);
-  line-height: var(--text-h3-lineheight);
-  margin: 0 0 8px;
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h3-size);
+	line-height: var(--text-h3-lineheight);
+	margin: 0 0 8px;
 }
 
 h4 {
-  font-family: var(--font-body-medium);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h4-size);
-  line-height: var(--text-h4-lineheight);
-  margin: 0 0 8px;
+	font-family: var(--font-body-medium);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h4-size);
+	line-height: var(--text-h4-lineheight);
+	margin: 0 0 8px;
 }
 
 p {
-  font-family: var(--font-body);
-  font-weight: var(--font-regular);
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-lineheight);
-  margin: 0 0 12px;
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	font-size: var(--text-body-size);
+	line-height: var(--text-body-lineheight);
+	margin: 0 0 12px;
 }
 
 /* ==================== УТИЛИТАРНЫЕ КЛАССЫ ==================== */
 
 .text-h1 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h1-size);
-  line-height: var(--text-h1-lineheight);
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h1-size);
+	line-height: var(--text-h1-lineheight);
 }
 
 .text-h2 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h2-size);
-  line-height: var(--text-h2-lineheight);
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h2-size);
+	line-height: var(--text-h2-lineheight);
 }
 
 .text-h3 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h3-size);
-  line-height: var(--text-h3-lineheight);
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h3-size);
+	line-height: var(--text-h3-lineheight);
 }
 
 .text-h4 {
-  font-family: var(--font-body-medium);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h4-size);
-  line-height: var(--text-h4-lineheight);
+	font-family: var(--font-body-medium);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h4-size);
+	line-height: var(--text-h4-lineheight);
 }
 
 .text-body {
-  font-family: var(--font-body);
-  font-weight: var(--font-regular);
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-lineheight);
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	font-size: var(--text-body-size);
+	line-height: var(--text-body-lineheight);
 }
 
 .text-caption {
-  font-family: var(--font-body);
-  font-weight: var(--font-regular);
-  font-size: var(--text-caption-size);
-  line-height: var(--text-caption-lineheight);
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	font-size: var(--text-caption-size);
+	line-height: var(--text-caption-lineheight);
 }

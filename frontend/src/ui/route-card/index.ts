@@ -1,1 +1,1 @@
-export {RouteCard} from "./route-card"
+export { RouteCard } from './route-card';

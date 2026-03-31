@@ -87,9 +87,7 @@ export const MapPage = () => {
 
 	return (
 		<div className={styles.container}>
-			<h1>
-				{routeData?.nameRoute}
-			</h1>
+			<h1>{routeData?.nameRoute}</h1>
 
 			<div className={styles.routeInfo}>
 				<div className={styles.infoCard}>

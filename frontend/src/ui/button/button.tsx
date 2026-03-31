@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
 	disabled,
 	className,
 	...props
-	}) => {
+}) => {
 	const buttonStyle: React.CSSProperties = {
 		paddingTop: 12,
 		paddingBottom: 12,
@@ -48,8 +48,7 @@ export const Button: React.FC<ButtonProps> = ({
 			className={buttonClasses}
 			style={buttonStyle}
 			disabled={disabled || isLoading}
-			{...props}
-		>
+			{...props}>
 			{isLoading && <span className={styles.spinner} aria-hidden='true' />}
 			{!isLoading && leftIcon && (
 				<span className={styles.leftIcon}>{leftIcon}</span>

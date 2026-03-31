@@ -1,48 +1,74 @@
-import React, {useEffect, ReactNode, useCallback} from "react";
+import React, { useEffect, ReactNode, useCallback } from 'react';
 import styles from './modal.module.scss';
 
+import closeIcon from '@icons/cross.svg';
+
 interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    children: ReactNode;
-    closeOnOverlayClick?: boolean;
-    className?: string;
+	isOpen?: boolean;
+	onClose?: () => void;
+	children?: ReactNode;
+	closeOnOverlayClick?: boolean;
+	className?: string;
 }
 
 export const Modal: React.FC<ModalProps> = ({
-                                                isOpen,
-                                                onClose,
-                                                children,
-                                                closeOnOverlayClick = true,
-                                                className,
-                                            }) => {
-    const handleOverlayClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-        if (closeOnOverlayClick && e.target === e.currentTarget) {
-            onClose();
-        }
-    }, [closeOnOverlayClick, onClose]);
+	isOpen = false,
+	onClose,
+	children,
+	closeOnOverlayClick = true,
+	className,
+}) => {
+	const handleOverlayClick = useCallback(
+		(e: React.MouseEvent<HTMLDivElement>) => {
+			if (closeOnOverlayClick && onClose && e.target === e.currentTarget) {
+				onClose();
+			}
+		},
+		[closeOnOverlayClick, onClose]
+	);
 
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        }
+	const handleClose = useCallback(() => {
+		if (onClose) {
+			onClose();
+		}
+	}, [onClose]);
 
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [isOpen]);
+	const handleKeyDown = useCallback(
+		(e: KeyboardEvent) => {
+			if (e.key === 'Escape' && onClose) {
+				onClose();
+			}
+		},
+		[onClose]
+	);
 
-    if (!isOpen) return null;
+	useEffect(() => {
+		if (isOpen) {
+			document.body.style.overflow = 'hidden';
+			document.addEventListener('keydown', handleKeyDown);
+		}
 
-    return (
-        <div className={styles.overlay}
-            onClick={handleOverlayClick}
-        >
-            <div className={`${styles.modal} ${className || ''}`}>
-                {children}
-            </div>
-        </div>
-    );
+		return () => {
+			document.body.style.overflow = '';
+			document.removeEventListener('keydown', handleKeyDown);
+		};
+	}, [isOpen, handleKeyDown]);
+
+	if (!isOpen) return null;
+
+	return (
+		<div className={styles.overlay} onClick={handleOverlayClick}>
+			<div className={`${styles.modal} ${className || ''}`}>
+				<button
+					className={styles.closeButton}
+					onClick={handleClose}
+					aria-label='Закрыть'>
+					<img src={closeIcon} alt='Закрыть' />
+				</button>
+				<div className={styles.content}>{children}</div>
+			</div>
+		</div>
+	);
 };
 
 Modal.displayName = 'Modal';

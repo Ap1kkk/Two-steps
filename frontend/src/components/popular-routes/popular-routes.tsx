@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Route } from '../../types/route';
-import { BASE_STATIC_URL } from '../../types/constants/globals';
 import styles from './popular-routes.module.scss';
-import {RouteCard} from "@ui/route-card/route-card";
+import { RouteCard } from '../../ui/route-card';
 
 interface PopularRoutesProps {
 	routes: Route[];
@@ -29,9 +27,9 @@ export const PopularRoutes: React.FC<PopularRoutesProps> = ({
 					key={route.id}
 					route={route}
 					difficultyTranslation={difficultyTranslation}
-					variant="standard"
+					variant='standard'
 				/>
 			))}
 		</section>
-	)
+	);
 };

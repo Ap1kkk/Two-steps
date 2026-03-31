@@ -1,1 +1,1 @@
-import { AuthorizationForm } from './authorization-form'
+import { AuthorizationForm } from './authorization-form';

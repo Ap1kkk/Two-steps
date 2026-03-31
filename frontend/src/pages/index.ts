@@ -4,7 +4,7 @@ export * from './all-profile-pages/EditProfilePage';
 export * from './all-profile-pages/ProfilePage';
 export * from './all-profile-pages/RouteHistoryPage';
 export * from './all-profile-pages/StatisticsPage';
-export * from './authorization'
+export * from './authorization';
 export * from './favorites';
 export * from './Filters/FilteredRoutes';
 export * from './Filters/FilterPanel';
