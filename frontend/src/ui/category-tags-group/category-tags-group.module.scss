@@ -1,0 +1,40 @@
+.tagsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  > * {
+    flex: 0 0 auto;
+  }
+
+  &.centered {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    gap: 4px;
+  }
+}
+
+
+.moreTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #666;
+  background-image: none;
+
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  &:hover {
+    background-color: #d0d0d0;
+  }
+}
