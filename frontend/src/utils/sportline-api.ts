@@ -1,4 +1,10 @@
 import { TUser } from '../types/user';
+import {
+	PreferencesResponse,
+	UpdatePreferencesData,
+	User,
+} from '../types/preferences';
+import { Category } from '../types/route';
 
 const API_URL = 'http://localhost:3001';
 
@@ -335,4 +341,79 @@ export const refreshTokenApi = async (
 			message: error.message || 'Ошибка обновления токена',
 		};
 	}
+};
+
+export const getCategories = async (): Promise<Category[]> => {
+	try {
+		const response = await fetch(`${API_URL}/categories`, {
+			method: 'GET',
+			headers: getHeaders(),
+		});
+		return await handleResponse(response);
+	} catch (error: any) {
+		throw new Error(error.message || 'Ошибка загрузки категорий');
+	}
+};
+
+export const getUserByToken = async (token: string): Promise<User | null> => {
+	try {
+		let response = await fetch(`${API_URL}/users?token=${token}`, {
+			method: 'GET',
+			headers: getHeaders(),
+		});
+		let users = await handleResponse(response);
+
+		if (users.length === 0) {
+			response = await fetch(`${API_URL}/users?refreshToken=${token}`, {
+				method: 'GET',
+				headers: getHeaders(),
+			});
+			users = await handleResponse(response);
+		}
+
+		return users.length > 0 ? users[0] : null;
+	} catch (error: any) {
+		throw new Error(error.message || 'Ошибка поиска пользователя');
+	}
+};
+
+export const updateUserPreferences = async (data: UpdatePreferencesData): Promise<PreferencesResponse> => {
+	try {
+		const { token, preferences } = data;
+
+		const user = await getUserByToken(token);
+
+		if (!user) {
+			throw new Error('Пользователь не найден');
+		}
+
+		const response = await fetch(`${API_URL}/users/${user.id}`, {
+			method: 'PATCH',
+			headers: getHeaders(),
+			body: JSON.stringify({
+				preferences: preferences,
+				updatedAt: new Date().toISOString(),
+			}),
+		});
+
+		const updatedUser = await handleResponse(response);
+
+		return {
+			success: true,
+			message: 'Предпочтения успешно сохранены!',
+			user: updatedUser,
+			preferences: preferences,
+		};
+	} catch (error: any) {
+		throw new Error(error.message || 'Ошибка при сохранении предпочтений');
+	}
+};
+
+export const getUserPreferences = async (token: string): Promise<number[]> => {
+		try {
+			const user = await getUserByToken(token);
+			return user?.preferences || [];
+		} catch (error: any) {
+			throw new Error(error.message || 'Ошибка загрузки предпочтений');
+		}
 };
