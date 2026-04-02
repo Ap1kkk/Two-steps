@@ -2,7 +2,7 @@
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
-	border: 1px solid #000;
+	border: 1px solid var(--color-text);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -20,16 +20,16 @@
 }
 
 .hiddenInput:checked + .customRadio {
-	border-color: #508826;
-	background-color: #fff;
+	border-color: var(--color-link-pressed);
+	background-color: var(--color-card);
 }
 
 .radioLabel {
-	font-family: Roboto-Regular, serif;
-	font-size: 16px;
-	line-height: 24px;
+	font-family: var(--font-heading);
+	font-size: var(--text-body-size);
+	line-height: var(--text-body-lineheight);
 	letter-spacing: 2%;
-	color: #253017;
+	color: var(--color-text);
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -52,12 +52,12 @@
 }
 
 .radioLabel:not(.disabled):hover .customRadio {
-	border-color: #508826;
-	box-shadow: 0 0 0 1px rgb(80 136 38 / 10%);
+	border-color: var(--color-link-pressed);
+	box-shadow: 0 0 0 1px var(--color-text);
 }
 
 .hiddenInput:checked:focus-visible + .customRadio {
-	outline: 1px solid #253017;
+	outline: 1px solid var(--color-text);
 	outline-offset: 1px;
 }
 
@@ -65,7 +65,7 @@
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
-	background-color: #508826;
+	background-color: var(--color-link-pressed);
 	transition: transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
 	transform: scale(1);
 	animation: dot-appear 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);

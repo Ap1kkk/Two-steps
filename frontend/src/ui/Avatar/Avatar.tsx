@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './avatar.module.scss';
+import styles from './Avatar.module.scss';
 
 type AvatarSize = 'small' | 'medium' | 'large';
 

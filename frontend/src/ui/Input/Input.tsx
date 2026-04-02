@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
-import styles from './input.module.scss';
+import React, { InputHTMLAttributes, useState } from 'react';
+import styles from './Input.module.scss';
 
 import OpenEye from '@icons/eye.svg';
 import CloseEye from '@icons/eye-slash.svg';
 
-interface InputProps
-	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
-	type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url';
 	value?: string;
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	placeholder?: string;
 	error?: string;
 	helperText?: string;
-	padding?: number;
-	leftIcon?: React.ReactNode;
-	rightIcon?: React.ReactNode;
+	iconLeft?: React.ReactNode;
+	iconRight?: React.ReactNode;
 	disabled?: boolean;
 	required?: boolean;
-	fullWidth?: boolean;
 	className?: string;
 }
 
@@ -30,74 +26,46 @@ export const Input: React.FC<InputProps> = ({
 	placeholder,
 	error,
 	helperText,
-	padding = 12,
-	leftIcon,
-	rightIcon,
+	iconLeft,
+	iconRight,
 	disabled = false,
 	required = false,
-	fullWidth = false,
 	className,
 	id,
 	...props
 }) => {
 	const [showPassword, setShowPassword] = useState(false);
-	const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
-
+	const inputId = id || label?.toLowerCase().replace(/\s/g, '-');
 	const isPassword = type === 'password';
-	const inputType = isPassword && showPassword ? 'text' : type;
-
-	const inputStyle: React.CSSProperties = {
-		paddingTop: 6,
-		paddingBottom: 6,
-		paddingLeft: leftIcon ? padding + 24 : padding,
-		paddingRight: rightIcon || isPassword ? padding + 24 : padding,
-	};
-
-	const wrapperClasses = [styles.wrapper, fullWidth && styles.fullWidth]
-		.filter(Boolean)
-		.join(' ');
-
-	const inputClasses = [
-		styles.input,
-		error && styles.error,
-		disabled && styles.disabled,
-		className,
-	]
-		.filter(Boolean)
-		.join(' ');
+	const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
 	return (
-		<div className={wrapperClasses}>
+		<div className={`${styles.wrapper} ${className}`}>
 			{label && (
 				<label htmlFor={inputId} className={styles.label}>
 					{label}
-					{required && <span className={styles.required}>*</span>}
 				</label>
 			)}
 
-			<div className={styles.inputContainer}>
-				{leftIcon && (
-					<span className={styles.leftIcon} style={{ left: padding }}>
-						{leftIcon}
-					</span>
-				)}
+			<div
+				className={`${styles['input-wrapper']} ${error ? styles.error : ''}`}>
+				{iconLeft && <span className={styles['icon-left']}>{iconLeft}</span>}
 
 				<input
 					id={inputId}
 					type={inputType}
+					className={styles.input}
+					disabled={disabled}
+					aria-invalid={!!error}
 					value={value}
 					onChange={onChange}
 					placeholder={placeholder}
-					disabled={disabled}
-					className={inputClasses}
-					style={inputStyle}
-					aria-invalid={!!error}
-					aria-disabled={disabled}
+					required={required}
 					{...props}
 				/>
 
-				{(rightIcon || isPassword) && (
-					<span className={styles.rightIcon} style={{ right: padding }}>
+				{(iconRight || isPassword) && (
+					<span className={styles.rightIcon}>
 						{isPassword ? (
 							<button
 								type='button'
@@ -120,7 +88,7 @@ export const Input: React.FC<InputProps> = ({
 								)}
 							</button>
 						) : (
-							rightIcon
+							iconRight
 						)}
 					</span>
 				)}
@@ -134,5 +102,3 @@ export const Input: React.FC<InputProps> = ({
 		</div>
 	);
 };
-
-Input.displayName = 'Input';

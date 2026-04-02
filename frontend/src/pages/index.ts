@@ -9,7 +9,7 @@ export * from './favorites';
 export * from './Filters/FilteredRoutes';
 export * from './Filters/FilterPanel';
 export * from './Filters';
-export * from './main-page';
+export * from './MainPage';
 export * from './PopularRouts';
 export * from './PopularRouts/FilterPopularRoutes';
 export * from './PopularRouts/PopularFilteredRoutes';

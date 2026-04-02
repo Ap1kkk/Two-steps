@@ -15,12 +15,11 @@
 }
 
 .placeholder {
-	font-family: var(--font-body, Roboto-Regular, sans-serif);
-	font-weight: var(--font-medium, 500);
+	font-family: var(--font-body);
+	font-weight: var(--font-medium);
 	color: var(--color-text, #253017);
 }
 
-/* Размеры */
 .small .placeholder {
 	font-size: 12px;
 }
