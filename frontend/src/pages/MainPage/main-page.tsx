@@ -183,7 +183,6 @@ export const MainPage: React.FC = () => {
 			<div className={styles.content}>
 				<RouteOfTheDay onNavigate={handleRouteOfTheDay} />
 
-				{/* Популярные маршруты */}
 				{popularRoutes.length > 0 && (
 					<section className={styles.section}>
 						<h2 className={styles.sectionTitle}>Популярные маршруты</h2>

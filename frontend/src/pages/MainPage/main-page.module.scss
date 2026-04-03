@@ -172,3 +172,9 @@
 		font-size: 13px;
 	}
 }
+
+.routesGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

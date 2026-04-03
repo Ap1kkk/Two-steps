@@ -7,7 +7,7 @@ import styles from './routes-on-map.module.scss';
 
 const YANDEX_MAPS_API_KEY = '71b4ede5-7042-4bba-9243-a2cb4b638bd5';
 
-export const RouteMap: React.FC<RouteMapProps> = ({
+export const RouteOnMap: React.FC<RouteMapProps> = ({
 	routeData,
 	userLocation,
 	onMapLoad,
@@ -150,4 +150,4 @@ export const RouteMap: React.FC<RouteMapProps> = ({
 	);
 };
 
-export default RouteMap;
+export default RouteOnMap;
