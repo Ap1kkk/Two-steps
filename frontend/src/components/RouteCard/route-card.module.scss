@@ -1,0 +1,320 @@
+.routeCard {
+	background-color: var(--color-card);
+	border-radius: 12px;
+	transition: all 0.2s ease;
+	display: flex;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.routeLink {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: var(--color-text);
+	height: 100%;
+}
+
+.routeImage {
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 12px 0 0 12px;
+	flex-shrink: 0;
+
+	@media (max-width: 768px) {
+		width: 100px;
+		height: 100px;
+	}
+
+	@media (max-width: 480px) {
+		width: 80px;
+		height: 80px;
+	}
+}
+
+.likeButton {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.9);
+	border-radius: 50%;
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	padding: 0;
+	z-index: 2;
+
+	&:hover {
+		transform: scale(1.1);
+		background-color: white;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	&.liked {
+		animation: likeAnimation 0.4s ease;
+
+		.likeIcon {
+			animation: heartBeat 0.4s ease;
+		}
+	}
+}
+
+.likeIcon {
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
+	transition: all 0.2s ease;
+}
+
+.routeContent {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 12px 16px;
+	flex: 1;
+
+	.routeLink {
+		font-family: var(--font-heading);
+		font-weight: var(--font-medium);
+		font-size: var(--text-h4-size);
+		line-height: var(--text-h4-lineheight);
+		color: var(--color-text);
+		transition: color 0.2s ease;
+		width: auto;
+
+		&:hover {
+			color: var(--color-accent);
+		}
+	}
+}
+
+.distance {
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	font-size: var(--text-caption-size);
+	line-height: var(--text-caption-lineheight);
+	color: var(--color-caption);
+	white-space: nowrap;
+}
+
+.tagsWrapper {
+	margin-top: 4px;
+}
+
+.compactCard {
+	background: transparent;
+	transition: all 0.2s ease;
+}
+
+.compactLink {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+
+.compactCardInner {
+	background: var(--color-card);
+	border-radius: 12px;
+	padding: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	transition: all 0.3s ease;
+	position: relative;
+
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+	}
+}
+
+.compactImage {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-bottom: 8px;
+}
+
+.compactContent {
+	width: 100%;
+	text-align: center;
+}
+
+.compactName {
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: 14px;
+	line-height: 20px;
+	color: var(--color-text);
+	margin-bottom: 4px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.compactDistance {
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-caption);
+}
+
+.compactLikeButton {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	background: rgba(255, 255, 255, 0.9);
+	border: none;
+	border-radius: 50%;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	padding: 0;
+	z-index: 2;
+
+	&:hover {
+		transform: scale(1.1);
+		background: white;
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	&.liked {
+		animation: likeAnimation 0.4s ease;
+	}
+
+	svg, img {
+		width: 14px;
+		height: 14px;
+	}
+}
+
+/* Анимации */
+@keyframes likeAnimation {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes heartBeat {
+	0% {
+		transform: scale(1);
+	}
+	25% {
+		transform: scale(1.2);
+	}
+	50% {
+		transform: scale(1);
+	}
+	75% {
+		transform: scale(1.1);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+	.routeImage {
+		width: 100px;
+		height: 100px;
+	}
+
+	.routeContent {
+		padding: 10px 12px;
+
+		.routeLink {
+			font-size: 14px;
+		}
+	}
+
+	.likeButton {
+		width: 32px;
+		height: 32px;
+		top: 8px;
+		right: 8px;
+	}
+
+	.likeIcon {
+		width: 18px;
+		height: 18px;
+	}
+
+	.compactCardInner {
+		padding: 8px;
+	}
+
+	.compactName {
+		font-size: 12px;
+	}
+
+	.compactDistance {
+		font-size: 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.routeImage {
+		width: 80px;
+		height: 80px;
+	}
+
+	.routeContent {
+		padding: 8px 10px;
+		gap: 6px;
+
+		.routeLink {
+			font-size: 13px;
+		}
+	}
+
+	.distance {
+		font-size: 10px;
+	}
+
+	.likeButton {
+		width: 28px;
+		height: 28px;
+	}
+
+	.likeIcon {
+		width: 16px;
+		height: 16px;
+	}
+
+	.compactCardInner {
+		padding: 6px;
+	}
+
+	.compactName {
+		font-size: 11px;
+	}
+}

@@ -153,9 +153,7 @@ const routesSlice = createSlice({
 			.addCase(fetchAllRoutes.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload as string;
-			});
-
-		builder
+			})
 			.addCase(fetchRouteById.pending, (state) => {
 				state.loading = true;
 				state.error = null;
@@ -170,9 +168,7 @@ const routesSlice = createSlice({
 			.addCase(fetchRouteById.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload as string;
-			});
-
-		builder
+			})
 			.addCase(addNewRoute.pending, (state) => {
 				state.loading = true;
 				state.error = null;
@@ -189,9 +185,7 @@ const routesSlice = createSlice({
 			.addCase(addNewRoute.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload as string;
-			});
-
-		builder
+			})
 			.addCase(editRoute.pending, (state) => {
 				state.loading = true;
 				state.error = null;
@@ -216,9 +210,7 @@ const routesSlice = createSlice({
 			.addCase(editRoute.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload as string;
-			});
-
-		builder
+			})
 			.addCase(removeRoute.pending, (state) => {
 				state.loading = true;
 				state.error = null;
@@ -240,9 +232,7 @@ const routesSlice = createSlice({
 			.addCase(removeRoute.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload as string;
-			});
-
-		builder
+			})
 			.addCase(fetchRoutesByCategory.pending, (state) => {
 				state.loading = true;
 				state.error = null;
@@ -257,9 +247,7 @@ const routesSlice = createSlice({
 			.addCase(fetchRoutesByCategory.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload as string;
-			});
-
-		builder
+			})
 			.addCase(fetchRoutesByDifficulty.pending, (state) => {
 				state.loading = true;
 				state.error = null;

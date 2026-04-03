@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './register-form.module.scss';
 import { Button } from '@ui';
-import { Input } from '../../ui/input/input';
+import { Input } from '../../ui/Input';
 
 interface RegisterFormProps {
 	formData: {
@@ -45,7 +45,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 					label={'Имя'}
 					value={formData.username}
 					onChange={onChange}
-					fullWidth={true}
 					placeholder={'Введите имя'}
 				/>
 				<Input
@@ -54,7 +53,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 					label={'Email'}
 					value={formData.email}
 					onChange={onChange}
-					fullWidth={true}
 					placeholder={'example@mail.com'}
 				/>
 				<Input
@@ -63,7 +61,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 					label={'Пароль'}
 					value={formData.password}
 					onChange={onChange}
-					fullWidth={true}
 					placeholder={'Минимум 6 символов'}
 				/>
 				<Input
@@ -72,16 +69,13 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({
 					label={'Подтверждение пароля'}
 					value={formData.confirmPassword}
 					onChange={onChange}
-					fullWidth={true}
 					placeholder={'Повторите пароль'}
 					error={passwordError}
-					padding={14}
 				/>
 
 				<Button
 					disabled={!isFormValid || isLoading}
 					type='submit'
-					fullWidth={true}
 					variant='primary'>
 					<p children={isLoading ? 'Регистрация...' : 'Продолжить'} />
 				</Button>

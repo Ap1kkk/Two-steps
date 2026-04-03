@@ -37,7 +37,6 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 					value={formData.email}
 					onChange={onChange}
 					required={true}
-					fullWidth={true}
 					placeholder={'example@mail.com'}
 				/>
 
@@ -48,14 +47,12 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 					value={formData.password}
 					onChange={onChange}
 					required={true}
-					fullWidth={true}
 					placeholder={'Введите пароль'}
 				/>
 
 				<Button
 					disabled={!isFormValid || isLoading}
 					type='submit'
-					fullWidth={true}
 					variant='primary'>
 					<p children={isLoading ? 'Вход...' : 'Войти'} />
 				</Button>
