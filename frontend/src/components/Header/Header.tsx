@@ -1,21 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Avatar, Button, Input } from '@ui';
+import { useDeviceType } from '../../utils/hooks/useDeviceType';
 
-import { Button } from '@ui';
-
-import user from '../../assets/icons/user.svg';
 import search from '../../assets/icons/search.svg';
 import cross from '../../assets/icons/cross.svg';
-import logo from '../../assets/images/logo.svg';
 import compass from '../../assets/images/compass.svg';
+import userExample from '../../assets/images/avatarProfile/avatar1.png';
+import user from '../../assets/icons/user.svg';
+import dumbbells from '../../assets/icons/dumbells.svg';
+import global from '../../assets/icons/global.svg';
 
 import styles from './Header.module.scss';
+
+type Mode = 'sport' | 'tourism';
 
 export const Header = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const [isAuthenticated] = useState(false);
+	const deviceType = useDeviceType();
+	const isMobile = deviceType === 'mobile';
+
+	const [isAuthenticated] = useState(true);
+
+	const [mode, setMode] = useState<Mode>(() => {
+		const saved = localStorage.getItem('appMode');
+		return saved === 'sport' ? 'sport' : 'tourism';
+	});
+
+	const toggleMode = () => {
+		const newMode = mode === 'sport' ? 'tourism' : 'sport';
+		setMode(newMode);
+		localStorage.setItem('appMode', newMode);
+	};
+
+	const currentImage = mode === 'sport' ? dumbbells : global;
+	const currentText = mode === 'sport' ? 'Спорт' : 'Туризм';
 
 	const isAuthPage =
 		location.pathname === '/login' || location.pathname === '/registration';
@@ -23,21 +44,29 @@ export const Header = () => {
 	if (isAuthPage) {
 		return (
 			<header className={styles.header}>
-				<nav className={styles.navigation}>
-					<Link to='/' className={styles.logo}>
-						<img src={compass} alt='logo' className={styles.logo_image} />
-						<span className={styles.title}>Routie</span>
+				<nav className={styles.navigation_auth}>
+					<Link to='/' className={styles.logoContainer}>
+						<img
+							src={compass}
+							alt='logo'
+							className={styles.logoImage}
+						/>
+						<span className={styles.logoTitle}>Routie</span>
 					</Link>
-					<Link to='/'>
-						<Button
-							type={'button'}
-							variant={'outline'}
-							rightIcon={<img src={cross} alt='Закрыть' />}
-							className={styles.closeButton}
-							onClick={() => navigate('/', { replace: true })}>
-							Закрыть
-						</Button>
-					</Link>
+					<Button
+						type={'button'}
+						variant={'tertiary'}
+						iconRight={
+							<img
+								src={cross}
+								className={styles.closeIcon}
+								alt='Закрыть'
+							/>
+						}
+						onClick={() => navigate('/', { replace: true })}
+						children={'Закрыть'}
+						className={styles.closeButton}
+					/>
 				</nav>
 			</header>
 		);
@@ -46,34 +75,120 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<nav className={styles.navigation}>
-				<Link to='/favourites' className={styles.link} aria-label='Поиск'>
-					<img
-						src={search}
-						alt=''
-						className={styles.icons}
-						aria-hidden='true'
-					/>
-				</Link>
-
-				<Link to='/main_page' className={`${styles.link} ${styles.logo}`}>
-					<h1>Два шага</h1>
-				</Link>
-
-				{isAuthenticated ? (
-					<Link to='/profile_page' className={styles.link} aria-label='Профиль'>
+				{isMobile ? (
+					<>
 						<img
-							src={user}
-							alt=''
+							src={search}
+							alt='Кнопка поиска'
 							className={styles.icons}
-							aria-hidden='true'
+							onClick={() => navigate('/favourites')}
 						/>
-					</Link>
+						<Link to='/' className={styles.logoContainer}>
+							<img
+								src={compass}
+								alt='Логотип'
+								className={styles.logoImage}
+							/>
+							<span className={styles.logoTitle}>Routie</span>
+						</Link>
+						<div className={styles.mobileUserCard}>
+							<Button
+								onClick={toggleMode}
+								variant={'tertiary'}
+								iconLeft={
+									<img src={currentImage} alt={currentText} />
+								}
+								children={currentText}
+								className={styles.typeSelector}
+							/>
+							{isAuthenticated ? (
+								<Button
+									type={'button'}
+									variant={'tertiary'}
+									iconRight={
+										<Avatar
+											src={userExample}
+											size={'small'}
+										/>
+									}
+									children={'Евгений'}
+									className={styles.userCard}
+									onClick={() => navigate('/profile_page')}
+								/>
+							) : (
+								<Link
+									to='/login'
+									className={styles.enterContainer}>
+									<img
+										src={user}
+										className={styles.userIcon}
+										alt={'Войти в аккаунт'}
+									/>
+									<span className={styles.enter}>Войти</span>
+								</Link>
+							)}
+						</div>
+					</>
 				) : (
-					<Link to='/login'>
-						<Button variant='primary' padding={20}>
-							Войти
-						</Button>
-					</Link>
+					<>
+						<Link to='/' className={styles.logoContainer}>
+							<img
+								src={compass}
+								alt='Логотип'
+								className={styles.logoImage}
+							/>
+							<span className={styles.logoTitle}>Routie</span>
+						</Link>
+						<Button
+							onClick={toggleMode}
+							variant={'tertiary'}
+							iconLeft={
+								<img src={currentImage} alt={currentText} />
+							}
+							children={currentText}
+							className={styles.typeSelector}
+						/>
+						<Input
+							className={styles.input}
+							placeholder={'Введите название маршрута...'}
+							iconLeft={
+								<img
+									src={search}
+									alt='Значок поиска'
+									aria-hidden='true'
+								/>
+							}
+						/>
+						{isAuthenticated ? (
+							<Button
+								type={'button'}
+								variant={'tertiary'}
+								iconRight={
+									<Avatar src={userExample} size={'small'} />
+								}
+								children={'Евгений'}
+								onClick={() => navigate('/profile_page')}
+								className={styles.userCard}
+							/>
+						) : (
+							<div className={styles.authContainer}>
+								<Button
+									type={'button'}
+									variant={'secondary'}
+									className={styles.auth}
+									onClick={() => navigate('/login')}
+									children={'Войти'}
+								/>
+								<Button
+									type={'button'}
+									variant={'primary'}
+									className={styles.registration}
+									onClick={() => navigate('/registration')}
+									children={'Зарегистрироваться'}
+								/>
+							</div>
+						)}
+					</>
 				)}
 			</nav>
 		</header>

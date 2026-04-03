@@ -6,6 +6,6 @@ module.exports = {
     bracketSameLine: true,
     printWidth: 80,
     useTabs: true,
-    tabWidth: 2,
+    tabWidth: 4,
     endOfLine: 'lf',
 };

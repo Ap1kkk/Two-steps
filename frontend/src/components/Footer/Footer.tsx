@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
+import compass from '../../assets/images/compass.svg';
 
 export const Footer = () => {
 	const currentYear = new Date().getFullYear();
@@ -8,25 +9,32 @@ export const Footer = () => {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.container}>
-				<div className={styles.content}>
-					<p className={styles.copyright}>
-						© {currentYear} Sport Line. Все права защищены
-					</p>
-
-					<div className={styles.links}>
-						<Link to='/about' className={styles.link}>
-							О нас
-						</Link>
-						<Link to='/contacts' className={styles.link}>
-							Контакты
-						</Link>
-						<Link to='/privacy' className={styles.link}>
-							Политика конфиденциальности
-						</Link>
-					</div>
-
-					<div className={styles.version}>Версия 1.0.0</div>
+				<Link to='/' className={styles.logoContainer}>
+					<img
+						src={compass}
+						alt='Логотип'
+						className={styles.logoImage}
+					/>
+					<span className={styles.logoTitle}>Routie</span>
+				</Link>
+				<div className={styles.links}>
+					<Link to='/about' className={styles.link}>
+						О нас
+					</Link>
+					<Link to='/contacts' className={styles.link}>
+						Контакты
+					</Link>
+					<Link to='/privacy' className={styles.link}>
+						Политика конфиденциальности
+					</Link>
 				</div>
+			</div>
+
+			<div className={styles.containerInfo}>
+				<p className={styles.copyright}>
+					© {currentYear} Routie. Все права защищены
+				</p>
+				<span>Версия 1.0.0</span>
 			</div>
 		</footer>
 	);

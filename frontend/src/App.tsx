@@ -31,11 +31,11 @@ export const router = createBrowserRouter([
 				element: <Authorization />,
 			},
 			{
-				path: '/register',
+				path: '/registration',
 				element: <Registration />,
 			},
 			{
-				path: '/register/preferences',
+				path: '/registration/preferences',
 				element: <Preferences />,
 			},
 			{
