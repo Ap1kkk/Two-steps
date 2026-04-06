@@ -18,7 +18,7 @@ import {
 	createRoute,
 	updateRoute,
 	deleteRoute
-} from '../../../utils/sportline-api';
+} from '../../../utils/api/route-api';
 
 type RoutesState = {
 	routes: RouteData[];

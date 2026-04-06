@@ -137,6 +137,37 @@
 	--text-caption-lineheight-mobile: 16px;
 }
 
+.dark-theme {
+  /* Текст */
+  --color-text: #e8ede0;
+  --color-caption: #a1aa94;
+  --color-disabled-text: #6b7262;
+  --color-toggle: #5a614f;
+
+  /* Фоны и поверхности */
+  --color-disabled: #2a2f24;
+  --color-card: #1a1e16;
+  --color-background: #0f120c;
+
+  /* Акценты и кнопки */
+  --color-link-pressed: #8fbc5e;
+  --color-accent: #4a6b2e;
+  --color-button-hover: #2a3a1c;
+
+  /* Статусы */
+  --color-alarm: #c95f54;
+  --color-error: #d94f30;
+
+  /* Теги (категории) */
+  --color-tag-business: #2a2542;
+  --color-tag-creative: #3d2535;
+  --color-tag-languages: #2e2a1c;
+  --color-tag-education: #1c2f3d;
+  --color-tag-home: #3d2a25;
+  --color-tag-health: #1e3d1c;
+  --color-tag-other: #25263d;
+}
+
 /* ==================== БАЗОВЫЕ СТИЛИ ДОКУМЕНТА ==================== */
 
 body {

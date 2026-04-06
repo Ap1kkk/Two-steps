@@ -1,1 +1,1 @@
-export { RouteMap } from './routes-on-map';
+export { RouteOnMap } from './routes-on-map';

@@ -18,7 +18,7 @@ import {
 	TLoginData,
 	TUpdateUserData,
 	TApiResponse,
-} from '../../../utils/sportline-api';
+} from '../../../utils/api/user-api';
 
 type TUserState = {
 	isAuthChecked: boolean;

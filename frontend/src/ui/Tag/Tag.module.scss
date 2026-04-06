@@ -1,22 +1,17 @@
-.tagsGroup {
+.tags_container {
   display: flex;
   flex-wrap: nowrap;
-  gap: 8px;
   align-items: center;
-  overflow: hidden;
+  gap: 8px;
   width: 100%;
 }
 
-.tag {
+.tag_item {
   padding: 6px 12px;
   border-radius: 12px;
+  background-color: var(--color-background);
   border: 1px solid var(--color-caption);
-  font-size: var(--text-caption-size);
-  font-family: var(--font-body);
-  color: var(--color-text);
-  font-weight: var(--font-regular);
   white-space: nowrap;
-  flex-shrink: 0;
   transition: all 0.2s ease;
 
   &:hover {
@@ -33,43 +28,17 @@
     font-size: 16px;
   }
 
-  &.selected {
-    background-color: var(--color-accent, #007bff);
-    color: white;
-    border-color: var(--color-accent, #007bff);
-  }
+  //&.selected {
+  //  background-color: var(--color-accent, #007bff);
+  //  color: white;
+  //  border-color: var(--color-accent, #007bff);
+  //}
 }
 
-.moreTag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-bg-secondary, #f0f0f0);
-  color: var(--color-text-secondary, #666);
-  font-weight: 500;
-  flex-shrink: 0;
-
-  &.default {
-    min-width: 32px;
-    height: 32px;
-    border-radius: 16px;
-    font-size: 14px;
-    padding: 0 8px;
-  }
-
-  &.small {
-    min-width: 24px;
-    height: 24px;
-    border-radius: 12px;
-    font-size: 12px;
-    padding: 0 6px;
-  }
-
-  &.large {
-    min-width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    font-size: 16px;
-    padding: 0 10px;
-  }
+.button_label {
+  font-size: var(--text-caption-size);
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.02em;
 }

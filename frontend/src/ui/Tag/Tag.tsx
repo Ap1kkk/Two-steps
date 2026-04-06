@@ -1,82 +1,129 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styles from './Tag.module.scss';
-import { Category } from '../../types/route';
 
 type Variant = 'default' | 'small' | 'large' | 'selectable';
 
-interface TagsProps {
-	categories: Category[];
-	selectedIds?: number[];
-	variant?: Variant;
-	className?: string;
-	onCategoryClick?: (id: number) => void;
+interface TagItem {
+	label: string;
+	id?: number | string;
 }
 
-export const Tag: React.FC<TagsProps> = ({
-	categories,
-	selectedIds = [],
-	variant = 'default',
-	className,
-	onCategoryClick,
-}) => {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [visibleCount, setVisibleCount] = useState(categories.length);
+interface TagProps {
+	items: TagItem[] | string[];
+	variant?: Variant;
+	className?: string;
+	selectedIds?: (number | string)[];
+	onTagClick?: (id?: number | string) => void;
+}
 
-	const isSelected = (id: number) => selectedIds.includes(id);
+export const Tag: React.FC<TagProps> = ({
+											items,
+											variant = 'default',
+											className,
+											selectedIds = [],
+											onTagClick,
+										}) => {
+	const containerRef = useRef<HTMLDivElement>(null);
+	const [visibleCount, setVisibleCount] = useState(0);
+
+	// Нормализуем входные данные в массив объектов
+	const normalizeItems = (): TagItem[] => {
+		if (!items) return [];
+
+		if (Array.isArray(items)) {
+			return items.map((item, index) => {
+				if (typeof item === 'string') {
+					return { label: item, id: index };
+				}
+				return item;
+			});
+		}
+
+		if (typeof items === 'string') {
+			return [{ label: items, id: 0 }];
+		}
+
+		return [items];
+	};
+
+	const tagItems = normalizeItems();
+	const isSelected = (id?: number | string) => {
+		if (!id) return false;
+		return selectedIds.includes(id);
+	};
 
 	useEffect(() => {
-		if (!containerRef.current) return;
+		if (!containerRef.current || tagItems.length <= 1) {
+			setVisibleCount(tagItems.length);
+			return;
+		}
 
 		const measure = () => {
 			const container = containerRef.current;
 			if (!container) return;
 
-			const tags = Array.from(container.children) as HTMLElement[];
+			const tagElements = Array.from(container.children) as HTMLElement[];
 			const moreTagWidth = 48;
 			let totalWidth = 0;
 			let visible = 0;
 
-			for (let i = 0; i < tags.length; i++) {
-				const width = tags[i].offsetWidth;
-				const widthWithGap = totalWidth + (totalWidth === 0 ? 0 : 8) + width;
+			for (let i = 0; i < tagElements.length; i++) {
+				const width = tagElements[i].offsetWidth;
+				const gap = totalWidth === 0 ? 0 : 8;
+				const widthWithGap = totalWidth + gap + width;
 
-				if (
-					widthWithGap + (i === tags.length - 1 ? 0 : moreTagWidth) <=
-					container.clientWidth
-				) {
+				const needMoreTagSpace = i !== tagElements.length - 1;
+				const requiredWidth = needMoreTagSpace
+					? widthWithGap + moreTagWidth
+					: widthWithGap;
+
+				if (requiredWidth <= container.clientWidth) {
 					totalWidth = widthWithGap;
 					visible = i + 1;
-				} else break;
+				} else {
+					break;
+				}
 			}
 
-			setVisibleCount(visible || 1);
+			setVisibleCount(Math.max(visible, 1));
 		};
 
-		measure();
+		const timeoutId = setTimeout(measure, 0);
 		window.addEventListener('resize', measure);
-		return () => window.removeEventListener('resize', measure);
-	}, [categories]);
 
-	if (!categories.length) return null;
+		return () => {
+			clearTimeout(timeoutId);
+			window.removeEventListener('resize', measure);
+		};
+	}, [tagItems]);
 
-	const remaining = categories.length - visibleCount;
+	if (tagItems.length === 0) return null;
+
+	const remaining = tagItems.length - visibleCount;
+	const visibleItems = tagItems.slice(0, visibleCount);
+	const hiddenItems = tagItems.slice(visibleCount);
 
 	return (
 		<div
 			ref={containerRef}
-			className={styles.tagsGroup}>
-			{categories.slice(0, visibleCount).map((category) => (
+			className={`${styles.tags_container} ${className || ''}`}
+		>
+			{visibleItems.map((item, index) => (
 				<button
-					key={category.id}
-					className={`${styles.tag} ${styles[variant]} ${
-						isSelected(category.id) ? styles.selected : ''
+					key={item.id ?? index}
+					className={`${styles.tag_item} ${styles[variant]} ${
+						isSelected(item.id) ? styles.selected : ''
 					}`}
-					onClick={() => onCategoryClick?.(category.id)}>
-					{category.name}
+					onClick={() => onTagClick?.(item.id)}
+				>
+					<span className={styles.button_label}> {item.label} </span>
 				</button>
 			))}
 			{remaining > 0 && (
-				<div className={`${styles.moreTag} ${styles[variant]}`}>
+				<div
+					className={`${styles.moreTag} ${styles[variant]}`}
+					title={hiddenItems.map(item => item.label).join(', ')}
+				>
 					+{remaining}
 				</div>
 			)}
