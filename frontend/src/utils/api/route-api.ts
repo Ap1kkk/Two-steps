@@ -1,6 +1,6 @@
 import { CreateRouteData, RouteData, UpdateRouteData } from '../../types/route';
 
-const API_URL = process.env.API_URL;
+const API_URL = process.env.API_URL || 'http://localhost:3001';
 
 export const getAllRoutes = async () => {
 	try {
