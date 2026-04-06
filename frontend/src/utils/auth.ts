@@ -1,15 +1,15 @@
 import { deleteCookie, getCookie, setCookie } from './cookie';
 
-export const getAccessToken = () => getCookie('accessToken');
-export const getRefreshToken = () => localStorage.getItem('refreshToken');
+export const getAccessToken = () => localStorage.getItem('accessToken');
+export const getRefreshToken = () => getCookie('refreshToken');
 export const hasTokens = () => !!getAccessToken() && !!getRefreshToken();
 
-export const storeTokens = (refreshToken: string, accessToken: string) => {
-	localStorage.setItem('refreshToken', String(refreshToken));
-	setCookie('accessToken', String(accessToken));
+export const storeTokens = (accessToken: string, refreshToken: string) => {
+	localStorage.setItem('accessToken', String(accessToken));
+	setCookie('refreshToken', String(refreshToken));
 };
 
 export const clearTokens = () => {
-	localStorage.removeItem('refreshToken');
-	deleteCookie('accessToken');
+	localStorage.removeItem('accessToken');
+	deleteCookie('refreshToken');
 };
