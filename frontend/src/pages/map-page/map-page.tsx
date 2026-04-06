@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RouteData } from '../../types/route';
 import { getMockRouteById, mockRouteKremlin, mockRoutes } from './mockData';
 
 import styles from './map-page.module.scss';
 import { RouteOnMap } from '@components';
+import { RouteData } from '../../types/route';
 
 export const MapPage = () => {
 	const { routeId } = useParams();

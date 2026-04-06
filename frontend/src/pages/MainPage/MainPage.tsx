@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Route } from '../../types/route';
-import styles from './main-page.module.scss';
+import styles from './MainPage.module.scss';
 import { RouteCard, RouteOfTheDay } from '@components';
 
 const LIMIT = 5;
@@ -172,59 +172,53 @@ export const MainPage: React.FC = () => {
 	}
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.mapBackground} />
-
+		<section className={styles.section}>
 			{error && (
 				<div className={styles.errorBanner}>
 					<p>{error}</p>
 				</div>
 			)}
-			<div className={styles.content}>
-				<RouteOfTheDay onNavigate={handleRouteOfTheDay} />
+			{/*<div className={styles.route_day}>*/}
+			{/*	<RouteOfTheDay onNavigate={handleRouteOfTheDay} />*/}
+			{/*</div>*/}
 
-				{popularRoutes.length > 0 && (
-					<section className={styles.section}>
-						<h2 className={styles.sectionTitle}>Популярные маршруты</h2>
-						<div className={styles.routesGrid}>
-							{popularRoutes.map((route) => (
-								<RouteCard
-									key={route.id}
-									route={route}
-									difficultyTranslation={difficultyTranslation}
-									likedRoutes={Object.keys(likedRoutes)
-										.filter((id) => likedRoutes[Number(id)])
-										.map((id) => Number(id))}
-									onToggleLike={handleToggleLike}
-									variant='standard'
-								/>
-							))}
-						</div>
-					</section>
-				)}
+			{popularRoutes.length > 0 && (
+				<div className={styles.container}>
+					<h2 className={styles.title}>Популярные маршруты</h2>
+					<div className={styles.position}>
+						{popularRoutes.map((route) => (
+							<RouteCard
+								key={route.id}
+								route={route}
+								onToggleLike={handleToggleLike}
+								variant='standard'
+							/>
+						))}
+					</div>
+				</div>
+			)}
 
-				{/* Рекомендованные маршруты */}
-				{recommendedRoutes.length > 0 && (
-					<section className={styles.section}>
-						<h2 className={styles.sectionTitle}>Рекомендованные маршруты</h2>
-						<div className={styles.routesGrid}>
-							{recommendedRoutes.map((route) => (
-								<RouteCard
-									key={route.id}
-									route={route}
-									difficultyTranslation={difficultyTranslation}
-									likedRoutes={Object.keys(likedRoutes)
-										.filter((id) => likedRoutes[Number(id)])
-										.map((id) => Number(id))}
-									onToggleLike={handleToggleLike}
-									variant='standard'
-								/>
-							))}
-						</div>
-					</section>
-				)}
-			</div>
-		</div>
+			{/*/!* Рекомендованные маршруты *!/*/}
+			{/*{recommendedRoutes.length > 0 && (*/}
+			{/*	<section className={styles.section}>*/}
+			{/*		<h2 className={styles.sectionTitle}>Рекомендованные маршруты</h2>*/}
+			{/*		<div className={styles.routesGrid}>*/}
+			{/*			{recommendedRoutes.map((route) => (*/}
+			{/*				<RouteCard*/}
+			{/*					key={route.id}*/}
+			{/*					route={route}*/}
+			{/*					difficultyTranslation={difficultyTranslation}*/}
+			{/*					likedRoutes={Object.keys(likedRoutes)*/}
+			{/*						.filter((id) => likedRoutes[Number(id)])*/}
+			{/*						.map((id) => Number(id))}*/}
+			{/*					onToggleLike={handleToggleLike}*/}
+			{/*					variant='standard'*/}
+			{/*				/>*/}
+			{/*			))}*/}
+			{/*		</div>*/}
+			{/*	</section>*/}
+			{/*)}*/}
+		</section>
 	);
 };
 
