@@ -1,0 +1,109 @@
+{
+  "localTime": {
+    "$resolver": "timestamp",
+    "pattern": {
+      "format": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+      "timeZone": "UTC"
+    }
+  },
+  "level": {
+    "$resolver": "level",
+    "field": "name"
+  },
+  "text": {
+    "$resolver": "message",
+    "stringified": true
+  },
+  "extEventId": {
+    "$resolver": "mdc",
+    "key": "extEventId"
+  },
+  "parentId": null,
+  "agrType": "TRACING",
+  "traceId": {
+    "$resolver": "mdc",
+    "key": "trace_id"
+  },
+  "spanId": {
+    "$resolver": "mdc",
+    "key": "span_id"
+  },
+  "parentSpanId": {
+    "$resolver": "mdc",
+    "key": "parentSpanId"
+  },
+  "userId": {
+    "$resolver": "mdc",
+    "key": "userId"
+  },
+  "logicTime": {
+    "$resolver": "mdc",
+    "key": "logicTime"
+  },
+  "stack": {
+    "$resolver": "exception",
+    "field": "stackTrace",
+    "stackTrace": {
+      "stringified": true
+    }
+  },
+  "levelInt": {
+    "$resolver": "level",
+    "field": "severity",
+    "severity": {
+      "field": "code"
+    }
+  },
+  "loggerName": {
+    "$resolver": "logger",
+    "field": "name"
+  },
+  "threadName": {
+    "$resolver": "thread",
+    "field": "name"
+  },
+  "callerClass": {
+    "$resolver": "source",
+    "field": "className"
+  },
+  "callerMethod": {
+    "$resolver": "source",
+    "field": "methodName"
+  },
+  "callerLine": {
+    "$resolver": "source",
+    "field": "lineNumber"
+  },
+  "mdc": {
+    "$resolver": "mdc",
+    "pattern": "(?!envType|extEventId|agrType|span_id|trace_id|parentSpanId|userId|logicTime|status|sessionId).+"
+  },
+  "status": {
+    "$resolver": "mdc",
+    "key": "status"
+  },
+  "remoteUser": {
+    "$resolver": "mdc",
+    "key": "remoteUser"
+  },
+  "request": {
+    "$resolver": "mdc",
+    "key": "request"
+  },
+  "requestTime": {
+    "$resolver": "mdc",
+    "key": "requestTime"
+  },
+  "bodyBytesSent": {
+    "$resolver": "mdc",
+    "key": "bodyBytesSent"
+  },
+  "sessionId": {
+    "$resolver": "mdc",
+    "key": "sessionId"
+  },
+  "tec": {
+    "$resolver": "mdc",
+    "pattern": "(?=zoneId|standName).+"
+  }
+}

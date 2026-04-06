@@ -1,0 +1,88 @@
+server:
+  host: localhost
+  protocol: http
+
+spring:
+  application:
+    name: two-steps
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${spring.datasource.database.host}:${spring.datasource.database.port}/${spring.datasource.database.name}
+    password: ${POSTGRES_PASSWORD:postgres}
+    username: ${POSTGRES_USER:postgres}
+    database:
+      host: ${POSTGRES_HOST:localhost}
+      port: 5432
+      name: ${POSTGRES_DB:two-steps}
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db/migration/db.changelog-main.yaml
+    default-schema: public
+
+  jackson:
+    default-property-inclusion: non_null
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+#    show-sql: true
+#    properties:
+#      hibernate.format_sql: true
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+mvc:
+  date-format: "yyyy-MM-dd"
+  resource-location: "/uploads/"
+  resource-path-pattern: "/static/image/**"
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437}
+  cors:
+    allowed-origin: ${server.protocol}://${server.host}:3000
+
+clients:
+  analytics:
+    url: ${server.protocol}://${server.host}:8000/analytics
+
+management:
+  endpoints:
+    web.exposure.include: health,info,prometheus,heapdump,threaddump,loggers,refresh
+  endpoint:
+    health:
+      probes.enabled: true
+      show-details: always
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+    tags:
+      application: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  health:
+    audit:
+      kafka:
+        enabled: false
+
+logging:
+  level:
+    feign: DEBUG
+    root: INFO
+    ru.gorkycode.ngtu.sportline: DEBUG
+  http-logging:
+    enabled: true
+    exclude: /actuator/prometheus,/actuator/health

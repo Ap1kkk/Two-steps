@@ -1,0 +1,4 @@
+databaseChangeLog:
+
+  - includeAll:
+      path: db/migration/2026/

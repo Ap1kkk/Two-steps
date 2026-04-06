@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+        <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+        <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd'T'HH:mm:ss.SSSXXX</Property>
+        <Property name="CONSOLE_LOG_PATTERN">%clr{%d{${sys:LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${sys:LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{--- %esb{${sys:APPLICATION_NAME:-}}%esb{${sys:APPLICATION_GROUP:-}}[%15.15t] [%X{traceId},%X{spanId}] ${sys:LOG_CORRELATION_PATTERN:-}}{faint}%clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}
+        </Property>
+
+        <Property name="LOG_FILE_PATH">/var/log/backend/application.log</Property>
+        <Property name="LOG_ARCHIVE">/var/log/backend/archive/application-%d{yyyy-MM-dd}-%i.log.gz</Property>
+        <Property name="APP_NAME">two-steps-backend</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 1. Консоль (цветная, удобная для разработки) -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${CONSOLE_LOG_PATTERN}" disableAnsi="false"/>
+        </Console>
+
+        <!-- 2. JSON в файл с ротацией (главный аппендер для Vector + Loki) -->
+        <RollingFile name="JSONFile"
+                     fileName="${LOG_FILE_PATH}"
+                     filePattern="${LOG_ARCHIVE}">
+
+            <JsonTemplateLayout eventTemplateUri="classpath:log-template.json"/>
+
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+
+        <!-- Асинхронные обёртки (чтобы логи не тормозили приложение) -->
+        <Async name="AsyncConsole">
+            <AppenderRef ref="Console"/>
+        </Async>
+
+        <Async name="AsyncJSONFile">
+            <AppenderRef ref="JSONFile"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="AsyncConsole"/>
+            <AppenderRef ref="AsyncJSONFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

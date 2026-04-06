@@ -1,5 +1,12 @@
 # Ignoring .env files
 frontend/.env
+.env
+
+/grafana-data
+/loki-data
+/postgres-data
+/victoria-metrics-data
+/logs
 
 # Ignoring virtual environment
 /backend/analytics/venv/

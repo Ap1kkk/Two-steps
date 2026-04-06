@@ -1,19 +1,18 @@
-FROM node:lts-alpine3.20 as build
+# Этап 1: Сборка приложения
+FROM node:24-alpine as build
 
-WORKDIR /app/src
+WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . ./
 RUN npm run build
 
-FROM node:lts-alpine3.20
+# Этап 2: Запуск с nginx
+FROM nginx:stable-alpine3.23
 
-WORKDIR /app
-RUN ls
-COPY --from=build /app/src/build ./
-CMD node server/server.mjs
+# Копируем собранные файлы из этапа build
+COPY --from=build /app/dist /usr/share/nginx/html
 
-FROM nginx:stable-alpine3.19
+EXPOSE 80
 
-COPY --from=build /app/src/build /usr/share/nginx/html
-#LABEL org.opencontainers.image.source=https://github.com/Ap1kkk/Sport-Line
+CMD ["nginx", "-g", "daemon off;"]
