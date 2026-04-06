@@ -178,9 +178,9 @@ export const MainPage: React.FC = () => {
 					<p>{error}</p>
 				</div>
 			)}
-			{/*<div className={styles.route_day}>*/}
-			{/*	<RouteOfTheDay onNavigate={handleRouteOfTheDay} />*/}
-			{/*</div>*/}
+			<div className={styles.route_day}>
+				<RouteOfTheDay onNavigate={handleRouteOfTheDay} />
+			</div>
 
 			{popularRoutes.length > 0 && (
 				<div className={styles.container}>

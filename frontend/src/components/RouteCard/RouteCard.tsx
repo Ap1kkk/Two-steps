@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './route-card.module.scss';
 import { Tag } from '@ui';
 import { Route } from '../../types/route';
 
 import like from '../../assets/icons/like.svg';
 import likeActive from '../../assets/icons/like-green.svg';
 
-type Difficulty = 'easy' | 'medium' | 'hard' | 'extreme';
+import styles from './RouteCard.module.scss';
 
 interface RouteCardProps {
 	route: Route;
-	difficultyTranslation?: Record<Difficulty, string>;
-	likedRoutes?: number[];
+	tags?: string[];
 	onToggleLike?: (id: number) => void;
 	variant?: 'standard' | 'compact';
-	baseUrl?: string;
 }
 
 export const RouteCard: React.FC<RouteCardProps> = ({
 	route,
-	likedRoutes = [],
+	tags,
 	onToggleLike,
 	variant = 'standard',
-	baseUrl = '',
 }) => {
 	const [isAnimating, setIsAnimating] = useState(false);
 
@@ -34,57 +30,45 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 		return `${distance} м`;
 	};
 
-	const isLiked = likedRoutes.includes(route.id);
-
 	const handleLikeClick = (e: React.MouseEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		setIsAnimating(true);
 		setTimeout(() => setIsAnimating(false), 400);
-
 		onToggleLike?.(route.id);
 	};
 
+	const getTagsToShow = (): string[] => {
+		if (tags && tags.length > 0) return tags;
+		if (route.categories && route.categories.length > 0) {
+			return route.categories.map(cat => cat.name);
+		}
+		return [];
+	};
+
+
 	if (variant === 'standard') {
 		return (
-			<div className={styles.routeCard}>
-				<Link to={`/map/${route.id}`} className={styles.routeLink}>
+			<div className={styles.route_card}>
+				<Link to={`/map/${route.id}`} className={styles.route_link}>
 					<img
-						src={`${baseUrl}${route.imagePath}`}
+						src={route.imagePath}
 						alt={route.name}
-						className={styles.routeImage}
+						className={styles.route_image}
 						loading='lazy'
 					/>
 				</Link>
-
-				{onToggleLike && (
-					<button
-						className={`${styles.likeButton} ${isLiked ? styles.liked : ''} ${
-							isAnimating ? styles.animating : ''
-						}`}
-						onClick={handleLikeClick}
-						aria-label={
-							isLiked ? 'Убрать из избранного' : 'Добавить в избранное'
-						}>
-						<img
-							src={isLiked ? likeActive : like}
-							alt={isLiked ? 'Убрать из избранного' : 'Добавить в избранное'}
-							className={styles.likeIcon}
-						/>
-					</button>
-				)}
-
-				<div className={styles.routeContent}>
-					<Link to={`/map/${route.id}`} className={styles.routeLink}>
+				<div className={styles.route_content}>
+					<Link to={`/map/${route.id}`} className={styles.route_link}>
 						{route.name}
 					</Link>
-					<span className={styles.distance}>
+					<span className={styles.route_distance}>
 						Расстояние: {formatDistance(route.distance)}
 					</span>
-					{route.categories && route.categories.length > 0 && (
-						<div className={styles.tagsWrapper}>
-							<Tag categories={route.categories} variant='small' />
+					{getTagsToShow().length > 0 && (
+						<div className={styles.route_tags}>
+							<Tag items={getTagsToShow()} variant='small' />
 						</div>
 					)}
 				</div>
@@ -98,7 +82,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 				<Link to={`/map/${route.id}`} className={styles.compactLink}>
 					<div className={styles.compactCardInner}>
 						<img
-							src={`${baseUrl}${route.imagePath}`}
+							src={route.imagePath}
 							alt={route.name}
 							className={styles.compactImage}
 							loading='lazy'
@@ -108,21 +92,23 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 							<p className={styles.compactDistance}>
 								{formatDistance(route.distance)}
 							</p>
+							{getTagsToShow().length > 0 && (
+								<div className={styles.compactTags}>
+									<Tag
+										items={getTagsToShow()}
+										variant='small'
+									/>
+								</div>
+							)}
 						</div>
 						{onToggleLike && (
 							<button
-								className={`${styles.compactLikeButton} ${
-									isLiked ? styles.liked : ''
-								} ${isAnimating ? styles.animating : ''}`}
+								className={styles.compactLikeButton}
 								onClick={handleLikeClick}
-								aria-label={
-									isLiked ? 'Убрать из избранного' : 'Добавить в избранное'
-								}>
+								aria-label='Добавить в избранное'>
 								<img
-									src={isLiked ? likeActive : like}
-									alt={
-										isLiked ? 'Убрать из избранного' : 'Добавить в избранное'
-									}
+									src={like}
+									alt='Добавить в избранное'
 									className={styles.likeIcon}
 								/>
 							</button>

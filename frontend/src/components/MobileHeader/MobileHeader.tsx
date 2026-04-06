@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import userExample from '../../assets/images/avatarProfile/avatar1.png';
-import { ReactComponent as Search } from '../../assets/icons/search.svg';
 import { ReactComponent as Cross } from '../../assets/icons/cross.svg';
 import { ReactComponent as Compass } from '../../assets/images/compass.svg';
 import { ReactComponent as Dumbbells } from '../../assets/icons/dumbells-small.svg';
 import { ReactComponent as Global } from '../../assets/icons/global-small.svg';
-import { ReactComponent as Moon } from '../../assets/icons/moon.svg';
-import { ReactComponent as Sun } from '../../assets/icons/sun.svg';
 
 import styles from './MobileHeader.module.scss';
 import { Button } from '@ui';

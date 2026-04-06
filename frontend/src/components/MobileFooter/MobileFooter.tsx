@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Avatar } from '@ui';
-import { MobileSettingsModal } from '../MobileSettingsModal';
 
 import { ReactComponent as Home } from '../../assets/icons/home.svg';
 import { ReactComponent as Search } from '../../assets/icons/search.svg';
 import { ReactComponent as Like } from '../../assets/icons/like.svg';
 
 import styles from './MobileFooter.module.scss';
+import { MobileSettingsModal } from '../MobileSettingsModal/MobileSettingsModal';
 
 export const MobileFooter = () => {
 	const navigate = useNavigate();
