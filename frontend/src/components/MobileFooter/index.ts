@@ -1,0 +1,1 @@
+export { MobileFooter } from './MobileFooter';

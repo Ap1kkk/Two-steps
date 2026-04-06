@@ -1,0 +1,33 @@
+.mobileFooter {
+  background-color: var(--color-background);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: 10px 25px;
+  z-index: 10;
+}
+
+.navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 5px;
+}
+
+.navItem {
+  text-decoration: none;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body-size-mobile);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .avatar {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
