@@ -1,124 +1,75 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Input } from "../UI/input/input";
-import { Text } from "../UI/text/Text";
 import styles from './authorization-form.module.scss';
-import {Button} from "../UI/button/button";
+import { Button, Input } from '@ui';
 
 interface AuthorizationFormProps {
-    formData: {
-        email: string;
-        password: string;
-    };
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    isFormValid: boolean;
-    isLoading?: boolean;
-    error?: string | null;
+	formData: {
+		email: string;
+		password: string;
+	};
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+	isFormValid: boolean;
+	isLoading?: boolean;
+	error?: string | null;
 }
 
 export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
-    formData,
-    onChange,
-    onSubmit,
-    isFormValid,
-    isLoading = false,
-    error = null,
-    }) => {
-    return (
-        <main className={styles.container}>
-            <Text
-                as={'h1'}
-                weight={500}
-                family={'yandex'}
-                size={24}
-                align={'center'}
-                className={styles.title}
-            >
-                Вход в профиль
-            </Text>
+	formData,
+	onChange,
+	onSubmit,
+	isFormValid,
+	isLoading = false,
+	error = null,
+}) => {
+	return (
+		<main className={styles.container}>
+			<h2 className={styles.title}>Вход в профиль</h2>
 
-            {error && (
-                <Text
-                    as="p"
-                    family="yandex"
-                    align="center"
-                    className={styles.error}
-                >
-                    {error}
-                </Text>
-            )}
+			{error && <p className={styles.error}>{error}</p>}
 
-            <form className={styles.form} onSubmit={onSubmit}>
-                <Input
-                    type={'email'}
-                    name="email"
-                    label={'Email'}
-                    value={formData.email}
-                    onChange={onChange}
-                    required={true}
-                    fullWidth={true}
-                    placeholder={'example@mail.com'}
-                />
+			<form className={styles.form} onSubmit={onSubmit}>
+				<Input
+					type={'email'}
+					name='email'
+					label={'Email'}
+					value={formData.email}
+					onChange={onChange}
+					required={true}
+					placeholder={'example@mail.com'}
+				/>
 
-                <Input
-                    type={'password'}
-                    name="password"
-                    label={'Пароль'}
-                    value={formData.password}
-                    onChange={onChange}
-                    required={true}
-                    fullWidth={true}
-                    placeholder={'Введите пароль'}
-                />
+				<Input
+					type={'password'}
+					name='password'
+					label={'Пароль'}
+					value={formData.password}
+					onChange={onChange}
+					required={true}
+					placeholder={'Введите пароль'}
+				/>
 
-                <Button
-                    disabled={!isFormValid || isLoading}
-                    type='submit'
-                    fullWidth={true}
-                    variant="primary"
-                >
-                    <Text
-                        as={'text'}
-                        weight={400}
-                        family={'yandex'}
-                        size={14}
-                        children={isLoading ? 'Вход...' : 'Войти'}
-                    />
-                </Button>
-            </form>
+				<Button
+					disabled={!isFormValid || isLoading}
+					type='submit'
+					variant='primary'>
+					<p children={isLoading ? 'Вход...' : 'Войти'} />
+				</Button>
+			</form>
 
-            <div className={styles.links}>
-                <Link to='/forgot-password' className={styles.link}>
-                    <Text
-                        as={'span'}
-                        weight={400}
-                        family={'yandex'}
-                    >
-                        Забыли пароль?
-                    </Text>
-                </Link>
+			<div className={styles.links}>
+				<Link to='/forgot-password' className={styles.link}>
+					<span>Забыли пароль?</span>
+				</Link>
 
-                <div className={styles.register}>
-                    <Text
-                        as={'span'}
-                        weight={400}
-                        family={'yandex'}
-                        className={styles.register__text}
-                    >
-                        Нет аккаунта?
-                    </Text>
-                    <Link to='/register' className={styles.link}>
-                        <Text
-                            as={'a'}
-                            weight={400}
-                            family={'yandex'}
-                        >
-                            Зарегистрироваться
-                        </Text>
-                    </Link>
-                </div>
-            </div>
-        </main>
-    );
+				<div className={styles.register}>
+					<p className={styles.register__text}>Нет аккаунта?</p>
+					<Link to='/register' className={styles.link}>
+						<span>Зарегистрироваться</span>
+					</Link>
+				</div>
+			</div>
+		</main>
+	);
 };

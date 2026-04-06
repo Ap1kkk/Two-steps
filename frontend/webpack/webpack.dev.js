@@ -1,5 +1,6 @@
 const path = require('path');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 	mode: 'development',
@@ -12,5 +13,12 @@ module.exports = {
 		open: true,
 		hot: true,
 	},
-	plugins: [new ReactRefreshWebpackPlugin()],
+	plugins: [
+		new ReactRefreshWebpackPlugin(),
+		new Dotenv({
+			path: './.env', // путь к файлу .env
+			safe: false, // не проверять наличие всех переменных
+			systemvars: true, // брать из системы если нет в .env
+		}),
+	],
 };

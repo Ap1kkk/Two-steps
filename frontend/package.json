@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "fe",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -14,15 +14,13 @@
     "server": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
-    "@types/json-server": "^0.14.8",
     "clsx": "^2.1.0",
+    "dotenv-webpack": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.3",
-    "redux": "^5.0.1",
-    "redux-thunk": "^3.1.0",
-    "webpack-merge": "^6.0.1"
+    "redux": "^5.0.1"
   },
   "devDependencies": {
     "@pbe/react-yandex-maps": "^1.2.5",
@@ -31,6 +29,7 @@
     "@svgr/webpack": "^8.0.1",
     "@types/chai": "^5.2.3",
     "@types/cypress": "^0.1.6",
+    "@types/json-server": "^0.14.8",
     "@types/mocha": "^10.0.10",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
@@ -62,6 +61,7 @@
     "prettier": "^2.8.8",
     "react-refresh": "^0.14.0",
     "react-slider": "^2.0.6",
+    "redux-thunk": "^3.1.0",
     "redux-toolkit": "^1.1.2",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.97.3",
@@ -76,7 +76,8 @@
     "url-loader": "^4.1.1",
     "webpack": "5.104.1",
     "webpack-cli": "^5.0.2",
-    "webpack-dev-server": "^5.2.3"
+    "webpack-dev-server": "^5.2.3",
+    "webpack-merge": "^6.0.1"
   },
   "eslintConfig": {
     "extends": [

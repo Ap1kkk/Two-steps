@@ -12,10 +12,6 @@ export interface Route {
 	categories: Category[];
 }
 
-export type DifficultyTranslation = {
-	[key in Route['difficulty']]: string;
-};
-
 export interface Checkpoint {
 	latitude: number;
 	longitude: number;
@@ -29,6 +25,23 @@ export interface RouteData {
 	difficulty: string;
 	checkpoints: Checkpoint[];
 	categories?: Category[];
+}
+
+export interface CreateRouteData {
+	nameRoute: string;
+	distance: number;
+	difficulty: string;
+	checkpoints: Checkpoint[];
+	categories?: number[];
+}
+
+export interface UpdateRouteData {
+	id?: number;
+	nameRoute?: string;
+	distance?: number;
+	difficulty?: string;
+	checkpoints?: Checkpoint[];
+	categories?: number[];
 }
 
 export interface RouteMapProps {

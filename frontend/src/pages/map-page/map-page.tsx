@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { RouteData } from '../../types/route';
 import { getMockRouteById, mockRouteKremlin, mockRoutes } from './mockData';
-import { Text } from '../../components/UI';
 
 import styles from './map-page.module.scss';
-import { RouteMap } from '@components';
+import { RouteOnMap } from '@components';
+import { RouteData } from '../../types/route';
 
 export const MapPage = () => {
 	const { routeId } = useParams();
@@ -88,9 +87,7 @@ export const MapPage = () => {
 
 	return (
 		<div className={styles.container}>
-			<Text as={'h1'} size={26} weight={700} family={'yandex'} align={'center'}>
-				{routeData?.nameRoute}
-			</Text>
+			<h1>{routeData?.nameRoute}</h1>
 
 			<div className={styles.routeInfo}>
 				<div className={styles.infoCard}>
@@ -140,7 +137,7 @@ export const MapPage = () => {
 			)}
 
 			<div className={styles.mapWrapper}>
-				<RouteMap
+				<RouteOnMap
 					key={routeData?.id}
 					routeData={routeData}
 					userLocation={userLocation}

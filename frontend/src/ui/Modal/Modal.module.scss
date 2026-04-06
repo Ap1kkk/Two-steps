@@ -1,0 +1,52 @@
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+	animation: fadeIn 0.2s ease;
+}
+
+.modal {
+	background-color: var(--color-card);
+	border-radius: 12px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	position: relative;
+	animation: slideIn 0.3s ease;
+	padding: 24px;
+}
+
+.closeButton {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	transition: all 0.2s ease;
+
+	&:hover {
+		color: var(--color-caption);
+		transform: scale(1.1);
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	img {
+		width: 24px;
+		height: 24px;
+	}
+}

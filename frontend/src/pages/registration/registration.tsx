@@ -5,9 +5,9 @@ import { register } from '../../services/slices/userSlice/userSlice';
 import {
 	selectIsLoading,
 	selectRegisterError,
-	selectIsAuthenticated
+	selectIsAuthenticated,
 } from '../../services/selectors/userSelectors';
-import RegisterForm from "../../components/register-form/register-form";
+import RegisterForm from '../../components/register-form/register-form';
 
 export const Registration = () => {
 	const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const Registration = () => {
 		username: '',
 		email: '',
 		password: '',
-		confirmPassword: ''
+		confirmPassword: '',
 	});
 
 	const isLoading = useSelector(selectIsLoading);
@@ -36,18 +36,18 @@ export const Registration = () => {
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-		setFormData(prev => ({
+		setFormData((prev) => ({
 			...prev,
-			[name]: value
+			[name]: value,
 		}));
 	};
 
 	const isFormValid = Boolean(
 		formData.username &&
-		formData.email &&
-		formData.password &&
-		formData.confirmPassword &&
-		formData.password === formData.confirmPassword
+			formData.email &&
+			formData.password &&
+			formData.confirmPassword &&
+			formData.password === formData.confirmPassword
 	);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,20 +57,22 @@ export const Registration = () => {
 			return;
 		}
 
-		dispatch(register({
-			username: formData.username,
-			email: formData.email,
-			password: formData.password,
-			role: 'USER',
-		}));
+		dispatch(
+			register({
+				username: formData.username,
+				email: formData.email,
+				password: formData.password,
+				role: 'USER',
+			})
+		);
 	};
 
 	const errorMessage = error
 		? typeof error === 'object' && 'message' in error
 			? error.message
 			: typeof error === 'string'
-				? error
-				: 'Ошибка регистрации'
+			? error
+			: 'Ошибка регистрации'
 		: null;
 
 	return (
@@ -79,7 +81,7 @@ export const Registration = () => {
 				username: formData.username,
 				email: formData.email,
 				password: formData.password,
-				confirmPassword: formData.confirmPassword
+				confirmPassword: formData.confirmPassword,
 			}}
 			onChange={handleChange}
 			onSubmit={handleSubmit}

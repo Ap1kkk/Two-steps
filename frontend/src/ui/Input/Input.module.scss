@@ -1,0 +1,115 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.label {
+	font-family: var(--font-body);
+	font-size: var(--text-body-size, 16px);
+	font-weight: var(--font-medium, 500);
+	color: var(--color-text, #253017);
+}
+
+.input-wrapper {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background-color: var(--color-card, #fff);
+	border: 1px solid var(--color-caption, #69735d);
+	border-radius: 12px;
+	padding: 12px 20px;
+	transition: all 0.2s ease;
+
+	&:hover {
+		border-color: var(--color-accent, #abd27a);
+	}
+
+	&:focus-within {
+		border-color: var(--color-accent, #abd27a);
+		outline: 2px solid var(--color-button-hover, #deecb5);
+	}
+
+	&.error {
+		border-color: var(--color-error, #bf3920);
+	}
+
+	&.error:focus-within {
+		outline-color: var(--color-alarm, #e0796e);
+	}
+}
+
+.input {
+	flex: 1;
+	padding: 0;
+	font-family: var(--font-body, Roboto-Regular, sans-serif);
+	font-size: var(--text-body-size, 16px);
+	color: var(--color-text, #253017);
+	background: transparent;
+	border: none;
+	outline: none;
+
+	&::placeholder {
+		color: var(--color-disabled-text, #9ca197);
+	}
+
+	&:disabled {
+		background-color: var(--color-disabled, #e4e8df);
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+}
+
+.icon-left,
+.icon-right {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	color: var(--color-toggle, #b2b9a9);
+}
+
+.passwordToggle {
+	display: flex;
+	align-items: center;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	font-size: var(--text-body-size);
+	pointer-events: auto;
+
+	&:focus-visible {
+		outline: 2px solid var(--color-caption);
+		border-radius: 12px;
+	}
+}
+
+.eyes {
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+}
+
+.helperText {
+	font-size: var(--text-caption-size);
+	color: var(--color-caption);
+	margin: 0;
+}
+
+.errorText {
+	font-size: var(--text-caption-size);
+	color: var(--color-alarm);
+	margin: 0;
+}
+
+.error-message {
+	font-family: var(--font-body);
+	font-size: var(--text-caption-size);
+	color: var(--color-error);
+	margin: 0;
+}

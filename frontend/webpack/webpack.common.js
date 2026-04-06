@@ -80,11 +80,11 @@ module.exports = {
 		],
 		alias: {
 			'@fonts': path.resolve(__dirname, '..', './src/assets/fonts'),
-			'@styles': path.resolve(__dirname, '..', './src/assets/styles'),
+			'@icons': path.resolve(__dirname, '..', './src/assets/icons'),
 			'@images': path.resolve(__dirname, '..', './src/assets/images'),
 			'@components': path.resolve(__dirname, '..', './src/components'),
-			'@UI': path.resolve(__dirname, '..', './src/components/UI'),
 			'@pages': path.resolve(__dirname, '..', './src/pages'),
+			'@ui': path.resolve(__dirname, '..', './src/ui'),
 			'@selectors': path.resolve(__dirname, '..', './src/services/selectors'),
 			'@slices': path.resolve(__dirname, '..', './src/services/slices'),
 			'@store': path.resolve(__dirname, '..', './src/services/store'),
