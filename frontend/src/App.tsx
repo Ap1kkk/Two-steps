@@ -5,9 +5,10 @@ import {
 	Admin_workbench,
 	Authorization,
 	EditProfilePage,
+	Error500Page,
 	MainPage,
 	MapPage,
-	Preferences,
+	NotFoundPage,
 	ProfilePage,
 	Recommendation,
 	Registration,
@@ -17,14 +18,22 @@ import {
 	UserLikeRouts,
 } from '@pages';
 import PopularRouts from './pages/PopularRouts/PopularRouts';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import { Settings } from './components/Settings/Settings';
+
+function checkAuth(): boolean {
+	const token = localStorage.getItem('accessToken');
+	return !!token;
+}
 
 export const router = createBrowserRouter([
 	{
 		element: <Layout />,
+		errorElement: <Error500Page />,
 		children: [
 			{
 				path: '/',
-				element: <Navigate to='/main_page' replace />,
+				element: <Navigate to='/routie' replace />,
 			},
 			{
 				path: '/login',
@@ -35,64 +44,73 @@ export const router = createBrowserRouter([
 				element: <Registration />,
 			},
 			{
-				path: '/registration/preferences',
-				element: <Preferences />,
+				element: <ProtectedRoute isAuthenticated={true} />,
+				children: [
+					{
+						path: '/admin',
+						element: <Admin_workbench />,
+					},
+					{
+						path: '/routie',
+						element: <MainPage />,
+					},
+					{
+						path: 'recommendation',
+						element: <Recommendation />,
+					},
+					{
+						path: '/popular',
+						element: <PopularRouts />,
+					},
+					{
+						path: '/search_page',
+						element: <SearchRouts />,
+					},
+					{
+						path: '/history',
+						element: <UserHistory />,
+					},
+					{
+						path: '/map/:routeId',
+						element: <MapPage />,
+					},
+					{
+						path: '/favourites',
+						element: <UserLikeRouts />,
+					},
+					{
+						path: '/history',
+						element: <UserHistory />,
+					},
+					{
+						path: '/settings',
+						element: <Settings />,
+					},
+					{
+						path: '/profile',
+						element: <ProfilePage />,
+					},
+					{
+						path: '/profile/statistic',
+						element: <StatisticsPage />,
+					},
+					{
+						path: '/profile/achievement',
+						element: <AchievementsPage />,
+					},
+					{
+						path: '/profile/history',
+						element: <UserHistory />,
+					},
+					{
+						path: '/profile/edit',
+						element: <EditProfilePage />,
+					},
+				],
 			},
 			{
-				path: '/admin',
-				element: <Admin_workbench />,
-			},
-			{
-				path: '/main_page',
-				element: <MainPage />,
-			},
-			{
-				path: '/main_page/recomendation',
-				element: <Recommendation />,
-			},
-			{
-				path: '/main_page/popular',
-				element: <PopularRouts />,
-			},
-			{
-				path: '/main_page/search_page',
-				element: <SearchRouts />,
-			},
-			{
-				path: '/main_page/history',
-				element: <UserHistory />,
-			},
-			{
-				path: '/map/:routeId',
-				element: <MapPage />,
-			},
-			{
-				path: '/favourites',
-				element: <UserLikeRouts />,
-			},
-			{
-				path: '/history',
-				element: <UserHistory />,
-			},
-			{
-				path: '/profile_page',
-				element: <ProfilePage />,
-			},
-			{
-				path: '/profile_page/statistics_page',
-				element: <StatisticsPage />,
-			},
-			{
-				path: '/profile_page/achievements_page',
-				element: <AchievementsPage />,
-			},
-			{
-				path: '/profile_page/route_history_page',
-				element: <UserHistory />,
-			},
-			{
-				path: '/profile_page/edit_profile_page',
-				element: <EditProfilePage />,
+				path: '*',
+				element: <NotFoundPage />,
 			},
 		],
 	},
