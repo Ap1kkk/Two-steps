@@ -51,7 +51,7 @@ export const MobileHeader = () => {
 		return (
 			<header className={styles.header}>
 				<nav className={styles.navigation_auth}>
-					<Link to='/' className={styles.logoContainer}>
+					<Link to='/routie' className={styles.logoContainer}>
 						<Compass
 							className={
 								isLightTheme
@@ -65,7 +65,7 @@ export const MobileHeader = () => {
 						type={'button'}
 						variant={'tertiary'}
 						iconRight={<Cross />}
-						onClick={() => navigate('/', { replace: true })}
+						onClick={() => navigate('/routie', { replace: true })}
 						children={'Закрыть'}
 						className={styles.closeButton}
 					/>
@@ -84,7 +84,7 @@ export const MobileHeader = () => {
 					children={currentText}
 					className={styles.resetPadding}
 				/>
-				<Link to='/' className={styles.logoContainer}>
+				<Link to='/routie' className={styles.logoContainer}>
 					<Compass
 						width={24}
 						height={24}

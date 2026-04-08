@@ -1,34 +1,102 @@
-.mobileFooter {
-  background-color: var(--color-background);
-  position: fixed;
+.footer {
+  position: relative;
   width: 100%;
+  height: 70px;
   bottom: 0;
   left: 0;
-  padding: 10px 25px;
-  z-index: 12;
+}
+
+.footerWrapper {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  overflow: hidden;
+  border-radius: 34px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow:
+          0 6px 12px rgba(0, 0, 0, 0.15),
+          0 0 40px rgba(255, 255, 255, 0.05);
+  background: transparent;
+  border: 1px solid var(--color-card);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .navigation {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 5px;
-}
-
-.navItem {
-  text-decoration: none;
-  color: var(--color-text);
-  font-family: var(--font-body);
-  font-size: var(--text-body-size-mobile);
-  font-weight: var(--font-regular);
-  letter-spacing: 0.01em;
+  position: relative;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 5px;
+}
 
-  .avatar {
-    width: 24px !important;
-    height: 24px !important;
+.indicator {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 55px;
+  border-radius: 32px;
+  background: var(--color-align-content);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.link {
+  position: relative;
+  display: grid;
+  grid-template-rows: 32px 18px;
+  justify-items: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 32px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text);
+  flex: 1;
+
+  &:nth-child(4) {
+    width: 75px;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    transition: all 0.25s ease;
+
+    path {
+      transition: all 0.25s ease;
+    }
   }
 }
 
+.title {
+  font-size: 10px;
+  font-family: var(--font-body);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+  transition: all 0.2s ease;
+}
 
+.avatar {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

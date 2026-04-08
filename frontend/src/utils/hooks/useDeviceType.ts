@@ -3,16 +3,20 @@ import { useState, useEffect } from 'react';
 type DeviceType = 'mobile' | 'desktop';
 
 export const useDeviceType = () => {
-	const [deviceType, setDeviceType] = useState<DeviceType>('desktop');
+	const getInitialDeviceType = (): DeviceType => {
+		if (typeof window !== 'undefined') {
+			return window.innerWidth <= 925 ? 'mobile' : 'desktop';
+		}
+		return 'desktop';
+	};
+
+	const [deviceType, setDeviceType] =
+		useState<DeviceType>(getInitialDeviceType);
 
 	useEffect(() => {
 		const checkDevice = () => {
 			const width = window.innerWidth;
-			if (width <= 925) {
-				setDeviceType('mobile');
-			} else {
-				setDeviceType('desktop');
-			}
+			setDeviceType(width <= 925 ? 'mobile' : 'desktop');
 		};
 
 		checkDevice();

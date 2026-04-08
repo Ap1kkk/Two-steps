@@ -17,7 +17,7 @@ export const Footer = () => {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.container}>
-				<Link to='/' className={styles.logoContainer}>
+				<Link to='/routie' className={styles.logoContainer}>
 					<Compass
 						className={
 							isLightTheme ? styles.logoLight : styles.logoDark
