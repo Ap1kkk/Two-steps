@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getMockRouteById, mockRouteKremlin, mockRoutes } from './mockData';
+import { getMockRouteById, mockRouteKremlin, mockRoutes } from '../../types/mockData';
 
-import styles from './map-page.module.scss';
+import styles from './MapPage.module.scss';
 import { RouteOnMap } from '@components';
-import { RouteData } from '../../types/route';
+import { Route } from '../../types/route';
 
 export const MapPage = () => {
 	const { routeId } = useParams();
 	const navigate = useNavigate();
 
-	const [routeData, setRouteData] = useState<RouteData | null>(null);
+	const [routeData, setRouteData] = useState<Route | null>(null);
 	const [userLocation, setUserLocation] = useState<[number, number] | null>(
 		null
 	);
@@ -60,7 +60,7 @@ export const MapPage = () => {
 					setError(`Маршрут с ID ${id} не найден`);
 				}
 
-				console.log('Route data loaded:', mockData.nameRoute);
+				console.log('Route data loaded:', mockData.name);
 				setRouteData(mockData);
 			} catch (err) {
 				console.error('Error loading route:', err);
@@ -87,7 +87,7 @@ export const MapPage = () => {
 
 	return (
 		<div className={styles.container}>
-			<h1>{routeData?.nameRoute}</h1>
+			<h1>{routeData?.name}</h1>
 
 			<div className={styles.routeInfo}>
 				<div className={styles.infoCard}>
@@ -104,18 +104,6 @@ export const MapPage = () => {
 				</div>
 
 				<div className={styles.infoCard}>
-					<div className={styles.infoIcon}>⚡</div>
-					<div className={styles.infoContent}>
-						<span className={styles.infoLabel}>Сложность</span>
-						<span className={`${styles.infoValue}`}>
-							{routeData?.difficulty === 'EASY' && 'Легкий'}
-							{routeData?.difficulty === 'MEDIUM' && 'Средний'}
-							{routeData?.difficulty === 'HARD' && 'Сложный'}
-						</span>
-					</div>
-				</div>
-
-				<div className={styles.infoCard}>
 					<div className={styles.infoIcon}>📌</div>
 					<div className={styles.infoContent}>
 						<span className={styles.infoLabel}>Точек маршрута</span>
@@ -126,9 +114,9 @@ export const MapPage = () => {
 				</div>
 			</div>
 
-			{routeData?.categories && routeData.categories.length > 0 && (
+			{routeData?.tags && routeData.tags.length > 0 && (
 				<div className={styles.categories}>
-					{routeData.categories.map((category, index) => (
+					{routeData.tags.map((category, index) => (
 						<span key={index} className={styles.categoryTag}>
 							{category.name}
 						</span>
@@ -161,7 +149,7 @@ export const MapPage = () => {
 					<option value=''>Выберите маршрут</option>
 					{mockRoutes.map((route) => (
 						<option key={route.id} value={route.id}>
-							{route.nameRoute} ({(route.distance / 1000).toFixed(1)} км)
+							{route.name} ({(route.distance / 1000).toFixed(1)} км)
 						</option>
 					))}
 				</select>

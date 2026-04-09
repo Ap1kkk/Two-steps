@@ -1,4 +1,3 @@
-// pages/RouteList/RoutesList.tsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@store';
@@ -10,47 +9,54 @@ import {
 	removeRoute,
 	clearMessages,
 	clearCurrentRoute,
-	fetchRoutesByCategory,
-	fetchRoutesByDifficulty,
+	fetchRoutesByTag,
+	fetchRoutesByDistanceRange,
+	searchRoutesThunk,
+	clearRoutes,
+	resetRoutesState,
+	setPage,
+	setLimit,
 } from '../../services/slices/routeSlice/routeSlice';
-import { CreateRouteData, UpdateRouteData } from '../../types/route';
+import { CreateRouteData, UpdateRouteData, RouteFilters } from '../../types/route';
 import './RoutesList.scss';
 
 export const RoutesList: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const { routes, currentRoute, loading, error, successMessage } = useSelector(
-		(state: RootState) => state.routes // Убедитесь, что ключ 'route', а не 'routes'
+	const { routes, currentRoute, loading, error, successMessage, total, page, limit } = useSelector(
+		(state: RootState) => state.routes
 	);
 
-	// Локальные состояния для форм
+	// Локальные состояния
 	const [selectedRouteId, setSelectedRouteId] = useState<number>(0);
-	const [categoryId, setCategoryId] = useState<number>(1);
-	const [difficulty, setDifficulty] = useState<string>('EASY');
+	const [tagId, setTagId] = useState<number>(1);
+	const [minDistance, setMinDistance] = useState<number>(0);
+	const [maxDistance, setMaxDistance] = useState<number>(100);
+	const [searchTerm, setSearchTerm] = useState<string>('');
+	const [filters, setFilters] = useState<RouteFilters>({});
 
 	// Форма создания маршрута
 	const [newRoute, setNewRoute] = useState<CreateRouteData>({
-		nameRoute: '',
+		name: '',
 		distance: 0,
-		difficulty: 'EASY',
 		checkpoints: [{ latitude: 56.328, longitude: 44.002 }],
-		categories: [1],
+		tagIds: [1],
 	});
 
-	// Форма редактирования маршрута - убираем id из состояния, так как он передается отдельно
+	// Форма редактирования
 	const [editData, setEditData] = useState<Omit<UpdateRouteData, 'id'>>({
-		nameRoute: '',
+		name: '',
 		distance: 0,
-		difficulty: 'EASY',
+		tagIds: [],
 	});
 
-	// Загрузка всех маршрутов при монтировании
+	// Загрузка маршрутов при монтировании
 	useEffect(() => {
-		dispatch(fetchAllRoutes());
-	}, [dispatch]);
+		dispatch(fetchAllRoutes({ page, limit, filters }));
+	}, [dispatch, page, limit]);
 
 	// Обработчики
 	const handleFetchAllRoutes = () => {
-		dispatch(fetchAllRoutes());
+		dispatch(fetchAllRoutes({ page, limit, filters }));
 	};
 
 	const handleFetchRouteById = () => {
@@ -61,22 +67,41 @@ export const RoutesList: React.FC = () => {
 		}
 	};
 
+	const handleSearch = () => {
+		if (searchTerm.trim()) {
+			dispatch(searchRoutesThunk(searchTerm));
+		} else {
+			alert('Введите поисковый запрос');
+		}
+	};
+
+	const handleFilterByTag = () => {
+		dispatch(fetchRoutesByTag(tagId));
+	};
+
+	const handleFilterByDistance = () => {
+		if (minDistance >= 0 && maxDistance > minDistance) {
+			dispatch(fetchRoutesByDistanceRange({ minDistance, maxDistance }));
+		} else {
+			alert('Введите корректный диапазон расстояний');
+		}
+	};
+
 	const handleCreateRoute = async () => {
-		if (!newRoute.nameRoute || newRoute.distance <= 0) {
+		if (!newRoute.name || newRoute.distance <= 0) {
 			alert('Заполните все поля');
 			return;
 		}
 
 		try {
 			await dispatch(addNewRoute(newRoute)).unwrap();
-			// Очищаем форму
 			setNewRoute({
-				nameRoute: '',
+				name: '',
 				distance: 0,
-				difficulty: 'EASY',
 				checkpoints: [{ latitude: 56.328, longitude: 44.002 }],
-				categories: [1],
+				tagIds: [1],
 			});
+			handleFetchAllRoutes();
 		} catch (error) {
 			console.error('Create error:', error);
 		}
@@ -92,16 +117,16 @@ export const RoutesList: React.FC = () => {
 			await dispatch(
 				editRoute({
 					id: selectedRouteId,
-					data: editData as UpdateRouteData, // Приводим к нужному типу
+					data: editData as UpdateRouteData,
 				})
 			).unwrap();
-			// Очищаем форму
 			setEditData({
-				nameRoute: '',
+				name: '',
 				distance: 0,
-				difficulty: 'EASY',
+				tagIds: [],
 			});
 			setSelectedRouteId(0);
+			handleFetchAllRoutes();
 		} catch (error) {
 			console.error('Update error:', error);
 		}
@@ -111,18 +136,19 @@ export const RoutesList: React.FC = () => {
 		if (window.confirm(`Вы уверены, что хотите удалить маршрут ${id}?`)) {
 			try {
 				await dispatch(removeRoute(id)).unwrap();
+				handleFetchAllRoutes();
 			} catch (error) {
 				console.error('Delete error:', error);
 			}
 		}
 	};
 
-	const handleFilterByCategory = () => {
-		dispatch(fetchRoutesByCategory(categoryId));
+	const handlePageChange = (newPage: number) => {
+		dispatch(setPage(newPage));
 	};
 
-	const handleFilterByDifficulty = () => {
-		dispatch(fetchRoutesByDifficulty(difficulty));
+	const handleLimitChange = (newLimit: number) => {
+		dispatch(setLimit(newLimit));
 	};
 
 	const handleClearMessages = () => {
@@ -134,9 +160,8 @@ export const RoutesList: React.FC = () => {
 	};
 
 	const handleResetAll = () => {
-		dispatch(fetchAllRoutes());
-		handleClearCurrentRoute();
-		handleClearMessages();
+		dispatch(resetRoutesState());
+		dispatch(fetchAllRoutes({ page: 1, limit: 10 }));
 	};
 
 	if (loading && routes.length === 0) {
@@ -152,7 +177,6 @@ export const RoutesList: React.FC = () => {
 		<div className='routes-manager'>
 			<h1>Управление маршрутами</h1>
 
-			{/* Сообщения */}
 			{(successMessage || error) && (
 				<div
 					className={`message ${successMessage ? 'success' : 'error'}`}
@@ -162,7 +186,6 @@ export const RoutesList: React.FC = () => {
 				</div>
 			)}
 
-			{/* Панель управления */}
 			<div className='control-panel'>
 				<div className='panel-section'>
 					<h3>Основные операции</h3>
@@ -197,15 +220,29 @@ export const RoutesList: React.FC = () => {
 				</div>
 
 				<div className='panel-section'>
+					<h3>Поиск маршрутов</h3>
+					<div className='input-group'>
+						<input
+							type='text'
+							placeholder='Поиск по названию...'
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+							onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+						/>
+						<button onClick={handleSearch} className='btn btn-primary'>
+							Поиск
+						</button>
+					</div>
+				</div>
+
+				<div className='panel-section'>
 					<h3>Создание нового маршрута</h3>
 					<div className='form-group'>
 						<input
 							type='text'
 							placeholder='Название маршрута'
-							value={newRoute.nameRoute}
-							onChange={(e) =>
-								setNewRoute({ ...newRoute, nameRoute: e.target.value })
-							}
+							value={newRoute.name}
+							onChange={(e) => setNewRoute({ ...newRoute, name: e.target.value })}
 						/>
 						<input
 							type='number'
@@ -215,15 +252,17 @@ export const RoutesList: React.FC = () => {
 								setNewRoute({ ...newRoute, distance: Number(e.target.value) })
 							}
 						/>
-						<select
-							value={newRoute.difficulty}
+						<input
+							type='text'
+							placeholder='ID тегов (через запятую)'
+							value={newRoute.tagIds?.join(',') || ''}
 							onChange={(e) =>
-								setNewRoute({ ...newRoute, difficulty: e.target.value })
-							}>
-							<option value='EASY'>Легкий</option>
-							<option value='MEDIUM'>Средний</option>
-							<option value='HARD'>Сложный</option>
-						</select>
+								setNewRoute({
+									...newRoute,
+									tagIds: e.target.value.split(',').map(Number).filter(Boolean),
+								})
+							}
+						/>
 						<button onClick={handleCreateRoute} className='btn btn-success'>
 							Создать маршрут
 						</button>
@@ -242,10 +281,8 @@ export const RoutesList: React.FC = () => {
 						<input
 							type='text'
 							placeholder='Новое название'
-							value={editData.nameRoute || ''}
-							onChange={(e) =>
-								setEditData({ ...editData, nameRoute: e.target.value })
-							}
+							value={editData.name || ''}
+							onChange={(e) => setEditData({ ...editData, name: e.target.value })}
 						/>
 						<input
 							type='number'
@@ -255,15 +292,17 @@ export const RoutesList: React.FC = () => {
 								setEditData({ ...editData, distance: Number(e.target.value) })
 							}
 						/>
-						<select
-							value={editData.difficulty}
+						<input
+							type='text'
+							placeholder='ID тегов (через запятую)'
+							value={editData.tagIds?.join(',') || ''}
 							onChange={(e) =>
-								setEditData({ ...editData, difficulty: e.target.value })
-							}>
-							<option value='EASY'>Легкий</option>
-							<option value='MEDIUM'>Средний</option>
-							<option value='HARD'>Сложный</option>
-						</select>
+								setEditData({
+									...editData,
+									tagIds: e.target.value.split(',').map(Number).filter(Boolean),
+								})
+							}
+						/>
 						<button onClick={handleUpdateRoute} className='btn btn-warning'>
 							Обновить
 						</button>
@@ -276,142 +315,147 @@ export const RoutesList: React.FC = () => {
 						<div className='input-group'>
 							<input
 								type='number'
-								placeholder='ID категории'
-								value={categoryId}
-								onChange={(e) => setCategoryId(Number(e.target.value))}
+								placeholder='ID тега'
+								value={tagId}
+								onChange={(e) => setTagId(Number(e.target.value))}
 							/>
-							<button onClick={handleFilterByCategory} className='btn btn-info'>
-								По категории
+							<button onClick={handleFilterByTag} className='btn btn-info'>
+								По тегу
 							</button>
 						</div>
 						<div className='input-group'>
-							<select
-								value={difficulty}
-								onChange={(e) => setDifficulty(e.target.value)}>
-								<option value='EASY'>Легкий</option>
-								<option value='MEDIUM'>Средний</option>
-								<option value='HARD'>Сложный</option>
-							</select>
-							<button
-								onClick={handleFilterByDifficulty}
-								className='btn btn-info'>
-								По сложности
+							<input
+								type='number'
+								placeholder='Мин. расстояние'
+								value={minDistance}
+								onChange={(e) => setMinDistance(Number(e.target.value))}
+							/>
+							<input
+								type='number'
+								placeholder='Макс. расстояние'
+								value={maxDistance}
+								onChange={(e) => setMaxDistance(Number(e.target.value))}
+							/>
+							<button onClick={handleFilterByDistance} className='btn btn-info'>
+								По расстоянию
 							</button>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			{/* Текущий маршрут */}
 			{currentRoute && (
 				<div className='current-route'>
 					<h2>Текущий маршрут</h2>
 					<div className='route-details'>
-						<h3>{currentRoute.nameRoute}</h3>
-						<p>
-							<strong>ID:</strong> {currentRoute.id}
-						</p>
-						<p>
-							<strong>Дистанция:</strong> {currentRoute.distance} м
-						</p>
-						<p>
-							<strong>Сложность:</strong> {currentRoute.difficulty}
-						</p>
-						<p>
-							<strong>Количество точек:</strong>{' '}
-							{currentRoute.checkpoints?.length || 0}
-						</p>
-						{currentRoute.categories && currentRoute.categories.length > 0 && (
+						<h3>{currentRoute.name}</h3>
+						<p><strong>ID:</strong> {currentRoute.id}</p>
+						<p><strong>Дистанция:</strong> {currentRoute.distance} м</p>
+						<p><strong>Количество точек:</strong> {currentRoute.checkpoints?.length || 0}</p>
+						{currentRoute.tags && currentRoute.tags.length > 0 && (
 							<p>
-								<strong>Категории:</strong>{' '}
-								{currentRoute.categories.map((c) => c.name).join(', ')}
+								<strong>Теги:</strong>{' '}
+								{currentRoute.tags.map((t) => t.name).join(', ')}
 							</p>
 						)}
 					</div>
 				</div>
 			)}
 
-			{/* Список всех маршрутов */}
 			<div className='routes-list-section'>
 				<h2>
 					Список маршрутов
-					<span className='count'>({routes?.length || 0})</span>
+					<span className='count'>({total || routes?.length || 0})</span>
 				</h2>
 
 				{routes && routes.length > 0 ? (
-					<div className='routes-grid'>
-						{routes.map((route) => (
-							<div key={route.id} className='route-card'>
-								<div className='route-header'>
-									<h3>{route.nameRoute}</h3>
-									<button
-										onClick={() => handleDeleteRoute(route.id)}
-										className='delete-btn'
-										title='Удалить маршрут'>
-										×
-									</button>
-								</div>
-								<div className='route-body'>
-									<p>
-										<strong>ID:</strong> {route.id}
-									</p>
-									<p>
-										<strong>Дистанция:</strong> {route.distance} м
-									</p>
-									<p>
-										<strong>Сложность:</strong>
-										<span
-											className={`difficulty ${route.difficulty.toLowerCase()}`}>
-											{route.difficulty === 'EASY'
-												? 'Легкий'
-												: route.difficulty === 'MEDIUM'
-												? 'Средний'
-												: 'Сложный'}
-										</span>
-									</p>
-									<p>
-										<strong>Точки маршрута:</strong>{' '}
-										{route.checkpoints?.length || 0}
-									</p>
-									{route.categories && route.categories.length > 0 && (
-										<div className='categories'>
-											<strong>Категории:</strong>
-											<div className='category-tags'>
-												{route.categories.map((cat) => (
-													<span key={cat.id} className='category-tag'>
-														{cat.name}
-													</span>
-												))}
+					<>
+						<div className='routes-grid'>
+							{routes.map((route) => (
+								<div key={route.id} className='route-card'>
+									<div className='route-header'>
+										<h3>{route.name}</h3>
+										<button
+											onClick={() => handleDeleteRoute(route.id)}
+											className='delete-btn'
+											title='Удалить маршрут'>
+											×
+										</button>
+									</div>
+									<div className='route-body'>
+										<p><strong>ID:</strong> {route.id}</p>
+										<p><strong>Дистанция:</strong> {route.distance} м</p>
+										<p><strong>Точки:</strong> {route.checkpoints?.length || 0}</p>
+										{route.tags && route.tags.length > 0 && (
+											<div className='tags'>
+												<strong>Теги:</strong>
+												<div className='tag-tags'>
+													{route.tags.map((tag) => (
+														<span key={tag.id} className='tag-tag'>
+															{tag.name}
+														</span>
+													))}
+												</div>
 											</div>
-										</div>
-									)}
+										)}
+									</div>
+									<div className='route-footer'>
+										<button
+											onClick={() => {
+												setSelectedRouteId(route.id);
+												dispatch(fetchRouteById(route.id));
+											}}
+											className='btn-sm btn-info'>
+											Просмотр
+										</button>
+										<button
+											onClick={() => {
+												setSelectedRouteId(route.id);
+												setEditData({
+													name: route.name,
+													distance: route.distance,
+													tagIds: route.tags?.map(t => t.id) || [],
+												});
+												window.scrollTo({ top: 0, behavior: 'smooth' });
+											}}
+											className='btn-sm btn-warning'>
+											Редактировать
+										</button>
+									</div>
 								</div>
-								<div className='route-footer'>
-									<button
-										onClick={() => {
-											setSelectedRouteId(route.id);
-											dispatch(fetchRouteById(route.id));
-										}}
-										className='btn-sm btn-info'>
-										Просмотр
-									</button>
-									<button
-										onClick={() => {
-											setSelectedRouteId(route.id);
-											setEditData({
-												nameRoute: route.nameRoute,
-												distance: route.distance,
-												difficulty: route.difficulty,
-											});
-											window.scrollTo({ top: 0, behavior: 'smooth' });
-										}}
-										className='btn-sm btn-warning'>
-										Редактировать
-									</button>
-								</div>
+							))}
+						</div>
+
+						{/* Пагинация */}
+						{total > limit && (
+							<div className='pagination'>
+								<button
+									onClick={() => handlePageChange(page - 1)}
+									disabled={page === 1}
+									className='btn-sm'>
+									← Предыдущая
+								</button>
+								<span className='page-info'>
+									Страница {page} из {Math.ceil(total / limit)}
+								</span>
+								<button
+									onClick={() => handlePageChange(page + 1)}
+									disabled={page >= Math.ceil(total / limit)}
+									className='btn-sm'>
+									Следующая →
+								</button>
+								<select
+									value={limit}
+									onChange={(e) => handleLimitChange(Number(e.target.value))}
+									className='limit-select'>
+									<option value={5}>5 на странице</option>
+									<option value={10}>10 на странице</option>
+									<option value={20}>20 на странице</option>
+									<option value={50}>50 на странице</option>
+								</select>
 							</div>
-						))}
-					</div>
+						)}
+					</>
 				) : (
 					<div className='empty-state'>
 						<p>Нет доступных маршрутов</p>

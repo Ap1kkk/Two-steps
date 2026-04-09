@@ -1,74 +1,30 @@
-import { TUser } from '../../types/user';
+import {
+	TLoginData,
+	TRegisterData,
+	TUpdateUserData,
+	TUser,
+} from '../../types/user';
+import {
+	clearSession,
+	getAccessToken,
+	getHeaders,
+	getRefreshToken,
+	handleResponse,
+	saveSession,
+} from './api';
+import { TApiResponse } from '../../types/api';
 
 const API_URL = 'http://localhost:3001';
 
-export type TRegisterData = {
-	username: string;
-	email: string;
-	password: string;
-	role?: 'USER' | 'ADMIN';
-};
-
-export type TLoginData = {
-	email: string;
-	password: string;
-};
-
-export type TUpdateUserData = Partial<TRegisterData> & {
-	id?: number;
-};
-
-export type TApiResponse = {
-	success: boolean;
-	data?: any;
-	message?: string;
-	user?: TUser;
-	refreshToken?: string;
-	accessToken?: string;
-};
-
-const getAccessToken = (): string | null => {
-	const cookies = document.cookie.split(';');
-	const accessTokenCookie = cookies.find((cookie) =>
-		cookie.trim().startsWith('accessToken=')
-	);
-	return accessTokenCookie ? accessTokenCookie.split('=')[1] : null;
-};
-
-const getHeaders = (withAuth: boolean = false): HeadersInit => {
-	const headers: HeadersInit = {
-		'Content-Type': 'application/json',
-	};
-
-	if (withAuth) {
-		const token = getAccessToken();
-		if (token) {
-			headers['Authorization'] = `Bearer ${token}`;
-		}
-	}
-
-	return headers;
-};
-
-const handleResponse = async (response: Response): Promise<any> => {
-	if (!response.ok) {
-		const error = await response.json().catch(() => ({}));
-		throw new Error(
-			error.message || `HTTP error! status: ${response.status}`
-		);
-	}
-
-	return await response.json();
-};
-
+/** Регистрация нового пользователя */
 export const registerUserApi = async (
 	data: TRegisterData
 ): Promise<TApiResponse> => {
 	try {
 		const checkResponse = await fetch(
-			`${API_URL}/users?email=${data.email}`
+			`${API_URL}/users?email=${encodeURIComponent(data.email)}`
 		);
-		const existingUsers = await checkResponse.json();
+		const existingUsers = await handleResponse<any[]>(checkResponse);
 
 		if (existingUsers.length > 0) {
 			return {
@@ -78,10 +34,12 @@ export const registerUserApi = async (
 		}
 
 		const userData = {
-			...data,
+			username: data.username,
+			email: data.email,
+			password: data.password,
 			role: data.role || 'USER',
 			createdAt: new Date().toISOString(),
-			token: `mock-token-${Date.now()}`,
+			updatedAt: new Date().toISOString(),
 		};
 
 		const response = await fetch(`${API_URL}/users`, {
@@ -90,12 +48,20 @@ export const registerUserApi = async (
 			body: JSON.stringify(userData),
 		});
 
-		const user = await handleResponse(response);
+		const user = await handleResponse<any>(response);
 
 		const { password, ...userWithoutPassword } = user;
 
-		const accessToken = `mock-access-token-${Date.now()}`;
-		const refreshToken = `mock-refresh-token-${Date.now()}`;
+		const accessToken = `mock-access-token-${Date.now()}-${user.id}`;
+		const refreshToken = `mock-refresh-token-${Date.now()}-${user.id}`;
+
+		await fetch(`${API_URL}/users/${user.id}`, {
+			method: 'PATCH',
+			headers: getHeaders(),
+			body: JSON.stringify({ accessToken, refreshToken }),
+		});
+
+		saveSession(accessToken, refreshToken);
 
 		return {
 			success: true,
@@ -111,25 +77,42 @@ export const registerUserApi = async (
 	}
 };
 
+/** Авторизация пользователя */
 export const loginUserApi = async (data: TLoginData): Promise<TApiResponse> => {
 	try {
 		const response = await fetch(
-			`${API_URL}/users?email=${data.email}&password=${data.password}`
+			`${API_URL}/users?email=${encodeURIComponent(data.email)}`
 		);
-		const users = await handleResponse(response);
+		const users = await handleResponse<any[]>(response);
 
 		if (users.length === 0) {
 			return {
 				success: false,
-				message: 'Неверный email или пароль',
+				message: 'Пользователь с таким email не найден',
 			};
 		}
 
 		const user = users[0];
+
+		if (user.password !== data.password) {
+			return {
+				success: false,
+				message: 'Неверный пароль',
+			};
+		}
+
 		const { password, ...userWithoutPassword } = user;
 
-		const accessToken = `mock-access-token-${Date.now()}`;
-		const refreshToken = `mock-refresh-token-${Date.now()}`;
+		const accessToken = `mock-access-token-${Date.now()}-${user.id}`;
+		const refreshToken = `mock-refresh-token-${Date.now()}-${user.id}`;
+
+		await fetch(`${API_URL}/users/${user.id}`, {
+			method: 'PATCH',
+			headers: getHeaders(),
+			body: JSON.stringify({ accessToken, refreshToken }),
+		});
+
+		saveSession(accessToken, refreshToken);
 
 		return {
 			success: true,
@@ -145,8 +128,30 @@ export const loginUserApi = async (data: TLoginData): Promise<TApiResponse> => {
 	}
 };
 
+/** Выход из системы */
 export const logoutApi = async (): Promise<TApiResponse> => {
 	try {
+		const token = getAccessToken();
+
+		if (token) {
+			const usersResponse = await fetch(`${API_URL}/users`);
+			const users = await handleResponse<any[]>(usersResponse);
+			const user = users.find((u) => u.accessToken === token);
+
+			if (user) {
+				await fetch(`${API_URL}/users/${user.id}`, {
+					method: 'PATCH',
+					headers: getHeaders(),
+					body: JSON.stringify({
+						accessToken: null,
+						refreshToken: null,
+					}),
+				});
+			}
+		}
+
+		clearSession();
+
 		return {
 			success: true,
 			message: 'Выход выполнен успешно',
@@ -159,6 +164,7 @@ export const logoutApi = async (): Promise<TApiResponse> => {
 	}
 };
 
+/** Получение данных текущего пользователя */
 export const getUserApi = async (): Promise<TApiResponse> => {
 	try {
 		const token = getAccessToken();
@@ -166,19 +172,19 @@ export const getUserApi = async (): Promise<TApiResponse> => {
 		if (!token) {
 			return {
 				success: false,
-				message: 'Токен не найден',
+				message: 'Токен не найден. Пожалуйста, войдите снова.',
 			};
 		}
 
 		const response = await fetch(`${API_URL}/users`);
-		const users = await handleResponse(response);
+		const users = await handleResponse<any[]>(response);
 
-		const user = users.find((u: any) => u.token === token);
+		const user = users.find((u) => u.accessToken === token);
 
 		if (!user) {
 			return {
 				success: false,
-				message: 'Пользователь не найден',
+				message: 'Сессия истекла. Пожалуйста, войдите снова.',
 			};
 		}
 
@@ -196,6 +202,7 @@ export const getUserApi = async (): Promise<TApiResponse> => {
 	}
 };
 
+/** Обновление данных пользователя */
 export const updateUserApi = async (
 	data: TUpdateUserData
 ): Promise<TApiResponse> => {
@@ -205,13 +212,13 @@ export const updateUserApi = async (
 		if (!token) {
 			return {
 				success: false,
-				message: 'Токен не найден',
+				message: 'Токен не найден. Пожалуйста, войдите снова.',
 			};
 		}
 
 		const usersResponse = await fetch(`${API_URL}/users`);
-		const users = await handleResponse(usersResponse);
-		const currentUser = users.find((u: any) => u.token === token);
+		const users = await handleResponse<any[]>(usersResponse);
+		const currentUser = users.find((u) => u.accessToken === token);
 
 		if (!currentUser) {
 			return {
@@ -232,7 +239,7 @@ export const updateUserApi = async (
 			body: JSON.stringify(updatedUser),
 		});
 
-		const user = await handleResponse(response);
+		const user = await handleResponse<any>(response);
 		const { password, ...userWithoutPassword } = user;
 
 		return {
@@ -247,12 +254,15 @@ export const updateUserApi = async (
 	}
 };
 
+/** Восстановление пароля (отправка инструкций на email) */
 export const forgotPasswordApi = async (data: {
 	email: string;
 }): Promise<TApiResponse> => {
 	try {
-		const response = await fetch(`${API_URL}/users?email=${data.email}`);
-		const users = await handleResponse(response);
+		const response = await fetch(
+			`${API_URL}/users?email=${encodeURIComponent(data.email)}`
+		);
+		const users = await handleResponse<any[]>(response);
 
 		if (users.length === 0) {
 			return {
@@ -260,6 +270,17 @@ export const forgotPasswordApi = async (data: {
 				message: 'Пользователь с таким email не найден',
 			};
 		}
+
+		const user = users[0];
+		const resetToken = `reset-token-${Date.now()}-${user.id}`;
+
+		await fetch(`${API_URL}/users/${user.id}`, {
+			method: 'PATCH',
+			headers: getHeaders(),
+			body: JSON.stringify({ resetToken }),
+		});
+
+		console.log(`Reset token for ${data.email}: ${resetToken}`);
 
 		return {
 			success: true,
@@ -273,34 +294,37 @@ export const forgotPasswordApi = async (data: {
 	}
 };
 
+/** Сброс пароля с использованием токена */
 export const resetPasswordApi = async (data: {
 	password: string;
 	token: string;
 }): Promise<TApiResponse> => {
 	try {
 		const usersResponse = await fetch(`${API_URL}/users`);
-		const users = await handleResponse(usersResponse);
+		const users = await handleResponse<any[]>(usersResponse);
 
-		const user = users.find((u: any) => u.resetToken === data.token);
+		const user = users.find((u) => u.resetToken === data.token);
 
 		if (!user) {
 			return {
 				success: false,
-				message: 'Недействительный токен сброса',
+				message:
+					'Недействительный токен сброса. Запросите сброс пароля заново.',
 			};
 		}
 
-		const response = await fetch(`${API_URL}/users/${user.id}`, {
+		await fetch(`${API_URL}/users/${user.id}`, {
 			method: 'PATCH',
 			headers: getHeaders(),
-			body: JSON.stringify({ password: data.password }),
+			body: JSON.stringify({
+				password: data.password,
+				resetToken: null,
+			}),
 		});
-
-		await handleResponse(response);
 
 		return {
 			success: true,
-			message: 'Пароль успешно изменен',
+			message: 'Пароль успешно изменен. Теперь вы можете войти.',
 		};
 	} catch (error: any) {
 		return {
@@ -310,23 +334,41 @@ export const resetPasswordApi = async (data: {
 	}
 };
 
-export const refreshTokenApi = async (
-	refreshToken: string
-): Promise<TApiResponse> => {
+/** Обновление access токена с использованием refresh токена */
+export const refreshTokenApi = async (): Promise<TApiResponse> => {
 	try {
-		const usersResponse = await fetch(`${API_URL}/users`);
-		const users = await handleResponse(usersResponse);
+		const refreshToken = getRefreshToken();
 
-		const user = users.find((u: any) => u.refreshToken === refreshToken);
-
-		if (!user) {
+		if (!refreshToken) {
 			return {
 				success: false,
-				message: 'Недействительный refresh token',
+				message: 'Refresh token не найден',
 			};
 		}
 
-		const newAccessToken = `mock-access-token-${Date.now()}`;
+		const usersResponse = await fetch(`${API_URL}/users`);
+		const users = await handleResponse<any[]>(usersResponse);
+
+		const user = users.find((u) => u.refreshToken === refreshToken);
+
+		if (!user) {
+			clearSession();
+			return {
+				success: false,
+				message:
+					'Недействительный refresh token. Пожалуйста, войдите снова.',
+			};
+		}
+
+		const newAccessToken = `mock-access-token-${Date.now()}-${user.id}`;
+
+		await fetch(`${API_URL}/users/${user.id}`, {
+			method: 'PATCH',
+			headers: getHeaders(),
+			body: JSON.stringify({ accessToken: newAccessToken }),
+		});
+
+		saveSession(newAccessToken, refreshToken);
 
 		return {
 			success: true,

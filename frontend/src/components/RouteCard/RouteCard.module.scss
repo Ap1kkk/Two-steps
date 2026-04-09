@@ -12,6 +12,11 @@
 
 .route_link {
   text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: var(--font-medium);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lineheight);
+  letter-spacing: 0.02em;
   color: var(--color-text);
 }
 

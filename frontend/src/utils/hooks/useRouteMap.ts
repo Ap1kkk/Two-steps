@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { RouteData } from '../../types/route';
+import { Route } from '../../types/route';
 
 export const useRouteMap = (
-	routeData: RouteData | null | undefined,
+	routeData: Route | null | undefined,
 	userLocation: [number, number] | null | undefined,
 	onMapLoad?: ((ymaps: any, map: any) => void) | undefined
 ) => {
@@ -15,23 +15,26 @@ export const useRouteMap = (
 	const routeRef = useRef<any>(null);
 	const userMarkerRef = useRef<any>(null);
 
+	/** Загрузка API Яндекс.Карт */
 	const handleApiLoad = useCallback((ymapsInstance: any) => {
 		console.log('Yandex Maps API loaded');
 		setYmaps(ymapsInstance);
 		setIsMapReady(true);
 	}, []);
 
+	/** Обработка ошибки загрузки API */
 	const handleApiError = useCallback((error: any) => {
 		console.error('Yandex Maps API error:', error);
 		setMapError('Не удалось загрузить карту. Пожалуйста, обновите страницу.');
 	}, []);
 
+	/** Получение ссылки на карту */
 	const handleMapRef = useCallback(
 		(mapInstance: any) => {
 			if (mapInstance) {
 				console.log('Map instance received');
 				setMap(mapInstance);
-				if (onMapLoad) {
+				if (onMapLoad && ymaps) {
 					onMapLoad(ymaps, mapInstance);
 				}
 			}
@@ -39,23 +42,19 @@ export const useRouteMap = (
 		[ymaps, onMapLoad]
 	);
 
+	/** Построение маршрута по чекпоинтам */
 	const buildRoute = useCallback(() => {
-		// Проверяем наличие всех необходимых данных
 		if (!ymaps || !map) {
 			console.log('Cannot build route: ymaps or map not ready');
 			return null;
 		}
 
 		if (!routeData?.checkpoints || routeData.checkpoints.length < 2) {
-			console.log(
-				'Cannot build route: not enough checkpoints',
-				routeData?.checkpoints?.length
-			);
+			console.log('Cannot build route: need at least 2 checkpoints');
 			return null;
 		}
 
 		try {
-			// Удаляем старый маршрут
 			if (routeRef.current) {
 				map.geoObjects.remove(routeRef.current);
 				routeRef.current = null;
@@ -65,7 +64,6 @@ export const useRouteMap = (
 				cp.latitude,
 				cp.longitude,
 			]);
-			console.log('Route points:', points);
 
 			const multiRoute = new ymaps.multiRouter.MultiRoute(
 				{
@@ -99,24 +97,17 @@ export const useRouteMap = (
 		}
 	}, [ymaps, map, routeData]);
 
+	/** Добавление маркера местоположения пользователя */
 	const addUserMarker = useCallback(() => {
 		if (!ymaps || !map || !userLocation) {
-			console.log('Cannot add user marker:', {
-				ymaps: !!ymaps,
-				map: !!map,
-				userLocation: !!userLocation,
-			});
 			return null;
 		}
 
 		try {
-			// Удаляем старый маркер
 			if (userMarkerRef.current) {
 				map.geoObjects.remove(userMarkerRef.current);
 				userMarkerRef.current = null;
 			}
-
-			console.log('Adding user marker at:', userLocation);
 
 			const userMarker = new ymaps.Placemark(
 				userLocation,
@@ -143,6 +134,53 @@ export const useRouteMap = (
 			return null;
 		}
 	}, [ymaps, map, userLocation]);
+
+	/** Центрирование карты на маршруте */
+	const fitMapToRoute = useCallback(() => {
+		if (!map || !routeRef.current) return;
+
+		try {
+			const bounds = routeRef.current.getBounds();
+			if (bounds) {
+				map.setBounds(bounds, {
+					checkZoomRange: true,
+					zoomMargin: 50,
+				});
+			}
+		} catch (error) {
+			console.error('Error fitting map to route:', error);
+		}
+	}, [map]);
+
+	/** Очистка маршрута */
+	const clearRoute = useCallback(() => {
+		if (routeRef.current && map) {
+			try {
+				map.geoObjects.remove(routeRef.current);
+				routeRef.current = null;
+				setRoute(null);
+			} catch (error) {
+				console.error('Error clearing route:', error);
+			}
+		}
+	}, [map]);
+
+	/** Очистка маркера пользователя */
+	const clearUserMarker = useCallback(() => {
+		if (userMarkerRef.current && map) {
+			try {
+				map.geoObjects.remove(userMarkerRef.current);
+				userMarkerRef.current = null;
+			} catch (error) {
+				console.error('Error clearing user marker:', error);
+			}
+		}
+	}, [map]);
+
+	/** Сброс всех ошибок */
+	const clearErrors = useCallback(() => {
+		setMapError(null);
+	}, []);
 
 	useEffect(() => {
 		return () => {
@@ -174,6 +212,10 @@ export const useRouteMap = (
 		handleMapRef,
 		buildRoute,
 		addUserMarker,
+		fitMapToRoute,
+		clearRoute,
+		clearUserMarker,
+		clearErrors,
 		setMapError,
 	};
 };
