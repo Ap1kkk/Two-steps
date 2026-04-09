@@ -6,5 +6,5 @@ export * from './Layout';
 export * from './routes-on-map';
 export * from './RouteOfDay';
 export * from './register-form';
-export * from './authorization-form';
+export * from './AuthorizationForm';
 export * from './RouteCard';

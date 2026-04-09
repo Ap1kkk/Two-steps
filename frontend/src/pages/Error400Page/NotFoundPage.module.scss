@@ -1,0 +1,54 @@
+.pageWrapper {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--color-background);
+}
+
+.content {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 100px 20px 90px;
+}
+
+.illustration {
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 38px;
+}
+
+.title {
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h2-size);
+	line-height: var(--text-h2-lineheight);
+	margin: 0 0 2px;
+	color: var(--color-text);
+}
+
+.description {
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	font-size: var(--text-body-size);
+	line-height: var(--text-body-lineheight);
+	color: var(--color-text);
+	margin-bottom: 32px;
+	max-width: 500px;
+}
+
+.actions {
+	display: flex;
+	gap: 24px;
+}
+
+.buttonError {
+	width: 218px;
+	background-color: var(--color-card);
+}
+
+.button {
+	width: 218px;
+}

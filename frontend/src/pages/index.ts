@@ -1,7 +1,7 @@
 export * from './admin-page';
 export * from './all-profile-pages/AchievementsPage';
 export * from './all-profile-pages/EditProfilePage';
-export * from './all-profile-pages/ProfilePage';
+export * from './ProfilePage';
 export * from './all-profile-pages/RouteHistoryPage';
 export * from './all-profile-pages/StatisticsPage';
 export * from './authorization';
@@ -25,3 +25,6 @@ export * from './UserHistory';
 export * from './UserLikeRouts/UserLikeRoutsFiltered';
 export * from './UserLikeRouts/UserLikeRoutsPanel';
 export * from './UserLikeRouts';
+
+export * from './Error400Page';
+export * from './Error500Page';

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Button, Input } from '@ui';
 
-import userExample from '../../assets/images/avatarProfile/avatar1.png';
 import { ReactComponent as Search } from '../../assets/icons/search.svg';
 import { ReactComponent as Cross } from '../../assets/icons/cross.svg';
 import { ReactComponent as Compass } from '../../assets/images/compass.svg';
@@ -10,6 +9,8 @@ import { ReactComponent as Dumbbells } from '../../assets/icons/dumbells.svg';
 import { ReactComponent as Global } from '../../assets/icons/global.svg';
 import { ReactComponent as Moon } from '../../assets/icons/moon.svg';
 import { ReactComponent as Sun } from '../../assets/icons/sun.svg';
+
+import { MOCK_USER } from '../../mocks/mock';
 
 import styles from './Header.module.scss';
 
@@ -41,7 +42,9 @@ export const Header = () => {
 		setIsLightTheme(!isLightTheme);
 	};
 
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(
+		MOCK_USER.isAuthenticated
+	);
 
 	const [mode, setMode] = useState<Mode>(() => {
 		const saved = localStorage.getItem('appMode');
@@ -64,7 +67,7 @@ export const Header = () => {
 		return (
 			<header className={styles.header}>
 				<nav className={styles.navigation_auth}>
-					<Link to='/' className={styles.logoContainer}>
+					<Link to='/routie' className={styles.logoContainer}>
 						<Compass
 							className={
 								isLightTheme
@@ -78,7 +81,7 @@ export const Header = () => {
 						type={'button'}
 						variant={'tertiary'}
 						iconRight={<Cross />}
-						onClick={() => navigate('/', { replace: true })}
+						onClick={() => navigate('/routie', { replace: true })}
 						children={'Закрыть'}
 						className={styles.closeButton}
 					/>
@@ -90,7 +93,7 @@ export const Header = () => {
 	return (
 		<header className={styles.header}>
 			<nav className={styles.navigation}>
-				<Link to='/' className={styles.logoContainer}>
+				<Link to='/routie' className={styles.logoContainer}>
 					<Compass
 						className={
 							isLightTheme ? styles.logoLight : styles.logoDark
@@ -111,19 +114,17 @@ export const Header = () => {
 					iconLeft={<Search />}
 				/>
 				<div className={styles.themeButton} onClick={toggleTheme}>
-					{isLightTheme ? (
-						<Moon />
-					) : (
-						<Sun />
-					)}
+					{isLightTheme ? <Moon /> : <Sun />}
 				</div>
 				{isAuthenticated ? (
 					<Button
 						type={'button'}
 						variant={'tertiary'}
-						iconRight={<Avatar src={userExample} size={'small'} />}
-						children={'Евгений'}
-						onClick={() => navigate('/profile_page')}
+						iconRight={
+							<Avatar src={MOCK_USER.avatar} size={'small'} />
+						}
+						children={MOCK_USER.name}
+						onClick={() => navigate('/profile')}
 						className={styles.userCard}
 					/>
 				) : (

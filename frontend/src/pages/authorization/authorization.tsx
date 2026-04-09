@@ -7,7 +7,7 @@ import {
 	selectLoginError,
 	selectIsAuthenticated,
 } from '../../services/selectors/userSelectors';
-import { AuthorizationForm } from '../../components/authorization-form/authorization-form';
+import { AuthorizationForm } from '../../components/AuthorizationForm/AuthorizationForm';
 
 export const Authorization = () => {
 	const navigate = useNavigate();

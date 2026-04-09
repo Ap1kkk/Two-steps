@@ -1,8 +1,8 @@
 import React, { InputHTMLAttributes, useState } from 'react';
 import styles from './Input.module.scss';
 
-import OpenEye from '@icons/eye.svg';
-import CloseEye from '@icons/eye-slash.svg';
+import { ReactComponent as OpenEye } from '@icons/eye.svg';
+import { ReactComponent as CloseEye } from '@icons/eye-slash.svg';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
@@ -74,15 +74,11 @@ export const Input: React.FC<InputProps> = ({
 								tabIndex={-1}
 								aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}>
 								{showPassword ? (
-									<img
-										src={CloseEye}
-										alt='Скрыть пароль'
+									<OpenEye
 										className={styles.eyes}
 									/>
 								) : (
-									<img
-										src={OpenEye}
-										alt='Показать пароль'
+									<CloseEye
 										className={styles.eyes}
 									/>
 								)}
