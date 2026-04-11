@@ -55,8 +55,8 @@ services:
   frontend:
     image: ap1k/two-steps-frontend:latest
     container_name: two-steps-frontend
-    environment:
-      API_URL: ${API_URL}
+#    environment:
+#      API_URL: ${API_URL}
     ports:
       - "80:80"
     volumes:
