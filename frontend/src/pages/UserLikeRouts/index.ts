@@ -1,1 +1,0 @@
-export { UserLikeRouts } from './UserLikeRouts';

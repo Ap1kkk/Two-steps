@@ -1,24 +1,26 @@
 import {
-	createSlice,
 	createAsyncThunk,
+	createSlice,
 	PayloadAction,
 	SerializedError,
 } from '@reduxjs/toolkit';
-import { TUser } from '../../../types/user';
+import {
+	TLoginData,
+	TRegisterData,
+	TUpdateUserData,
+	TUser,
+} from '../../../types/user';
 import { clearTokens, storeTokens } from '../../../utils/auth';
 import {
-	registerUserApi,
+	forgotPasswordApi,
+	getUserApi,
 	loginUserApi,
 	logoutApi,
-	getUserApi,
-	updateUserApi,
-	forgotPasswordApi,
+	registerUserApi,
 	resetPasswordApi,
-	TRegisterData,
-	TLoginData,
-	TUpdateUserData,
-	TApiResponse,
+	updateUserApi,
 } from '../../../utils/api/user-api';
+import { TApiResponse } from '../../../types/api';
 
 type TUserState = {
 	isAuthChecked: boolean;
@@ -118,7 +120,9 @@ export const forgotPassword = createAsyncThunk<
 	const response: TApiResponse = await forgotPasswordApi(data);
 
 	if (!response?.success) {
-		return rejectWithValue(response.message || 'Ошибка восстановления пароля');
+		return rejectWithValue(
+			response.message || 'Ошибка восстановления пароля'
+		);
 	}
 
 	return true;

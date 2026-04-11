@@ -4,3 +4,20 @@ export type TUser = {
 	email: string;
 	role: 'USER' | 'ADMIN';
 };
+
+export type TRegisterData = {
+	username: string;
+	email: string;
+	password: string;
+	role?: 'USER' | 'ADMIN';
+};
+
+export type TLoginData = {
+	email: string;
+	password: string;
+};
+
+export type TUpdateUserData = Partial<Omit<TRegisterData, 'role'>> & {
+	id?: number;
+	role?: 'USER' | 'ADMIN';
+};

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import errorImage from '../../assets/images/error500.svg';
 import { Button } from '@ui';
-import styles from './Error500Page.module.css';
+import styles from './Error500Page.module.scss';
 
 export const Error500Page = () => {
 	const navigate = useNavigate();

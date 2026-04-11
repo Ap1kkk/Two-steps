@@ -1,23 +1,14 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Layout } from '@components';
 import {
-	AchievementsPage,
-	Admin_workbench,
-	Authorization,
-	EditProfilePage,
+	AuthorizationPage,
 	Error500Page,
 	MainPage,
 	MapPage,
 	NotFoundPage,
 	ProfilePage,
-	Recommendation,
-	Registration,
-	SearchRouts,
-	StatisticsPage,
-	UserHistory,
-	UserLikeRouts,
+	RegistrationPage,
 } from '@pages';
-import PopularRouts from './pages/PopularRouts/PopularRouts';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { Settings } from './components/Settings/Settings';
 
@@ -37,50 +28,22 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/login',
-				element: <Authorization />,
+				element: <AuthorizationPage />,
 			},
 			{
 				path: '/registration',
-				element: <Registration />,
+				element: <RegistrationPage />,
 			},
 			{
 				element: <ProtectedRoute isAuthenticated={true} />,
 				children: [
 					{
-						path: '/admin',
-						element: <Admin_workbench />,
-					},
-					{
 						path: '/routie',
 						element: <MainPage />,
 					},
 					{
-						path: 'recommendation',
-						element: <Recommendation />,
-					},
-					{
-						path: '/popular',
-						element: <PopularRouts />,
-					},
-					{
-						path: '/search_page',
-						element: <SearchRouts />,
-					},
-					{
-						path: '/history',
-						element: <UserHistory />,
-					},
-					{
 						path: '/map/:routeId',
 						element: <MapPage />,
-					},
-					{
-						path: '/favourites',
-						element: <UserLikeRouts />,
-					},
-					{
-						path: '/history',
-						element: <UserHistory />,
 					},
 					{
 						path: '/settings',
@@ -89,22 +52,6 @@ export const router = createBrowserRouter([
 					{
 						path: '/profile',
 						element: <ProfilePage />,
-					},
-					{
-						path: '/profile/statistic',
-						element: <StatisticsPage />,
-					},
-					{
-						path: '/profile/achievement',
-						element: <AchievementsPage />,
-					},
-					{
-						path: '/profile/history',
-						element: <UserHistory />,
-					},
-					{
-						path: '/profile/edit',
-						element: <EditProfilePage />,
 					},
 				],
 			},

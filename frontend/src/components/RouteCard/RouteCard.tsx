@@ -8,19 +8,28 @@ import likeActive from '../../assets/icons/like-green.svg';
 
 import styles from './RouteCard.module.scss';
 
+interface TagItem {
+	id: number;
+	label: string;
+}
+
 interface RouteCardProps {
 	route: Route;
-	tags?: string[];
+	isLiked?: boolean;
+	tags?: TagItem[];
+	selectedTagIds?: number[];
 	onToggleLike?: (id: number) => void;
 	variant?: 'standard' | 'compact';
 }
 
 export const RouteCard: React.FC<RouteCardProps> = ({
-	route,
-	tags,
-	onToggleLike,
-	variant = 'standard',
-}) => {
+														route,
+														isLiked = false,
+														tags = [],
+														selectedTagIds = [],
+														onToggleLike,
+														variant = 'standard',
+													}) => {
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	const formatDistance = (distance: number) => {
@@ -39,21 +48,27 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 		onToggleLike?.(route.id);
 	};
 
-	const getTagsToShow = (): string[] => {
+	const getTagsToShow = (): TagItem[] => {
 		if (tags && tags.length > 0) return tags;
-		if (route.categories && route.categories.length > 0) {
-			return route.categories.map(cat => cat.name);
+
+		if (route.tags && route.tags.length > 0) {
+			return route.tags.map((tag) => ({
+				id: tag.id,
+				label: tag.name,
+			}));
 		}
+
 		return [];
 	};
 
+	const displayTags = getTagsToShow();
 
 	if (variant === 'standard') {
 		return (
 			<div className={styles.route_card}>
 				<Link to={`/map/${route.id}`} className={styles.route_link}>
 					<img
-						src={route.imagePath}
+						src={route.imagePath || '/placeholder-image.jpg'}
 						alt={route.name}
 						className={styles.route_image}
 						loading='lazy'
@@ -66,11 +81,6 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 					<span className={styles.route_distance}>
 						Расстояние: {formatDistance(route.distance)}
 					</span>
-					{getTagsToShow().length > 0 && (
-						<div className={styles.route_tags}>
-							<Tag items={getTagsToShow()} variant='small' />
-						</div>
-					)}
 				</div>
 			</div>
 		);
@@ -82,7 +92,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 				<Link to={`/map/${route.id}`} className={styles.compactLink}>
 					<div className={styles.compactCardInner}>
 						<img
-							src={route.imagePath}
+							src={route.imagePath || '/placeholder-image.jpg'}
 							alt={route.name}
 							className={styles.compactImage}
 							loading='lazy'
@@ -92,11 +102,12 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 							<p className={styles.compactDistance}>
 								{formatDistance(route.distance)}
 							</p>
-							{getTagsToShow().length > 0 && (
+							{displayTags.length > 0 && (
 								<div className={styles.compactTags}>
 									<Tag
-										items={getTagsToShow()}
+										items={displayTags}
 										variant='small'
+										selectedIds={selectedTagIds}
 									/>
 								</div>
 							)}
@@ -107,9 +118,11 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 								onClick={handleLikeClick}
 								aria-label='Добавить в избранное'>
 								<img
-									src={like}
+									src={isLiked ? likeActive : like}
 									alt='Добавить в избранное'
-									className={styles.likeIcon}
+									className={`${styles.likeIcon} ${
+										isAnimating ? styles.animate : ''
+									}`}
 								/>
 							</button>
 						)}

@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { YMaps, Map } from '@pbe/react-yandex-maps';
 import { useRouteMap } from '../../utils/hooks/useRouteMap';
-import { RouteMapProps } from '../../types/route';
-
+import { Route } from '../../types/route';
 import styles from './routes-on-map.module.scss';
 
 const YANDEX_MAPS_API_KEY = '71b4ede5-7042-4bba-9243-a2cb4b638bd5';
+
+export interface RouteMapProps {
+	routeData?: Route | null;
+	userLocation?: [number, number] | null;
+	onMapLoad?: (ymaps: any, map: any) => void;
+	className?: string;
+	showUserMarker?: boolean;
+	showRoute?: boolean;
+	height?: string | number;
+}
 
 export const RouteOnMap: React.FC<RouteMapProps> = ({
 	routeData,
@@ -149,5 +158,3 @@ export const RouteOnMap: React.FC<RouteMapProps> = ({
 		</div>
 	);
 };
-
-export default RouteOnMap;

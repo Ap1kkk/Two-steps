@@ -3,120 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { Route } from '../../types/route';
 import styles from './MainPage.module.scss';
 import { RouteCard, RouteOfTheDay } from '@components';
-
-const LIMIT = 5;
-
-const difficultyTranslation = {
-	easy: 'Легкий',
-	medium: 'Средний',
-	hard: 'Тяжелый',
-	extreme: 'Экстремальный',
-};
-
-const MOCK_POPULAR_ROUTES: Route[] = [
-	{
-		id: 1,
-		name: 'Парк Горького',
-		imagePath: 'https://places.moscow/trip/staryy-arbat-chto-posmotret',
-		distance: 3500,
-		difficulty: 'EASY',
-		categories: [
-			{ id: 1, name: 'Парк' },
-			{ id: 2, name: 'Прогулка' },
-			{ id: 3, name: 'Природа' },
-		],
-	},
-	{
-		id: 2,
-		name: 'Воробьевы горы',
-		imagePath: '/images-123/vorobyovy-gory.jpg',
-		distance: 5200,
-		difficulty: 'MEDIUM',
-		categories: [
-			{ id: 3, name: 'Природа' },
-			{ id: 4, name: 'Вид' },
-		],
-	},
-	{
-		id: 3,
-		name: 'Красная площадь',
-		imagePath: '/images-123/red-square.jpg',
-		distance: 2800,
-		difficulty: 'EASY',
-		categories: [
-			{ id: 5, name: 'История' },
-			{ id: 6, name: 'Центр' },
-		],
-	},
-	{
-		id: 4,
-		name: 'Царицыно',
-		imagePath: '/images-123/tsaritsyno.jpg',
-		distance: 4800,
-		difficulty: 'MEDIUM',
-		categories: [
-			{ id: 1, name: 'Парк' },
-			{ id: 7, name: 'Дворец' },
-		],
-	},
-	{
-		id: 5,
-		name: 'Сокольники',
-		imagePath: '/images-123/sokolniki.jpg',
-		distance: 6200,
-		difficulty: 'HARD',
-		categories: [
-			{ id: 1, name: 'Парк' },
-			{ id: 8, name: 'Лес' },
-		],
-	},
-];
-
-const MOCK_RECOMMENDED_ROUTES: Route[] = [
-	{
-		id: 6,
-		name: 'Патриаршие пруды',
-		imagePath: '/images-123/patriarshiye.jpg',
-		distance: 2100,
-		difficulty: 'EASY',
-		categories: [
-			{ id: 9, name: 'Пруды' },
-			{ id: 10, name: 'Исторический' },
-		],
-	},
-	{
-		id: 7,
-		name: 'Арбат',
-		imagePath: '/images-123/arbat.jpg',
-		distance: 1800,
-		difficulty: 'EASY',
-		categories: [
-			{ id: 11, name: 'Пешеходный' },
-			{ id: 12, name: 'Улица' },
-		],
-	},
-	{
-		id: 8,
-		name: 'Зарядье',
-		imagePath: '/images-123/zaryadye.jpg',
-		distance: 3200,
-		difficulty: 'MEDIUM',
-		categories: [
-			{ id: 1, name: 'Парк' },
-			{ id: 13, name: 'Современный' },
-		],
-	},
-];
+import { mockRoutes, getRandomMockRoute } from '../../types/mockData';
 
 export const MainPage: React.FC = () => {
 	const navigate = useNavigate();
 	const [popularRoutes, setPopularRoutes] = useState<Route[]>([]);
 	const [recommendedRoutes, setRecommendedRoutes] = useState<Route[]>([]);
 	const [likedRoutes, setLikedRoutes] = useState<Record<number, boolean>>({});
+
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [routeOfTheDay, setRouteOfTheDay] = useState<Route | null>(null);
 
 	useEffect(() => {
 		const checkAuth = () => {
@@ -127,26 +27,38 @@ export const MainPage: React.FC = () => {
 				setIsAuthenticated(false);
 			}
 		};
-
 		checkAuth();
 	}, []);
 
 	useEffect(() => {
-		// Используем мок данные сразу
-		setTimeout(() => {
-			setPopularRoutes(MOCK_POPULAR_ROUTES);
-			setRecommendedRoutes(MOCK_RECOMMENDED_ROUTES);
-			setLoading(false);
-		}, 500); // Имитация загрузки
+		const loadRoutes = () => {
+			try {
+				setPopularRoutes(mockRoutes.slice(0, 4));
+				setRecommendedRoutes(mockRoutes.slice(4, 8));
+
+				const randomRoute = getRandomMockRoute();
+				setRouteOfTheDay(randomRoute);
+
+				setLoading(false);
+			} catch (err) {
+				setError('Ошибка при загрузке маршрутов');
+				setLoading(false);
+			}
+		};
+
+		const timer = setTimeout(loadRoutes, 500);
+		return () => clearTimeout(timer);
 	}, []);
 
 	const handleRouteOfTheDay = () => {
-		if (popularRoutes.length > 0) {
+		if (routeOfTheDay) {
+			navigate(`/map/${routeOfTheDay.id}`);
+		} else if (popularRoutes.length > 0) {
 			navigate(`/map/${popularRoutes[0].id}`);
 		} else if (recommendedRoutes.length > 0) {
 			navigate(`/map/${recommendedRoutes[0].id}`);
 		} else {
-			navigate(`/map/${MOCK_POPULAR_ROUTES[0].id}`);
+			navigate(`/map/${mockRoutes[0].id}`);
 		}
 	};
 
@@ -160,27 +72,50 @@ export const MainPage: React.FC = () => {
 			...prev,
 			[routeId]: !prev[routeId],
 		}));
+
+		console.log(`Route ${routeId} liked: ${!likedRoutes[routeId]}`);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
 	};
 
 	if (loading) {
 		return (
 			<div className={styles.container}>
 				<div className={styles.mapBackground} />
-				<div className={styles.loading}>Загрузка...</div>
+				<div className={styles.loading}>
+					<div className={styles.spinner}></div>
+					<p>Загрузка маршрутов...</p>
+				</div>
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className={styles.container}>
+				<div className={styles.mapBackground} />
+				<div className={styles.error}>
+					<p>{error}</p>
+					<button onClick={() => window.location.reload()}>
+						Попробовать снова
+					</button>
+				</div>
 			</div>
 		);
 	}
 
 	return (
 		<section className={styles.section}>
-			{error && (
-				<div className={styles.errorBanner}>
-					<p>{error}</p>
+			{routeOfTheDay && (
+				<div className={styles.route_day}>
+					<RouteOfTheDay
+						route={routeOfTheDay}
+						onNavigate={handleRouteOfTheDay}
+					/>
 				</div>
 			)}
-			<div className={styles.route_day}>
-				<RouteOfTheDay onNavigate={handleRouteOfTheDay} />
-			</div>
 
 			{popularRoutes.length > 0 && (
 				<div className={styles.container}>
@@ -190,34 +125,44 @@ export const MainPage: React.FC = () => {
 							<RouteCard
 								key={route.id}
 								route={route}
+								isLiked={likedRoutes[route.id] || false}
 								onToggleLike={handleToggleLike}
-								variant='standard'
+								variant='compact'
 							/>
 						))}
 					</div>
 				</div>
 			)}
 
-			{/*/!* Рекомендованные маршруты *!/*/}
-			{/*{recommendedRoutes.length > 0 && (*/}
-			{/*	<section className={styles.section}>*/}
-			{/*		<h2 className={styles.sectionTitle}>Рекомендованные маршруты</h2>*/}
-			{/*		<div className={styles.routesGrid}>*/}
-			{/*			{recommendedRoutes.map((route) => (*/}
-			{/*				<RouteCard*/}
-			{/*					key={route.id}*/}
-			{/*					route={route}*/}
-			{/*					difficultyTranslation={difficultyTranslation}*/}
-			{/*					likedRoutes={Object.keys(likedRoutes)*/}
-			{/*						.filter((id) => likedRoutes[Number(id)])*/}
-			{/*						.map((id) => Number(id))}*/}
-			{/*					onToggleLike={handleToggleLike}*/}
-			{/*					variant='standard'*/}
-			{/*				/>*/}
-			{/*			))}*/}
-			{/*		</div>*/}
-			{/*	</section>*/}
-			{/*)}*/}
+			{recommendedRoutes.length > 0 && (
+				<div className={styles.container}>
+					<h2 className={styles.title}>Рекомендованные маршруты</h2>
+					<div className={styles.position}>
+						{recommendedRoutes.map((route) => (
+							<RouteCard
+								key={route.id}
+								route={route}
+								isLiked={likedRoutes[route.id] || false}
+								onToggleLike={handleToggleLike}
+								variant='compact'
+							/>
+						))}
+					</div>
+				</div>
+			)}
+
+			{isModalOpen && (
+				<div className={styles.modal} onClick={handleCloseModal}>
+					<div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+						<h3>Требуется авторизация</h3>
+						<p>Чтобы добавлять маршруты в избранное, пожалуйста, войдите в систему</p>
+						<div className={styles.modalButtons}>
+							<button onClick={() => navigate('/login')}>Войти</button>
+							<button onClick={handleCloseModal}>Закрыть</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</section>
 	);
 };
