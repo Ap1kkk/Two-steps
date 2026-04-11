@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { useDeviceType } from '../../utils/hooks/useDeviceType';
-import { Header } from '../DesktopHeader';
-import { Footer } from '../DesktopFooter';
-import { MobileFooter } from '../MobileFooter';
-import { MobileHeader } from '../MobileHeader';
+import { Header } from '../Header/DesktopHeader';
+import { Footer } from '../Footer/DesktopFooter';
+import { MobileFooter } from '../Footer/MobileFooter';
+import { MobileHeader } from '../Header/MobileHeader';
 
 import styles from './Layout.module.scss';
 
