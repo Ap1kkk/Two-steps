@@ -7,7 +7,9 @@ import {
 	selectLoginError,
 	selectIsAuthenticated,
 } from '../../services/selectors/userSelectors';
-import { AuthorizationForm } from '../../components/AuthorizationForm/AuthorizationForm';
+import { AuthorizationForm } from '@components';
+
+import styles from './AuthorizationPage.module.scss'
 
 export const AuthorizationPage = () => {
 	const navigate = useNavigate();
@@ -66,14 +68,16 @@ export const AuthorizationPage = () => {
 		: null;
 
 	return (
-		<AuthorizationForm
-			formData={formData}
-			onChange={handleChange}
-			onSubmit={handleSubmit}
-			isFormValid={isFormValid}
-			isLoading={isLoading}
-			error={errorMessage}
-		/>
+		<section className={styles.container}>
+			<AuthorizationForm
+				formData={formData}
+				onChange={handleChange}
+				onSubmit={handleSubmit}
+				isFormValid={isFormValid}
+				isLoading={isLoading}
+				error={errorMessage}
+			/>
+		</section>
 	);
 };
 

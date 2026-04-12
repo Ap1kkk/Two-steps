@@ -1,0 +1,62 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.stepCounter {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  z-index: 10;
+}
+
+.stepTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.dashList {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dash {
+  display: block;
+  width: 25px;
+  height: 4px;
+  background-color: var(--color-caption);
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.dashActive {
+  background-color: var(--color-text);
+}
+
+.regForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.nextButton {
+  width: 100%;
+  margin-top: 10px;
+}

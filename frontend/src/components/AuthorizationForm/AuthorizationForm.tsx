@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './AuthorizationForm.module.scss';
 import { Button, Input } from '@ui';
-import { validateEmail, validatePassword } from '../../utils/validator';
+import { validateEmail } from '../../utils/validator';
 
 interface AuthorizationFormProps {
 	formData: {
@@ -37,74 +37,106 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 		password: false,
 	});
 
-	const validateEmailField = (email: string) => {
-		const result = validateEmail(email);
-		if (!result.isValid) {
-			setFieldErrors((prev) => ({ ...prev, email: result.errorMessage }));
-			return false;
-		} else {
-			setFieldErrors((prev) => ({ ...prev, email: undefined }));
-			return true;
-		}
-	};
+	const [lastEmailError, setLastEmailError] = useState<string | undefined>(
+		undefined
+	);
 
-	const validatePasswordField = (password: string) => {
-		const result = validatePassword(password);
-		if (!result.isValid) {
+	const emailValidation = useMemo(() => {
+		if (!formData.email) {
+			return { isValid: false, errorMessage: 'Email обязателен' };
+		}
+		return validateEmail(formData.email);
+	}, [formData.email]);
+
+	const passwordValidation = useMemo(() => {
+		if (!formData.password) {
+			return { isValid: false, errorMessage: 'Пароль обязателен' };
+		}
+		return { isValid: true };
+	}, [formData.password]);
+
+	useEffect(() => {
+		if (touched.email) {
+			const error = emailValidation.isValid
+				? undefined
+				: emailValidation.errorMessage;
+			setLastEmailError(error);
 			setFieldErrors((prev) => ({
 				...prev,
-				password: result.errorMessage,
+				email: error,
 			}));
-			return false;
-		} else {
-			setFieldErrors((prev) => ({ ...prev, password: undefined }));
-			return true;
 		}
-	};
+	}, [emailValidation, touched.email]);
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		onChange(e);
+	useEffect(() => {
+		if (touched.password) {
+			setFieldErrors((prev) => ({
+				...prev,
+				password: passwordValidation.isValid
+					? undefined
+					: passwordValidation.errorMessage,
+			}));
+		}
+	}, [passwordValidation, touched.password]);
 
-		if (touched[name as keyof typeof touched]) {
-			if (name === 'email') {
-				validateEmailField(value);
-			} else if (name === 'password') {
-				validatePasswordField(value);
+	const isClientFormValid = useMemo(() => {
+		return emailValidation.isValid && passwordValidation.isValid;
+	}, [emailValidation.isValid, passwordValidation.isValid]);
+
+	const handleChange = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			const { name } = e.target;
+			onChange(e);
+
+			if (name === 'password' && touched.password) {
+				setFieldErrors((prev) => ({
+					...prev,
+					password: undefined,
+				}));
 			}
-		}
-	};
+		},
+		[onChange, touched]
+	);
 
-	const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-
+	const handleBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+		const { name } = e.target;
 		setTouched((prev) => ({ ...prev, [name]: true }));
+	}, []);
 
-		if (name === 'email') {
-			validateEmailField(value);
-		} else if (name === 'password') {
-			validatePasswordField(value);
-		}
-	};
+	const handleSubmit = useCallback(
+		(e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
+			setTouched({ email: true, password: true });
+			const emailError = emailValidation.isValid
+				? undefined
+				: emailValidation.errorMessage;
+			const passwordError = passwordValidation.isValid
+				? undefined
+				: passwordValidation.errorMessage;
 
-	const isClientFormValid = () => {
-		const isEmailValid = validateEmailField(formData.email);
-		const isPasswordValid = validatePasswordField(formData.password);
-		return isEmailValid && isPasswordValid;
-	};
+			setLastEmailError(emailError);
+			setFieldErrors({
+				email: emailError,
+				password: passwordError,
+			});
+			if (emailValidation.isValid && passwordValidation.isValid) {
+				onSubmit(e);
+			}
+		},
+		[
+			emailValidation.isValid,
+			passwordValidation.isValid,
+			onSubmit,
+			emailValidation.errorMessage,
+			passwordValidation.errorMessage,
+		]
+	);
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const isDisabled = useMemo(() => {
+		return !isFormValid || isLoading || !isClientFormValid;
+	}, [isFormValid, isLoading, isClientFormValid]);
 
-		setTouched({ email: true, password: true });
-
-		const isEmailValid = validateEmailField(formData.email);
-		const isPasswordValid = validatePasswordField(formData.password);
-
-		if (isEmailValid && isPasswordValid) {
-			onSubmit(e);
-		}
-	};
+	const displayEmailError = touched.email ? lastEmailError : undefined;
 
 	return (
 		<div className={styles.container}>
@@ -122,7 +154,7 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 					onBlur={handleBlur}
 					required={true}
 					placeholder={'example@mail.com'}
-					error={touched.email ? fieldErrors.email : undefined}
+					error={displayEmailError}
 				/>
 
 				<Input
@@ -137,14 +169,10 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 					error={touched.password ? fieldErrors.password : undefined}
 				/>
 
-				<Button
-					disabled={!isFormValid || isLoading || !isClientFormValid()}
-					type='submit'
-					variant='primary'>
-					<p
-						className={styles.buttonText}
-						children={isLoading ? 'Вход...' : 'Войти'}
-					/>
+				<Button disabled={isDisabled} type='submit' variant='primary'>
+					<p className={styles.buttonText}>
+						{isLoading ? 'Вход...' : 'Войти'}
+					</p>
 				</Button>
 			</form>
 
@@ -155,7 +183,7 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 
 				<div className={styles.register}>
 					<p className={styles.registerText}>Нет аккаунта?</p>
-					<Link to='/register' className={styles.link}>
+					<Link to='/registration' className={styles.link}>
 						Зарегистрироваться
 					</Link>
 				</div>

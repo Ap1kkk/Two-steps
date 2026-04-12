@@ -5,4 +5,4 @@ export * from './MainPage';
 export * from './MapPage';
 export * from './ProfilePage'
 export * from './RegistrationPage';
-
+export * from './SettingsPage'

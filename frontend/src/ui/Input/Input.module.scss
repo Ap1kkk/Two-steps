@@ -1,121 +1,121 @@
 .wrapper {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .label {
-	font-family: var(--font-body);
-	font-size: var(--text-body-size);
-	font-weight: var(--font-regular);
-	letter-spacing: 0.02em;
-	color: var(--color-text);
-	padding-bottom: 2px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  padding-bottom: 2px;
 
-	@media (max-width: 925px) {
-		font-size: var(--text-body-size-mobile);
-	}
+  @media (max-width: 925px) {
+    font-size: var(--text-body-size-mobile);
+  }
 }
 
 .input-wrapper {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	background-color: var(--color-card);
-	border: 1px solid var(--color-caption);
-	border-radius: 12px;
-	padding: 10px 16px;
-	transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-caption);
+  border-radius: 12px;
+  padding: 10px 16px;
+  transition: all 0.2s ease;
 
-	&:hover {
-		border-color: var(--color-accent);
-	}
+  &:hover {
+    border-color: var(--color-accent);
+  }
 
-	&:focus-within {
-		border-color: var(--color-accent);
-		outline: 2px solid var(--color-button-hover);
-	}
+  &:focus-within {
+    border-color: var(--color-accent);
+    outline: 2px solid var(--color-button-hover);
+  }
 
-	&.error {
-		border-color: var(--color-error);
-	}
+  &.error {
+    border-color: var(--color-error);
+  }
 
-	&.error:focus-within {
-		outline-color: var(--color-alarm);
-	}
+  &.error:focus-within {
+    outline-color: var(--color-alarm);
+  }
 }
 
 .input {
-	flex: 1;
-	padding: 0;
-	font-family: var(--font-body);
-	font-size: var(--text-body-size);
-	color: var(--color-text);
-	background: transparent;
-	border: none;
-	outline: none;
+  flex: 1;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  outline: none;
 
-	&::placeholder {
-		color: var(--color-disabled-text);
-		opacity: 0.5;
-	}
+  &::placeholder {
+    color: var(--color-disabled-text);
+    opacity: 0.5;
+  }
 
-	&:disabled {
-		background-color: var(--color-disabled);
-		cursor: not-allowed;
-		opacity: 0.6;
-	}
+  &:disabled {
+    background-color: var(--color-disabled);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 .icon-left,
 .icon-right {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
-	color: var(--color-toggle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-toggle);
 }
 
 .passwordToggle {
-	display: flex;
-	align-items: center;
-	background: none;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-	font-size: var(--text-body-size);
-	pointer-events: auto;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: var(--text-body-size);
+  pointer-events: auto;
 
-	&:focus-visible {
-		outline: 2px solid var(--color-caption);
-		border-radius: 12px;
-	}
+  &:focus-visible {
+    outline: 2px solid var(--color-caption);
+    border-radius: 12px;
+  }
 }
 
 .eyes {
-	cursor: pointer;
-	color: var(--color-text);
+  cursor: pointer;
+  color: var(--color-text);
 
-	&:hover {
-		transform: scale(1.05);
-	}
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .helperText {
-	font-size: var(--text-caption-size);
-	color: var(--color-caption);
-	margin: 0;
+  font-size: var(--text-caption-size);
+  color: var(--color-caption);
+  margin: 0;
 }
 
 .errorText {
-	font-size: var(--text-caption-size);
-	color: var(--color-alarm);
-	margin: 0;
+  font-size: var(--text-caption-size);
+  color: var(--color-alarm);
+  margin: 0;
 }
 
 .error-message {
-	font-family: var(--font-body);
-	font-size: var(--text-caption-size);
-	color: var(--color-error);
-	margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-caption-size);
+  color: var(--color-error);
+  margin: 0;
 }

@@ -140,7 +140,33 @@ export const validateConfirmPassword = (
 };
 
 /**
- * Валидация имени пользователя
+ * Очистка имени: удаляет пробелы, дефисы и все символы, кроме кириллицы
+ * @param name - имя для очистки
+ * @returns очищенное имя
+ */
+export const sanitizeName = (name: string): string => {
+	if (!name) return '';
+
+	return name.replace(/[^а-яА-ЯёЁ]/g, '');
+};
+
+/**
+ * Форматирование имени: первая буква заглавная, остальные маленькие
+ * @param name - имя для форматирования
+ * @returns отформатированное имя
+ */
+export const formatName = (name: string): string => {
+	if (!name) return '';
+
+	const sanitized = sanitizeName(name);
+
+	if (sanitized.length === 0) return '';
+
+	return sanitized.charAt(0).toUpperCase() + sanitized.slice(1).toLowerCase();
+};
+
+/**
+ * Валидация имени пользователя (только кириллица, без пробелов и дефисов)
  * @param name - имя для проверки
  * @returns ValidationResult
  */
@@ -152,33 +178,35 @@ export const validateName = (name: string): ValidationResult => {
 		};
 	}
 
-	if (name.length < 2) {
+	const cleanedName = sanitizeName(name);
+
+	if (cleanedName.length === 0) {
 		return {
 			isValid: false,
-			errorMessage: 'Имя должно содержать минимум 2 символа',
+			errorMessage: 'Имя должно содержать только буквы кириллицы',
 		};
 	}
 
-	if (name.length > 30) {
+	if (cleanedName.length < 2) {
 		return {
 			isValid: false,
-			errorMessage: 'Имя не должно превышать 30 символов',
+			errorMessage: 'Имя должно содержать минимум 2 буквы',
 		};
 	}
 
-	const allowedCharsRegex = /^[a-zA-Zа-яА-ЯёЁ0-9\s-]+$/;
-	if (!allowedCharsRegex.test(name)) {
+	if (cleanedName.length > 30) {
+		return {
+			isValid: false,
+			errorMessage: 'Имя не должно превышать 30 букв',
+		};
+	}
+
+	const cyrillicRegex = /^[а-яА-ЯёЁ]+$/;
+	if (!cyrillicRegex.test(cleanedName)) {
 		return {
 			isValid: false,
 			errorMessage:
-				'Имя может содержать только буквы, цифры, пробелы и дефисы',
-		};
-	}
-
-	if (/^\d+$/.test(name)) {
-		return {
-			isValid: false,
-			errorMessage: 'Имя не может состоять только из цифр',
+				'Имя должно содержать только буквы кириллицы (без пробелов и дефисов)',
 		};
 	}
 
