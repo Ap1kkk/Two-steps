@@ -1,5 +1,6 @@
 package ru.ngtu.twosteps.category.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/category")
 @RequiredArgsConstructor
+@Tag(name = "Category", description = "Category endpoints")
 public class CategoryController {
 
     private final CategoryService categoryService;

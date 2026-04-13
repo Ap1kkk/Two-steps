@@ -1,5 +1,6 @@
 package ru.ngtu.twosteps.routes.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.ngtu.twosteps.jpa.entity.route.Route;
@@ -15,9 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/route")
 @RequiredArgsConstructor
+@Tag(name = "Route", description = "Route endpoints")
 public class RouteController {
 
-    private final RouteFaker routeFaker;
     private final RouteService routeService;
 
     @GetMapping("/by-id")
