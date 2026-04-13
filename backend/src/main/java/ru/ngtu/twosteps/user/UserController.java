@@ -13,7 +13,7 @@ import ru.ngtu.twosteps.user.dto.EditProfileDto;
 import ru.ngtu.twosteps.user.dto.FinishRegistrationDto;
 import ru.ngtu.twosteps.user.dto.ProfileDto;
 import ru.ngtu.twosteps.user.dto.UserProjectionDto;
-import ru.ngtu.twosteps.user.model.User;
+import ru.ngtu.twosteps.jpa.entity.user.User;
 
 /**
  * @author Egor Bokov

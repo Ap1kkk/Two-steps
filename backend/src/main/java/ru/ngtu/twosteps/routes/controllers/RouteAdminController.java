@@ -2,7 +2,7 @@ package ru.ngtu.twosteps.routes.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.ngtu.twosteps.routes.model.Route;
+import ru.ngtu.twosteps.jpa.entity.route.Route;
 import ru.ngtu.twosteps.routes.dto.RouteDto;
 import ru.ngtu.twosteps.routes.services.RouteService;
 

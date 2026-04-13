@@ -2,10 +2,10 @@ package ru.ngtu.twosteps.routes.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.ngtu.twosteps.routes.model.Route;
-import ru.ngtu.twosteps.routes.RouteFaker;
+import ru.ngtu.twosteps.jpa.entity.route.Route;
+import ru.ngtu.twosteps.faker.RouteFaker;
 import ru.ngtu.twosteps.routes.services.RouteService;
-import ru.ngtu.twosteps.routes.jpa.RouteFilter;
+import ru.ngtu.twosteps.jpa.entity.route.RouteFilter;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package ru.ngtu.twosteps.category.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.ngtu.twosteps.category.Category;
+import ru.ngtu.twosteps.jpa.entity.Category;
 import ru.ngtu.twosteps.category.CategoryDto;
 import ru.ngtu.twosteps.category.CategoryService;
 
