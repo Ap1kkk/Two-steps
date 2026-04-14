@@ -61,7 +61,7 @@ export const Header = () => {
 	const currentText = mode === 'sport' ? 'Спорт' : 'Туризм';
 
 	const isAuthPage =
-		location.pathname === '/login' || location.pathname === '/RegistrationPage';
+		location.pathname === '/login' || location.pathname === '/registration';
 
 	if (isAuthPage) {
 		return (

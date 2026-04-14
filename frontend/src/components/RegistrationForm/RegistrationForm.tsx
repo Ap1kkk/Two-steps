@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import RegistrationForm1 from './RegistrationForm1/RegistrationForm1';
-import RegistrationForm2 from './RegistrationForm2/RegistrationForm2';
-import RegistrationForm3 from './RegistrationForm3/RegistrationForm3';
+import { RegistrationForm1 } from './RegistrationForm1/RegistrationForm1';
+import { RegistrationForm2 } from './RegistrationForm2/RegistrationForm2';
+import { RegistrationForm3 } from './RegistrationForm3/RegistrationForm3';
+
 import styles from './RegistrationForm.module.scss';
 
 interface RegistrationData {
 	email: string;
 	password: string;
-	avatar: string | null;
+	avatar: File | null;
 	name: string;
 	gender: string;
 	birthDate: string;
-	weight: string;
-	height: string;
+	weight: number;
+	height: number;
 	tags: string[];
 }
 
@@ -25,25 +26,21 @@ const RegistrationForm: React.FC = () => {
 		name: '',
 		gender: '',
 		birthDate: '',
-		weight: '',
-		height: '',
+		weight: 0,
+		height: 0,
 		tags: [],
 	});
 
 	const handleNextStep1 = (data: { email: string; password: string }) => {
-		setFormData(prev => ({ ...prev, ...data }));
+		setFormData((prev) => ({ ...prev, ...data }));
 		setStep(2);
 	};
 
-	const handleNextStep2 = (data: {
-		avatar: string | null;
-		name: string;
-		gender: string;
-		birthDate: string;
-		weight: string;
-		height: string
-	}) => {
-		setFormData(prev => ({ ...prev, ...data }));
+	const handleUpdateData = (key: string, value: unknown) => {
+		setFormData((prev) => ({ ...prev, [key]: value }));
+	};
+
+	const handleNextStep2 = () => {
 		setStep(3);
 	};
 
@@ -54,7 +51,7 @@ const RegistrationForm: React.FC = () => {
 	};
 
 	const handleBack = () => {
-		setStep(prev => prev - 1);
+		setStep((prev) => prev - 1);
 	};
 
 	return (
@@ -62,22 +59,26 @@ const RegistrationForm: React.FC = () => {
 			{step === 1 && (
 				<RegistrationForm1
 					onNext={handleNextStep1}
-					initialData={{ email: formData.email, password: formData.password }}
+					initialData={{
+						email: formData.email,
+						password: formData.password,
+					}}
 				/>
 			)}
 
 			{step === 2 && (
 				<RegistrationForm2
-					onNext={handleNextStep2}
-					onBack={handleBack}
-					initialData={{
-						avatar: formData.avatar,
+					data={{
 						name: formData.name,
 						gender: formData.gender,
 						birthDate: formData.birthDate,
 						weight: formData.weight,
 						height: formData.height,
+						avatar: formData.avatar,
 					}}
+					updateData={handleUpdateData}
+					onNext={handleNextStep2}
+					onPrev={handleBack}
 				/>
 			)}
 

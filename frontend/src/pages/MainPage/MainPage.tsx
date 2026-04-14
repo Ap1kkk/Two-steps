@@ -153,11 +153,18 @@ export const MainPage: React.FC = () => {
 
 			{isModalOpen && (
 				<div className={styles.modal} onClick={handleCloseModal}>
-					<div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+					<div
+						className={styles.modalContent}
+						onClick={(e) => e.stopPropagation()}>
 						<h3>Требуется авторизация</h3>
-						<p>Чтобы добавлять маршруты в избранное, пожалуйста, войдите в систему</p>
+						<p>
+							Чтобы добавлять маршруты в избранное, пожалуйста,
+							войдите в систему
+						</p>
 						<div className={styles.modalButtons}>
-							<button onClick={() => navigate('/login')}>Войти</button>
+							<button onClick={() => navigate('/login')}>
+								Войти
+							</button>
 							<button onClick={handleCloseModal}>Закрыть</button>
 						</div>
 					</div>

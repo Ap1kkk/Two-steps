@@ -25,7 +25,9 @@ export const useRouteMap = (
 	/** Обработка ошибки загрузки API */
 	const handleApiError = useCallback((error: any) => {
 		console.error('Yandex Maps API error:', error);
-		setMapError('Не удалось загрузить карту. Пожалуйста, обновите страницу.');
+		setMapError(
+			'Не удалось загрузить карту. Пожалуйста, обновите страницу.'
+		);
 	}, []);
 
 	/** Получение ссылки на карту */

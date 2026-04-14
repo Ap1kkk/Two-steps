@@ -17,12 +17,12 @@ interface TagProps {
 }
 
 export const Tag: React.FC<TagProps> = ({
-											items,
-											variant = 'default',
-											className,
-											selectedIds = [],
-											onTagClick,
-										}) => {
+	items,
+	variant = 'default',
+	className,
+	selectedIds = [],
+	onTagClick,
+}) => {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [visibleCount, setVisibleCount] = useState(0);
 
@@ -106,24 +106,21 @@ export const Tag: React.FC<TagProps> = ({
 	return (
 		<div
 			ref={containerRef}
-			className={`${styles.tags_container} ${className || ''}`}
-		>
+			className={`${styles.tags_container} ${className || ''}`}>
 			{visibleItems.map((item, index) => (
 				<button
 					key={item.id ?? index}
 					className={`${styles.tag_item} ${styles[variant]} ${
 						isSelected(item.id) ? styles.selected : ''
 					}`}
-					onClick={() => onTagClick?.(item.id)}
-				>
+					onClick={() => onTagClick?.(item.id)}>
 					<span className={styles.button_label}> {item.label} </span>
 				</button>
 			))}
 			{remaining > 0 && (
 				<div
 					className={`${styles.moreTag} ${styles[variant]}`}
-					title={hiddenItems.map(item => item.label).join(', ')}
-				>
+					title={hiddenItems.map((item) => item.label).join(', ')}>
 					+{remaining}
 				</div>
 			)}

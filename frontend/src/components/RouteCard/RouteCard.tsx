@@ -23,13 +23,13 @@ interface RouteCardProps {
 }
 
 export const RouteCard: React.FC<RouteCardProps> = ({
-														route,
-														isLiked = false,
-														tags = [],
-														selectedTagIds = [],
-														onToggleLike,
-														variant = 'standard',
-													}) => {
+	route,
+	isLiked = false,
+	tags = [],
+	selectedTagIds = [],
+	onToggleLike,
+	variant = 'standard',
+}) => {
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	const formatDistance = (distance: number) => {

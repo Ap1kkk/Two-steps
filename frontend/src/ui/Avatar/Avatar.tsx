@@ -12,7 +12,7 @@ interface AvatarProps {
 
 const sizeMap = {
 	small: 32,
-	medium: 48,
+	medium: 72,
 	large: 100,
 };
 
@@ -24,13 +24,13 @@ export const Avatar: React.FC<AvatarProps> = ({
 }) => {
 	const sizePx = sizeMap[size];
 
-	const initial = alt !== 'avatar' && alt.length > 0 ? alt[0].toUpperCase() : '?';
+	const initial =
+		alt !== 'avatar' && alt.length > 0 ? alt[0].toUpperCase() : '?';
 
 	return (
 		<div
 			className={`${styles.avatar} ${styles[size]} ${className}`}
-			style={{ width: sizePx, height: sizePx }}
-		>
+			style={{ width: sizePx, height: sizePx }}>
 			{src ? (
 				<img src={src} alt={alt} className={styles.image} />
 			) : (

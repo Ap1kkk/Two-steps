@@ -20,7 +20,11 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
 	const handleOverlayClick = useCallback(
 		(e: React.MouseEvent<HTMLDivElement>) => {
-			if (closeOnOverlayClick && onClose && e.target === e.currentTarget) {
+			if (
+				closeOnOverlayClick &&
+				onClose &&
+				e.target === e.currentTarget
+			) {
 				onClose();
 			}
 		},

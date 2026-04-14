@@ -9,17 +9,16 @@ export const ProfilePage = () => {
 				<div></div>
 				<h1>Профиль</h1>
 				<div>
-					<Link to='/profile_page/edit_profile_page' className='edit-button'>
+					<Link
+						to='/profile_page/edit_profile_page'
+						className='edit-button'>
 						Ред
 					</Link>
 				</div>
 			</div>
 			<div className='profile-info'>
-				<div className='circle small-circle'>
-				</div>
-				<div className='circle large-circle'>
-					{MOCK_USER.avatar}
-				</div>
+				<div className='circle small-circle'></div>
+				<div className='circle large-circle'>{MOCK_USER.avatar}</div>
 				<div className='circle small-circle'>
 					<p className='circle-label'>
 						достижений
@@ -35,13 +34,19 @@ export const ProfilePage = () => {
 			</div>
 
 			<div className='menu'>
-				<Link to='/profile_page/statistics_page' className='menu-button'>
+				<Link
+					to='/profile_page/statistics_page'
+					className='menu-button'>
 					статистика
 				</Link>
-				<Link to='/profile_page/achievements_page' className='menu-button'>
+				<Link
+					to='/profile_page/achievements_page'
+					className='menu-button'>
 					достижения
 				</Link>
-				<Link to='/profile_page/route_history_page' className='menu-button'>
+				<Link
+					to='/profile_page/route_history_page'
+					className='menu-button'>
 					история
 				</Link>
 			</div>
