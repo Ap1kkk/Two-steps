@@ -112,31 +112,19 @@
 
   /* Размеры и интерлиньяж */
   --text-h1-size: 32px;
-  --text-h1-lineheight: 40px;
   --text-h2-size: 24px;
-  --text-h2-lineheight: 32px;
   --text-h3-size: 20px;
-  --text-h3-lineheight: 24px;
   --text-h4-size: 16px;
-  --text-h4-lineheight: 24px;
   --text-body-size: 16px;
-  --text-body-lineheight: 24px;
   --text-caption-size: 12px;
-  --text-caption-lineheight: 16px;
 
   // Мобильные размеры
   --text-h1-size-mobile: 24px;
-  --text-h1-lineheight-mobile: 28px;
   --text-h2-size-mobile: 20px;
-  --text-h2-lineheight-mobile: 24px;
   --text-h3-size-mobile: 16px;
-  --text-h3-lineheight-mobile: 20px;
   --text-h4-size-mobile: 14px;
-  --text-h4-lineheight-mobile: 16px;
   --text-body-size-mobile: 14px;
-  --text-body-lineheight-mobile: 20px;
   --text-caption-size-mobile: 11px;
-  --text-caption-lineheight-mobile: 16px;
 }
 
 .dark-theme {
@@ -190,7 +178,6 @@ h1 {
   font-weight: var(--font-medium);
   font-size: var(--text-h1-size);
   line-height: var(--text-h1-lineheight);
-  margin: 0 0 16px;
 }
 
 h2 {
@@ -198,7 +185,6 @@ h2 {
   font-weight: var(--font-medium);
   font-size: var(--text-h2-size);
   line-height: var(--text-h2-lineheight);
-  margin: 0 0 12px;
 }
 
 h3 {
@@ -206,7 +192,6 @@ h3 {
   font-weight: var(--font-medium);
   font-size: var(--text-h3-size);
   line-height: var(--text-h3-lineheight);
-  margin: 0 0 8px;
 }
 
 h4 {
@@ -214,7 +199,6 @@ h4 {
   font-weight: var(--font-medium);
   font-size: var(--text-h4-size);
   line-height: var(--text-h4-lineheight);
-  margin: 0 0 8px;
 }
 
 p {
@@ -222,7 +206,6 @@ p {
   font-weight: var(--font-regular);
   font-size: var(--text-body-size);
   line-height: var(--text-body-lineheight);
-  margin: 0 0 12px;
 }
 
 /* ==================== УТИЛИТАРНЫЕ КЛАССЫ ==================== */
