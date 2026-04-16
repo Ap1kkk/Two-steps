@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Layout } from '@components';
 import {
 	AuthorizationPage,
-	Error500Page,
+	Error500Page, FilterPage,
 	MainPage,
 	MapPage,
 	NotFoundPage,
@@ -53,6 +53,10 @@ export const router = createBrowserRouter([
 						path: '/profile',
 						element: <ProfilePage />,
 					},
+					{
+						path: '/filter',
+						element: <FilterPage />,
+					}
 				],
 			},
 			{
