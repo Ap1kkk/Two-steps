@@ -9,6 +9,7 @@ import {
 	ProfilePage,
 	RegistrationPage,
 	SettingsPage,
+	StatisticPage,
 } from '@pages';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
 						path: '/profile',
 						element: <ProfilePage />,
 					},
+					{
+						path: '/statistic',
+						element: <StatisticPage />
+					}
 				],
 			},
 			{
