@@ -3,76 +3,54 @@ import styles from './Statistic.module.scss';
 import { StatisticCard } from '../StatisticCard';
 import { Button } from '@ui';
 
-interface StatisticProps {
-	title?: string;
+const periods = [
+	{ key: 'day', label: 'За день' },
+	{ key: 'week', label: 'За неделю' },
+	{ key: 'month', label: 'За месяц' },
+	{ key: 'year', label: 'За год' },
+];
+
+interface StatisticCardData {
+	title: string;
+	value: string | number;
 }
 
-type Period = 'day' | 'week' | 'month' | 'year';
+interface StatisticProps {
+	title?: string;
+	statisticData?: StatisticCardData[];
+}
 
-export const Statistic: React.FC<StatisticProps> = ({ title = '' }) => {
-	const [activePeriod, setActivePeriod] = useState<Period>('day');
+export const Statistic: React.FC<StatisticProps> = ({ statisticData = [] }) => {
+	const [activePeriod, setActivePeriod] =
+		useState<(typeof periods)[number]['key']>('day');
 
-	const handlePeriodChange = (period: Period) => {
+	const handlePeriodChange = (period: (typeof periods)[number]['key']) => {
 		setActivePeriod(period);
 		console.log(`Выбран период: ${period}`);
 	};
 
 	return (
 		<div className={styles.statisticContainer}>
-			<span className={styles.statisticTitle}>{title}</span>
-			<div className={styles.statisticButtons}>
-				<Button
-					variant='primary'
-					className={`${styles.statisticButton} ${
-						activePeriod === 'day' ? styles.active : ''
-					}`}
-					onClick={() => handlePeriodChange('day')}>
-					<p>За день</p>
-				</Button>
-				<Button
-					variant='primary'
-					className={`${styles.statisticButton} ${
-						activePeriod === 'week' ? styles.active : ''
-					}`}
-					onClick={() => handlePeriodChange('week')}>
-					<p>За неделю</p>
-				</Button>
-				<Button
-					variant='primary'
-					className={`${styles.statisticButton} ${
-						activePeriod === 'month' ? styles.active : ''
-					}`}
-					onClick={() => handlePeriodChange('month')}>
-					<p>За месяц</p>
-				</Button>
-				<Button
-					variant='primary'
-					className={`${styles.statisticButton} ${
-						activePeriod === 'year' ? styles.active : ''
-					}`}
-					onClick={() => handlePeriodChange('year')}>
-					<p>За год</p>
-				</Button>
+			<h2 className={styles.statisticTitle}>Статистика</h2>
+			<div className={styles.statisticFilterContainer}>
+				{periods.map((period) => (
+					<Button
+						key={period.key}
+						variant='primary'
+						className={`${styles.statisticButton} ${
+							activePeriod === period.key ? styles.active : ''
+						}`}
+						onClick={() => handlePeriodChange(period.key)}
+						children={period.label}
+					/>
+				))}
 			</div>
 			<div className={styles.statisticContent}>
-				<StatisticCard title='Всего пройдено метров'>
-					145 209
-				</StatisticCard>
-				<StatisticCard title='Всего пройдено шагов'>
-					1 208 132
-				</StatisticCard>
-				<StatisticCard title='Общее время пройденных маршрутов'>
-					5д 18ч 47мин
-				</StatisticCard>
-				<StatisticCard title='Пройдено точек маршрута'>
-					23 789
-				</StatisticCard>
-				<StatisticCard title='Средняя длина маршрутов'>
-					3 605м
-				</StatisticCard>
-				<StatisticCard title='Среднее время пройденных маршрутов'>
-					2ч 25мин
-				</StatisticCard>
+				{statisticData.map((item, index) => (
+					<StatisticCard key={index} title={item.title}>
+						{item.value}
+					</StatisticCard>
+				))}
 			</div>
 		</div>
 	);
