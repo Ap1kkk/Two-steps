@@ -1,10 +1,10 @@
 import React, { InputHTMLAttributes, useState } from 'react';
 import styles from './Input.module.scss';
 
-import { ReactComponent as OpenEye } from '@icons/eye.svg';
-import { ReactComponent as CloseEye } from '@icons/eye-slash.svg';
-import { ReactComponent as ArrowUp } from '@icons/chevron-up-small.svg';
-import { ReactComponent as ArrowDown } from '@icons/chevron-down-small.svg';
+import { ReactComponent as OpenEye } from '../../assets/icons/eye.svg';
+import { ReactComponent as CloseEye } from '../../assets/icons/eye-slash.svg';
+import { ReactComponent as ArrowUp } from '../../assets/icons/chevron-up-small.svg';
+import { ReactComponent as ArrowDown } from '../../assets/icons/chevron-down-small.svg';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
