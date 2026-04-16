@@ -36,6 +36,23 @@
     padding: 12px 24px;
     font-size: 16px;
   }
+
+  &.selected {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+
+    .button_label {
+      color: white;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(var(--color-accent-rgb), 0.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .button_label {
