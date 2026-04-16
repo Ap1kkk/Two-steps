@@ -28,13 +28,13 @@ export const Profile: React.FC<ProfileProps> = ({
 	userHeight,
 	userWeight,
 	friendsName,
-	friendsAvatar
+	friendsAvatar,
 }) => {
 	return (
 		<div className={styles.container}>
-			<div className={styles.circleContainer}>
+			<div className={styles.circlesContainer}>
 				<div className={styles.circleContent}>
-					<Circle>{userLevel}</Circle>
+					<Circle children={userLevel} />
 					<span className={styles.circleLabel}>Уровень</span>
 				</div>
 				<div className={styles.avatarContent}>
@@ -42,7 +42,7 @@ export const Profile: React.FC<ProfileProps> = ({
 					<span className={styles.profileNickname}>{userName}</span>
 				</div>
 				<div className={styles.circleContent}>
-					<Circle>{userRoutes}</Circle>
+					<Circle children={userRoutes} />
 					<span className={styles.circleLabel}>Маршруты</span>
 				</div>
 			</div>
