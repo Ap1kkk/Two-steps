@@ -1,8 +1,4 @@
-import {
-	createSlice,
-	createAsyncThunk,
-	PayloadAction,
-} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 import {
 	Route,
@@ -31,7 +27,7 @@ type RoutesState = {
 	total: number;
 	page: number;
 	limit: number;
-}
+};
 
 const initialState: RoutesState = {
 	routes: [],
@@ -47,11 +43,20 @@ const initialState: RoutesState = {
 /** Загрузка всех маршрутов с фильтрацией и пагинацией */
 export const fetchAllRoutes = createAsyncThunk(
 	'routes/fetchAllRoutes',
-	async ({ page = 1, limit = 10, filters }: { page?: number; limit?: number; filters?: any } = {}, { rejectWithValue }) => {
+	async (
+		{
+			page = 1,
+			limit = 10,
+			filters,
+		}: { page?: number; limit?: number; filters?: any } = {},
+		{ rejectWithValue }
+	) => {
 		try {
 			return await getAllRoutes(filters, page, limit);
 		} catch (error: any) {
-			return rejectWithValue(error.message || 'Ошибка загрузки маршрутов');
+			return rejectWithValue(
+				error.message || 'Ошибка загрузки маршрутов'
+			);
 		}
 	}
 );
@@ -90,7 +95,9 @@ export const editRoute = createAsyncThunk(
 		try {
 			return await updateRoute(id, data);
 		} catch (error: any) {
-			return rejectWithValue(error.message || 'Ошибка обновления маршрута');
+			return rejectWithValue(
+				error.message || 'Ошибка обновления маршрута'
+			);
 		}
 	}
 );
@@ -115,7 +122,9 @@ export const fetchRoutesByTag = createAsyncThunk(
 		try {
 			return await getRoutesByTag(tagId);
 		} catch (error: any) {
-			return rejectWithValue(error.message || 'Ошибка загрузки маршрутов по тегу');
+			return rejectWithValue(
+				error.message || 'Ошибка загрузки маршрутов по тегу'
+			);
 		}
 	}
 );
@@ -123,11 +132,19 @@ export const fetchRoutesByTag = createAsyncThunk(
 /** Загрузка маршрутов по диапазону расстояния */
 export const fetchRoutesByDistanceRange = createAsyncThunk(
 	'routes/fetchRoutesByDistanceRange',
-	async ({ minDistance, maxDistance }: { minDistance: number; maxDistance: number }, { rejectWithValue }) => {
+	async (
+		{
+			minDistance,
+			maxDistance,
+		}: { minDistance: number; maxDistance: number },
+		{ rejectWithValue }
+	) => {
 		try {
 			return await getRoutesByDistanceRange(minDistance, maxDistance);
 		} catch (error: any) {
-			return rejectWithValue(error.message || 'Ошибка загрузки маршрутов по расстоянию');
+			return rejectWithValue(
+				error.message || 'Ошибка загрузки маршрутов по расстоянию'
+			);
 		}
 	}
 );
@@ -255,7 +272,10 @@ const routesSlice = createSlice({
 			})
 			.addCase(
 				removeRoute.fulfilled,
-				(state, action: PayloadAction<{ id: number; message: string }>) => {
+				(
+					state,
+					action: PayloadAction<{ id: number; message: string }>
+				) => {
 					state.loading = false;
 					state.routes = state.routes.filter(
 						(route) => route.id !== action.payload.id

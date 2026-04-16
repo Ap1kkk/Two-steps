@@ -5,6 +5,6 @@ export * from './Header/MobileHeader';
 export * from './Layout';
 export * from './routes-on-map';
 export * from './RouteOfDay';
-export * from './register-form';
+export * from './RegistrationForm';
 export * from './AuthorizationForm';
 export * from './RouteCard';

@@ -7,7 +7,15 @@ import { ReactComponent as Logout } from '../../assets/icons/logout.svg';
 import { ReactComponent as Sun } from '../../assets/icons/sun.svg';
 import { ReactComponent as Moon } from '../../assets/icons/moon.svg';
 
-export const Settings = () => {
+interface SettingsProps {
+	onLogout?: () => void;
+	className?: string;
+}
+
+export const Settings: React.FC<SettingsProps> = ({
+	onLogout,
+	className = '',
+}) => {
 	const [isLightTheme, setIsLightTheme] = useState<boolean>(() => {
 		const saved = localStorage.getItem('theme');
 		if (saved === null) {
@@ -30,8 +38,14 @@ export const Settings = () => {
 		setIsLightTheme(!isLightTheme);
 	};
 
+	const handleLogout = () => {
+		if (onLogout) {
+			onLogout();
+		}
+	};
+
 	return (
-		<div className={styles.modal}>
+		<div className={`${styles.container} ${className}`}>
 			<h3 className={styles.title}>Меню</h3>
 
 			<div className={styles.content}>
@@ -45,7 +59,9 @@ export const Settings = () => {
 					<span>{isLightTheme ? 'Тёмная тема' : 'Светлая тема'}</span>
 				</button>
 
-				<button className={styles.buttons}>
+				<button
+					onClick={handleLogout}
+					className={`${styles.buttons} ${styles.exit}`}>
 					<Logout />
 					<span>Выйти из аккаунта</span>
 				</button>

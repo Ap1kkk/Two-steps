@@ -1,0 +1,53 @@
+.stepCounter {
+	position: fixed;
+	top: 80px;
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+
+	@media (max-width: 925px) {
+		top: 65px;
+	}
+}
+
+.stepIndicator {
+	text-align: center;
+	font-size: var(--text-body-size);
+	color: var(--color-text);
+	margin-bottom: 15px;
+
+	@media (max-width: 925px) {
+		font-size: var(--text-body-size-mobile);
+		margin-bottom: 2px;
+	}
+}
+
+.progressSteps {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+
+	@media (max-width: 925px) {
+		gap: 4px;
+	}
+}
+
+.stepDot {
+	width: 50px;
+	height: 4px;
+	border-radius: 8px;
+	background-color: var(--color-disabled);
+	transition: all 0.3s ease;
+
+	@media (max-width: 925px) {
+		width: 25px;
+	}
+}
+
+.stepDot.active {
+	background-color: #abd27a;
+}

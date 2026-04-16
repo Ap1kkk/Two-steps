@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import React, {
+	useCallback,
+	useEffect,
+	useMemo,
+	useState,
+	useRef,
+} from 'react';
 import { Link } from 'react-router-dom';
 import styles from './AuthorizationForm.module.scss';
 import { Button, Input } from '@ui';
@@ -24,7 +30,7 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 	isLoading = false,
 	error = null,
 }) => {
-	const [fieldErrors, setFieldErrors] = useState<{
+	const [displayErrors, setDisplayErrors] = useState<{
 		email?: string;
 		password?: string;
 	}>({});
@@ -37,82 +43,178 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 		password: false,
 	});
 
-	const validateEmailField = (email: string) => {
-		const result = validateEmail(email);
-		if (!result.isValid) {
-			setFieldErrors((prev) => ({ ...prev, email: result.errorMessage }));
-			return false;
-		} else {
-			setFieldErrors((prev) => ({ ...prev, email: undefined }));
-			return true;
+	const [lastValidValues, setLastValidValues] = useState<{
+		email: string;
+		password: string;
+	}>({
+		email: '',
+		password: '',
+	});
+
+	const emailValidation = useMemo(() => {
+		if (!formData.email) {
+			return { isValid: false, errorMessage: 'Email обязателен' };
 		}
-	};
+		return validateEmail(formData.email);
+	}, [formData.email]);
 
-	const validatePasswordField = (password: string) => {
-		const result = validatePassword(password);
-		if (!result.isValid) {
-			setFieldErrors((prev) => ({
-				...prev,
-				password: result.errorMessage,
-			}));
-			return false;
-		} else {
-			setFieldErrors((prev) => ({ ...prev, password: undefined }));
-			return true;
+	const passwordValidation = useMemo(() => {
+		if (!formData.password) {
+			return { isValid: false, errorMessage: 'Пароль обязателен' };
 		}
-	};
+		return validatePassword(formData.password);
+	}, [formData.password]);
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		onChange(e);
-
-		if (touched[name as keyof typeof touched]) {
-			if (name === 'email') {
-				validateEmailField(value);
-			} else if (name === 'password') {
-				validatePasswordField(value);
+	useEffect(() => {
+		if (touched.email) {
+			if (emailValidation.isValid) {
+				setDisplayErrors((prev) => ({ ...prev, email: undefined }));
+				setLastValidValues((prev) => ({
+					...prev,
+					email: formData.email,
+				}));
+			} else if (formData.email !== lastValidValues.email) {
+				setDisplayErrors((prev) => ({ ...prev, email: undefined }));
+			} else if (
+				touched.email &&
+				!emailValidation.isValid &&
+				formData.email === lastValidValues.email
+			) {
+				setDisplayErrors((prev) => ({
+					...prev,
+					email: emailValidation.errorMessage,
+				}));
 			}
 		}
-	};
+	}, [emailValidation, touched.email, formData.email, lastValidValues.email]);
 
-	const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+	useEffect(() => {
+		if (touched.password) {
+			if (passwordValidation.isValid) {
+				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
+				setLastValidValues((prev) => ({
+					...prev,
+					password: formData.password,
+				}));
+			} else if (formData.password !== lastValidValues.password) {
+				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
+			} else if (
+				touched.password &&
+				!passwordValidation.isValid &&
+				formData.password === lastValidValues.password
+			) {
+				setDisplayErrors((prev) => ({
+					...prev,
+					password: passwordValidation.errorMessage,
+				}));
+			}
+		}
+	}, [
+		passwordValidation,
+		touched.password,
+		formData.password,
+		lastValidValues.password,
+	]);
+
+	const isClientFormValid = useMemo(() => {
+		return emailValidation.isValid && passwordValidation.isValid;
+	}, [emailValidation.isValid, passwordValidation.isValid]);
+
+	const handleChange = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			const { name, value } = e.target;
+			onChange(e);
+
+			if (touched[name as keyof typeof touched]) {
+				setDisplayErrors((prev) => ({ ...prev, [name]: undefined }));
+			}
+		},
+		[onChange, touched]
+	);
+
+	const handleBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 
 		setTouched((prev) => ({ ...prev, [name]: true }));
 
 		if (name === 'email') {
-			validateEmailField(value);
+			const validation = value
+				? validateEmail(value)
+				: { isValid: false, errorMessage: 'Email обязателен' };
+			if (!validation.isValid) {
+				setDisplayErrors((prev) => ({
+					...prev,
+					email: validation.errorMessage,
+				}));
+				setLastValidValues((prev) => ({ ...prev, email: value }));
+			} else {
+				setDisplayErrors((prev) => ({ ...prev, email: undefined }));
+				setLastValidValues((prev) => ({ ...prev, email: value }));
+			}
 		} else if (name === 'password') {
-			validatePasswordField(value);
+			const validation = value
+				? validatePassword(value)
+				: { isValid: false, errorMessage: 'Пароль обязателен' };
+			if (!validation.isValid) {
+				setDisplayErrors((prev) => ({
+					...prev,
+					password: validation.errorMessage,
+				}));
+				setLastValidValues((prev) => ({ ...prev, password: value }));
+			} else {
+				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
+				setLastValidValues((prev) => ({ ...prev, password: value }));
+			}
 		}
-	};
+	}, []);
 
-	const isClientFormValid = () => {
-		const isEmailValid = validateEmailField(formData.email);
-		const isPasswordValid = validatePasswordField(formData.password);
-		return isEmailValid && isPasswordValid;
-	};
+	const handleSubmit = useCallback(
+		(e: React.FormEvent<HTMLFormElement>) => {
+			e.preventDefault();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+			setTouched({ email: true, password: true });
 
-		setTouched({ email: true, password: true });
+			const emailError = !emailValidation.isValid
+				? emailValidation.errorMessage
+				: undefined;
+			const passwordError = !passwordValidation.isValid
+				? passwordValidation.errorMessage
+				: undefined;
 
-		const isEmailValid = validateEmailField(formData.email);
-		const isPasswordValid = validatePasswordField(formData.password);
+			setDisplayErrors({
+				email: emailError,
+				password: passwordError,
+			});
 
-		if (isEmailValid && isPasswordValid) {
-			onSubmit(e);
-		}
-	};
+			setLastValidValues({
+				email: formData.email,
+				password: formData.password,
+			});
+
+			if (emailValidation.isValid && passwordValidation.isValid) {
+				onSubmit(e);
+			}
+		},
+		[
+			emailValidation,
+			passwordValidation,
+			onSubmit,
+			formData.email,
+			formData.password,
+		]
+	);
+
+	const isDisabled = useMemo(() => {
+		return !isFormValid || isLoading || !isClientFormValid;
+	}, [isFormValid, isLoading, isClientFormValid]);
 
 	return (
 		<div className={styles.container}>
-			<h2 className={styles.title}>Вход в профиль</h2>
-
-			{error && <p className={styles.error}>{error}</p>}
-
-			<form className={styles.form} onSubmit={handleSubmit}>
+			<div className={styles.errorContainer}>
+				<h2 className={styles.title}>Вход в профиль</h2>
+				{error && <p className={styles.error}>{error}</p>}
+			</div>
+			<form className={styles.authForm} onSubmit={handleSubmit}>
 				<Input
 					type={'email'}
 					name='email'
@@ -122,7 +224,7 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 					onBlur={handleBlur}
 					required={true}
 					placeholder={'example@mail.com'}
-					error={touched.email ? fieldErrors.email : undefined}
+					error={displayErrors.email}
 				/>
 
 				<Input
@@ -134,18 +236,16 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 					onBlur={handleBlur}
 					required={true}
 					placeholder={'Введите пароль'}
-					error={touched.password ? fieldErrors.password : undefined}
+					error={displayErrors.password}
 				/>
 
 				<Button
-					disabled={!isFormValid || isLoading || !isClientFormValid()}
+					children={isLoading ? 'Вход...' : 'Войти'}
+					disabled={isDisabled}
 					type='submit'
-					variant='primary'>
-					<p
-						className={styles.buttonText}
-						children={isLoading ? 'Вход...' : 'Войти'}
-					/>
-				</Button>
+					variant='primary'
+					className={styles.buttonSubmitForm}
+				/>
 			</form>
 
 			<div className={styles.links}>
@@ -155,7 +255,7 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 
 				<div className={styles.register}>
 					<p className={styles.registerText}>Нет аккаунта?</p>
-					<Link to='/register' className={styles.link}>
+					<Link to='/registration' className={styles.link}>
 						Зарегистрироваться
 					</Link>
 				</div>

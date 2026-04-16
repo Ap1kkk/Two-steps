@@ -1,7 +1,8 @@
 import React, { type InputHTMLAttributes } from 'react';
 import styles from './Radio.module.scss';
 
-interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface RadioProps
+	extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
 	label?: string;
 }
 
@@ -20,12 +21,13 @@ export const Radio: React.FC<RadioProps> = ({
 
 	return (
 		<label
-			className={`${styles.radioLabel} ${disabled ? styles.disabled : ''} ${className || ''}`}
-			htmlFor={radioId}
-		>
+			className={`${styles.radioLabel} ${
+				disabled ? styles.disabled : ''
+			} ${className || ''}`}
+			htmlFor={radioId}>
 			<div className={styles.radioWrapper}>
 				<input
-					type="radio"
+					type='radio'
 					id={radioId}
 					name={name}
 					value={value}
@@ -35,7 +37,9 @@ export const Radio: React.FC<RadioProps> = ({
 					className={styles.hiddenInput}
 					{...rest}
 				/>
-				<div className={styles.customRadio}>{checked && <div className={styles.dot} />}</div>
+				<div className={styles.customRadio}>
+					{checked && <div className={styles.dot} />}
+				</div>
 			</div>
 			{label && <span className={styles.labelText}>{label}</span>}
 		</label>

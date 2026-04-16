@@ -8,9 +8,9 @@ import {
 	NotFoundPage,
 	ProfilePage,
 	RegistrationPage,
+	SettingsPage,
 } from '@pages';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
-import { Settings } from './components/Settings/Settings';
 
 function checkAuth(): boolean {
 	const token = localStorage.getItem('accessToken');
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: '/settings',
-						element: <Settings />,
+						element: <SettingsPage />,
 					},
 					{
 						path: '/profile',

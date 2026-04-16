@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getMockRouteById, mockRouteKremlin, mockRoutes } from '../../types/mockData';
+import {
+	getMockRouteById,
+	mockRouteKremlin,
+	mockRoutes,
+} from '../../types/mockData';
 
 import styles from './MapPage.module.scss';
 import { RouteOnMap } from '@components';
@@ -149,7 +153,8 @@ export const MapPage = () => {
 					<option value=''>Выберите маршрут</option>
 					{mockRoutes.map((route) => (
 						<option key={route.id} value={route.id}>
-							{route.name} ({(route.distance / 1000).toFixed(1)} км)
+							{route.name} ({(route.distance / 1000).toFixed(1)}{' '}
+							км)
 						</option>
 					))}
 				</select>

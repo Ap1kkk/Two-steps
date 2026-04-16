@@ -1,23 +1,14 @@
 .container {
 	width: 100%;
-	height: 75vh;
-	padding: 10px 30px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 30px;
-
-	@media (max-width: 925px) {
-		gap: 14px;
-	}
+	max-width: 500px;
+	margin: auto;
 }
 
 .title {
 	color: var(--text-color);
 	font-family: var(--font-body);
 	font-size: var(--text-h2-size);
-	font-weight: var(--font-regular);
+	font-weight: var(--font-medium);
 	letter-spacing: 0.02em;
 	text-align: center;
 
@@ -26,58 +17,82 @@
 	}
 }
 
-.form {
-	max-width: 400px;
-	width: 100%;
+.authForm {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	gap: 20px;
+}
 
-	@media (max-width: 925px) {
+.buttonSubmitForm {
+	width: 100%;
+	margin-top: 10px;
+
+	@media (max-width: 375px) {
 		width: 100%;
 	}
 }
 
+.errorContainer {
+	min-height: 68px;
+
+	@media (max-width: 925px) {
+		min-height: 56px;
+	}
+}
+
 .error {
+	text-align: center;
 	color: var(--color-alarm);
 	font-size: var(--text-body-size);
 	animation: fadeIn 0.3s ease;
 
 	@media (max-width: 925px) {
-		font-size: var(--text-caption-size-mobile);
+		font-size: var(--text-body-size-mobile);
 	}
-}
-
-.buttonText {
-	margin: 0;
 }
 
 .links {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: 60px;
-	gap: 20px;
+	gap: 10px;
+	margin-top: 40px;
 }
 
 .link {
 	text-decoration: none;
-	display: inline-block;
-	padding-bottom: 2px;
+	display: flex;
 	color: var(--color-caption);
 	font-size: var(--text-body-size);
+	font-weight: var(--font-medium);
+	transition: opacity 0.2s;
+
+	&:hover {
+		opacity: 0.8;
+		text-decoration: underline;
+	}
 }
 
 .register {
 	display: flex;
-	gap: 12px;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
 }
 
 .registerText {
 	color: var(--color-text);
-	margin: 0;
+	white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 16px;
+	}
+
+	.regForm {
+		gap: 10px;
+	}
 }
 
 @keyframes fadeIn {

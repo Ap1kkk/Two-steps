@@ -1,63 +1,60 @@
 .header {
-  position: relative;
-  width: 100%;
-  height: 50px;
+	position: relative;
+	width: 100%;
+	height: 60px;
 }
 
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 15px;
-  cursor: pointer;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  box-shadow:
-          0 6px 12px rgba(0, 0, 0, 0.15),
-          0 0 40px rgba(255, 255, 255, 0.05);
-  background: transparent;
-  border: 1px solid var(--color-card);
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 15px;
+	cursor: pointer;
+	backdrop-filter: blur(5px);
+	-webkit-backdrop-filter: blur(5px);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15),
+		0 0 40px rgba(255, 255, 255, 0.05);
+	background: transparent;
+	border: 1px solid var(--color-card);
+	transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+	z-index: 100;
 }
 
 .closeButton {
-  padding: 7px;
-  left: 15px;
-  border-radius: 50%;
+	padding: 7px;
+	left: 15px;
+	border-radius: 50%;
 }
 
 .arrowIcon {
-   rotate: 180deg;
+	rotate: 180deg;
 }
 
 .logoContainer {
-  padding: 7px 10px ;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: var(--color-text);
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 24px;
-
+	padding: 7px 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	color: var(--color-text);
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 24px;
 }
 
 .logoLight {
-  fill: #abd27a;
-  stroke: #253017;
+	fill: #abd27a;
+	stroke: #253017;
 }
 
 .logoDark {
-  fill: #abd27a;
+	fill: #abd27a;
 }
 
 .logoTitle {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h1-size-mobile);
-  letter-spacing: 0.01em;
+	font-family: var(--font-heading);
+	font-weight: var(--font-medium);
+	font-size: var(--text-h1-size-mobile);
+	letter-spacing: 0.01em;
 }
-

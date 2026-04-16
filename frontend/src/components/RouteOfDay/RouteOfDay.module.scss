@@ -1,22 +1,22 @@
 .background {
-  width: 100%;
-  height: 50vh;
-  position: relative;
+	width: 100%;
+	height: 50vh;
+	position: relative;
 }
 
 .overlay {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  left: 0;
-  text-align: center;
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 0;
+	text-align: center;
 }
 
 .title {
-  font-style: var(--font-body);
-  font-size: var(--text-h2-size);
-  font-weight: var(--font-medium);
-  line-height: var(--text-h2-lineheight);
-  color: var(--color-text);
-  letter-spacing: 0.02em;
+	font-style: var(--font-body);
+	font-size: var(--text-h2-size);
+	font-weight: var(--font-medium);
+	line-height: var(--text-h2-lineheight);
+	color: var(--color-text);
+	letter-spacing: 0.02em;
 }

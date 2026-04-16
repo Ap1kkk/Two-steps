@@ -17,14 +17,25 @@ import {
 	setPage,
 	setLimit,
 } from '../../services/slices/routeSlice/routeSlice';
-import { CreateRouteData, UpdateRouteData, RouteFilters } from '../../types/route';
+import {
+	CreateRouteData,
+	UpdateRouteData,
+	RouteFilters,
+} from '../../types/route';
 import './RoutesList.scss';
 
 export const RoutesList: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
-	const { routes, currentRoute, loading, error, successMessage, total, page, limit } = useSelector(
-		(state: RootState) => state.routes
-	);
+	const {
+		routes,
+		currentRoute,
+		loading,
+		error,
+		successMessage,
+		total,
+		page,
+		limit,
+	} = useSelector((state: RootState) => state.routes);
 
 	// Локальные состояния
 	const [selectedRouteId, setSelectedRouteId] = useState<number>(0);
@@ -179,7 +190,9 @@ export const RoutesList: React.FC = () => {
 
 			{(successMessage || error) && (
 				<div
-					className={`message ${successMessage ? 'success' : 'error'}`}
+					className={`message ${
+						successMessage ? 'success' : 'error'
+					}`}
 					onClick={handleClearMessages}>
 					{successMessage || error}
 					<span className='close'>×</span>
@@ -190,10 +203,14 @@ export const RoutesList: React.FC = () => {
 				<div className='panel-section'>
 					<h3>Основные операции</h3>
 					<div className='button-group'>
-						<button onClick={handleFetchAllRoutes} className='btn btn-primary'>
+						<button
+							onClick={handleFetchAllRoutes}
+							className='btn btn-primary'>
 							Загрузить все маршруты
 						</button>
-						<button onClick={handleResetAll} className='btn btn-secondary'>
+						<button
+							onClick={handleResetAll}
+							className='btn btn-secondary'>
 							Сбросить
 						</button>
 					</div>
@@ -206,9 +223,13 @@ export const RoutesList: React.FC = () => {
 							type='number'
 							placeholder='ID маршрута'
 							value={selectedRouteId || ''}
-							onChange={(e) => setSelectedRouteId(Number(e.target.value))}
+							onChange={(e) =>
+								setSelectedRouteId(Number(e.target.value))
+							}
 						/>
-						<button onClick={handleFetchRouteById} className='btn btn-info'>
+						<button
+							onClick={handleFetchRouteById}
+							className='btn btn-info'>
 							Найти
 						</button>
 						<button
@@ -227,9 +248,13 @@ export const RoutesList: React.FC = () => {
 							placeholder='Поиск по названию...'
 							value={searchTerm}
 							onChange={(e) => setSearchTerm(e.target.value)}
-							onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+							onKeyPress={(e) =>
+								e.key === 'Enter' && handleSearch()
+							}
 						/>
-						<button onClick={handleSearch} className='btn btn-primary'>
+						<button
+							onClick={handleSearch}
+							className='btn btn-primary'>
 							Поиск
 						</button>
 					</div>
@@ -242,14 +267,22 @@ export const RoutesList: React.FC = () => {
 							type='text'
 							placeholder='Название маршрута'
 							value={newRoute.name}
-							onChange={(e) => setNewRoute({ ...newRoute, name: e.target.value })}
+							onChange={(e) =>
+								setNewRoute({
+									...newRoute,
+									name: e.target.value,
+								})
+							}
 						/>
 						<input
 							type='number'
 							placeholder='Дистанция (метры)'
 							value={newRoute.distance || ''}
 							onChange={(e) =>
-								setNewRoute({ ...newRoute, distance: Number(e.target.value) })
+								setNewRoute({
+									...newRoute,
+									distance: Number(e.target.value),
+								})
 							}
 						/>
 						<input
@@ -259,11 +292,16 @@ export const RoutesList: React.FC = () => {
 							onChange={(e) =>
 								setNewRoute({
 									...newRoute,
-									tagIds: e.target.value.split(',').map(Number).filter(Boolean),
+									tagIds: e.target.value
+										.split(',')
+										.map(Number)
+										.filter(Boolean),
 								})
 							}
 						/>
-						<button onClick={handleCreateRoute} className='btn btn-success'>
+						<button
+							onClick={handleCreateRoute}
+							className='btn btn-success'>
 							Создать маршрут
 						</button>
 					</div>
@@ -276,20 +314,30 @@ export const RoutesList: React.FC = () => {
 							type='number'
 							placeholder='ID маршрута для редактирования'
 							value={selectedRouteId || ''}
-							onChange={(e) => setSelectedRouteId(Number(e.target.value))}
+							onChange={(e) =>
+								setSelectedRouteId(Number(e.target.value))
+							}
 						/>
 						<input
 							type='text'
 							placeholder='Новое название'
 							value={editData.name || ''}
-							onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+							onChange={(e) =>
+								setEditData({
+									...editData,
+									name: e.target.value,
+								})
+							}
 						/>
 						<input
 							type='number'
 							placeholder='Новая дистанция'
 							value={editData.distance || ''}
 							onChange={(e) =>
-								setEditData({ ...editData, distance: Number(e.target.value) })
+								setEditData({
+									...editData,
+									distance: Number(e.target.value),
+								})
 							}
 						/>
 						<input
@@ -299,11 +347,16 @@ export const RoutesList: React.FC = () => {
 							onChange={(e) =>
 								setEditData({
 									...editData,
-									tagIds: e.target.value.split(',').map(Number).filter(Boolean),
+									tagIds: e.target.value
+										.split(',')
+										.map(Number)
+										.filter(Boolean),
 								})
 							}
 						/>
-						<button onClick={handleUpdateRoute} className='btn btn-warning'>
+						<button
+							onClick={handleUpdateRoute}
+							className='btn btn-warning'>
 							Обновить
 						</button>
 					</div>
@@ -317,9 +370,13 @@ export const RoutesList: React.FC = () => {
 								type='number'
 								placeholder='ID тега'
 								value={tagId}
-								onChange={(e) => setTagId(Number(e.target.value))}
+								onChange={(e) =>
+									setTagId(Number(e.target.value))
+								}
 							/>
-							<button onClick={handleFilterByTag} className='btn btn-info'>
+							<button
+								onClick={handleFilterByTag}
+								className='btn btn-info'>
 								По тегу
 							</button>
 						</div>
@@ -328,15 +385,21 @@ export const RoutesList: React.FC = () => {
 								type='number'
 								placeholder='Мин. расстояние'
 								value={minDistance}
-								onChange={(e) => setMinDistance(Number(e.target.value))}
+								onChange={(e) =>
+									setMinDistance(Number(e.target.value))
+								}
 							/>
 							<input
 								type='number'
 								placeholder='Макс. расстояние'
 								value={maxDistance}
-								onChange={(e) => setMaxDistance(Number(e.target.value))}
+								onChange={(e) =>
+									setMaxDistance(Number(e.target.value))
+								}
 							/>
-							<button onClick={handleFilterByDistance} className='btn btn-info'>
+							<button
+								onClick={handleFilterByDistance}
+								className='btn btn-info'>
 								По расстоянию
 							</button>
 						</div>
@@ -349,13 +412,23 @@ export const RoutesList: React.FC = () => {
 					<h2>Текущий маршрут</h2>
 					<div className='route-details'>
 						<h3>{currentRoute.name}</h3>
-						<p><strong>ID:</strong> {currentRoute.id}</p>
-						<p><strong>Дистанция:</strong> {currentRoute.distance} м</p>
-						<p><strong>Количество точек:</strong> {currentRoute.checkpoints?.length || 0}</p>
+						<p>
+							<strong>ID:</strong> {currentRoute.id}
+						</p>
+						<p>
+							<strong>Дистанция:</strong> {currentRoute.distance}{' '}
+							м
+						</p>
+						<p>
+							<strong>Количество точек:</strong>{' '}
+							{currentRoute.checkpoints?.length || 0}
+						</p>
 						{currentRoute.tags && currentRoute.tags.length > 0 && (
 							<p>
 								<strong>Теги:</strong>{' '}
-								{currentRoute.tags.map((t) => t.name).join(', ')}
+								{currentRoute.tags
+									.map((t) => t.name)
+									.join(', ')}
 							</p>
 						)}
 					</div>
@@ -365,7 +438,9 @@ export const RoutesList: React.FC = () => {
 			<div className='routes-list-section'>
 				<h2>
 					Список маршрутов
-					<span className='count'>({total || routes?.length || 0})</span>
+					<span className='count'>
+						({total || routes?.length || 0})
+					</span>
 				</h2>
 
 				{routes && routes.length > 0 ? (
@@ -376,34 +451,51 @@ export const RoutesList: React.FC = () => {
 									<div className='route-header'>
 										<h3>{route.name}</h3>
 										<button
-											onClick={() => handleDeleteRoute(route.id)}
+											onClick={() =>
+												handleDeleteRoute(route.id)
+											}
 											className='delete-btn'
 											title='Удалить маршрут'>
 											×
 										</button>
 									</div>
 									<div className='route-body'>
-										<p><strong>ID:</strong> {route.id}</p>
-										<p><strong>Дистанция:</strong> {route.distance} м</p>
-										<p><strong>Точки:</strong> {route.checkpoints?.length || 0}</p>
-										{route.tags && route.tags.length > 0 && (
-											<div className='tags'>
-												<strong>Теги:</strong>
-												<div className='tag-tags'>
-													{route.tags.map((tag) => (
-														<span key={tag.id} className='tag-tag'>
-															{tag.name}
-														</span>
-													))}
+										<p>
+											<strong>ID:</strong> {route.id}
+										</p>
+										<p>
+											<strong>Дистанция:</strong>{' '}
+											{route.distance} м
+										</p>
+										<p>
+											<strong>Точки:</strong>{' '}
+											{route.checkpoints?.length || 0}
+										</p>
+										{route.tags &&
+											route.tags.length > 0 && (
+												<div className='tags'>
+													<strong>Теги:</strong>
+													<div className='tag-tags'>
+														{route.tags.map(
+															(tag) => (
+																<span
+																	key={tag.id}
+																	className='tag-tag'>
+																	{tag.name}
+																</span>
+															)
+														)}
+													</div>
 												</div>
-											</div>
-										)}
+											)}
 									</div>
 									<div className='route-footer'>
 										<button
 											onClick={() => {
 												setSelectedRouteId(route.id);
-												dispatch(fetchRouteById(route.id));
+												dispatch(
+													fetchRouteById(route.id)
+												);
 											}}
 											className='btn-sm btn-info'>
 											Просмотр
@@ -414,9 +506,15 @@ export const RoutesList: React.FC = () => {
 												setEditData({
 													name: route.name,
 													distance: route.distance,
-													tagIds: route.tags?.map(t => t.id) || [],
+													tagIds:
+														route.tags?.map(
+															(t) => t.id
+														) || [],
 												});
-												window.scrollTo({ top: 0, behavior: 'smooth' });
+												window.scrollTo({
+													top: 0,
+													behavior: 'smooth',
+												});
 											}}
 											className='btn-sm btn-warning'>
 											Редактировать
@@ -436,7 +534,8 @@ export const RoutesList: React.FC = () => {
 									← Предыдущая
 								</button>
 								<span className='page-info'>
-									Страница {page} из {Math.ceil(total / limit)}
+									Страница {page} из{' '}
+									{Math.ceil(total / limit)}
 								</span>
 								<button
 									onClick={() => handlePageChange(page + 1)}
@@ -446,7 +545,11 @@ export const RoutesList: React.FC = () => {
 								</button>
 								<select
 									value={limit}
-									onChange={(e) => handleLimitChange(Number(e.target.value))}
+									onChange={(e) =>
+										handleLimitChange(
+											Number(e.target.value)
+										)
+									}
 									className='limit-select'>
 									<option value={5}>5 на странице</option>
 									<option value={10}>10 на странице</option>
@@ -459,7 +562,9 @@ export const RoutesList: React.FC = () => {
 				) : (
 					<div className='empty-state'>
 						<p>Нет доступных маршрутов</p>
-						<button onClick={handleFetchAllRoutes} className='btn btn-primary'>
+						<button
+							onClick={handleFetchAllRoutes}
+							className='btn btn-primary'>
 							Загрузить маршруты
 						</button>
 					</div>
