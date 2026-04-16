@@ -1,0 +1,102 @@
+import React from 'react';
+import styles from '../../components/Profile/Profile.module.scss';
+import { Avatar, Button } from '@ui';
+import { Circle } from '../../ui/Circle';
+
+interface ProfileProps {
+	userName?: string;
+	userEmail?: string;
+	userNumber?: string;
+	userAvatar?: string;
+	userLevel?: number;
+	userRoutes?: number;
+	userGender?: string;
+	userHeight?: number;
+	userWeight?: number;
+	friendsName?: string;
+	friendsAvatar?: string;
+}
+
+export const Profile: React.FC<ProfileProps> = ({
+	userName,
+	userEmail,
+	userNumber,
+	userAvatar,
+	userLevel,
+	userRoutes,
+	userGender,
+	userHeight,
+	userWeight,
+	friendsName,
+	friendsAvatar
+}) => {
+	return (
+		<div className={styles.container}>
+			<div className={styles.circleContainer}>
+				<div className={styles.circleContent}>
+					<Circle>{userLevel}</Circle>
+					<span className={styles.circleLabel}>Уровень</span>
+				</div>
+				<div className={styles.avatarContent}>
+					<Avatar src={userAvatar} size={'large'} />
+					<span className={styles.profileNickname}>{userName}</span>
+				</div>
+				<div className={styles.circleContent}>
+					<Circle>{userRoutes}</Circle>
+					<span className={styles.circleLabel}>Маршруты</span>
+				</div>
+			</div>
+			<div className={styles.containerMenu}>
+				<div className={styles.containerContext}>
+					<span className={styles.containerContextTittle}>
+						Информация
+					</span>
+					<div className={styles.infoContentBody}>
+						<span>Email: {userEmail}</span>
+						<span>Телефон: {userNumber}</span>
+						<span>Пол: {userGender}</span>
+						<span>Рост: {userHeight}</span>
+						<span>Вес: {userWeight}</span>
+					</div>
+				</div>
+				<div className={styles.containerContext}>
+					<span className={styles.containerContextTittle}>
+						Друзья
+					</span>
+					<div className={styles.friendsBody}>
+						<Avatar src={friendsAvatar} size={'small'} />
+						<span className={styles.friendsName}>
+							{friendsName}
+						</span>
+					</div>
+					<div className={styles.friendsBody}>
+						<Avatar src={friendsAvatar} size={'small'} />
+						<span className={styles.friendsName}>
+							{friendsName}
+						</span>
+					</div>
+					<div className={styles.friendsBody}>
+						<Avatar src={friendsAvatar} size={'small'} />
+						<span className={styles.friendsName}>
+							{friendsName}
+						</span>
+					</div>
+					<div className={styles.friendsBody}>
+						<Avatar src={friendsAvatar} size={'small'} />
+						<span className={styles.friendsName}>
+							{friendsName}
+						</span>
+					</div>
+				</div>
+			</div>
+			<div className={styles.containerButtons}>
+				<Button variant='secondary'>
+					<p>Моя статистика</p>
+				</Button>
+				<Button variant='secondary'>
+					<p>Мои достижения</p>
+				</Button>
+			</div>
+		</div>
+	);
+};
