@@ -3,7 +3,5 @@ import { Settings } from '../../components/Settings/Settings';
 import styles from './SettingsPage.module.scss';
 
 export const SettingsPage = () => {
-	return (
-		<Settings className={styles.settingsContent}/>
-	);
+	return <Settings className={styles.settingsContent} />;
 };

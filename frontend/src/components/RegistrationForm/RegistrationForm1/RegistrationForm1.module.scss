@@ -1,62 +1,58 @@
 .container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-}
-
-.stepCounter {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  z-index: 10;
-}
-
-.stepTitle {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-text);
-  opacity: 0.7;
-}
-
-.dashList {
-  display: flex;
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.dash {
-  display: block;
-  width: 25px;
-  height: 4px;
-  background-color: var(--color-caption);
-  border-radius: 2px;
-  transition: background-color 0.3s ease;
-}
-
-.dashActive {
-  background-color: var(--color-text);
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
 }
 
 .regForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
 .nextButton {
-  width: 100%;
-  margin-top: 10px;
+	width: 100%;
+	margin-top: 10px;
+
+	@media (max-width: 375px) {
+		width: 100%;
+	}
+}
+
+.auth {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	margin-top: 20px;
+	padding-top: 16px;
+}
+
+.authText {
+	color: var(--color-text);
+	margin: 0;
+}
+
+.link {
+	text-decoration: none;
+	display: flex;
+	color: var(--color-caption);
+	font-size: var(--text-body-size);
+	font-weight: var(--font-medium);
+	transition: opacity 0.2s;
+
+	&:hover {
+		opacity: 0.8;
+		text-decoration: underline;
+	}
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 16px;
+	}
+
+	.regForm {
+		gap: 10px;
+	}
 }

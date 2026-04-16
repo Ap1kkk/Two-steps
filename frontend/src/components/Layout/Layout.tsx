@@ -13,7 +13,7 @@ export const Layout = () => {
 
 	return (
 		<div className={styles.layout}>
-			{isMobile ? <MobileHeader/> : <Header />}
+			{isMobile ? <MobileHeader /> : <Header />}
 			<main className={styles.content}>
 				<Outlet />
 			</main>

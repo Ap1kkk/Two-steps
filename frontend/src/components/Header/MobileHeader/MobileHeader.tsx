@@ -27,13 +27,16 @@ export const MobileHeader = () => {
 	return (
 		<header className={styles.header}>
 			{!isHomePage && (
-				<span onClick={handleGoBack} className={`${styles.button} ${styles.closeButton}`}>
-					<Arrow  className={styles.arrowIcon} />
+				<span
+					onClick={handleGoBack}
+					className={`${styles.button} ${styles.closeButton}`}>
+					<Arrow className={styles.arrowIcon} />
 				</span>
-
 			)}
 
-			<Link to='/routie' className={`${styles.logoContainer} ${styles.button}`}>
+			<Link
+				to='/routie'
+				className={`${styles.logoContainer} ${styles.button}`}>
 				<Compass
 					width={24}
 					height={24}
