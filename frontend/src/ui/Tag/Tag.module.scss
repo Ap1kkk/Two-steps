@@ -1,73 +1,59 @@
 .tags_container {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
 
-	&.wrap {
-		flex-wrap: wrap;
-	}
+  &.wrap {
+    flex-wrap: wrap;
+  }
 
-	&.nowrap {
-		flex-wrap: nowrap;
-		overflow: hidden;
-	}
+  &.nowrap {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
 }
 
 .tag_item {
-	padding: 6px 12px;
-	border-radius: 12px;
-	background-color: transparent;
-	border: 1px solid var(--color-caption);
-	white-space: nowrap;
-	transition: all 0.2s ease;
-	flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background-color: transparent;
+  border: 1px solid var(--color-caption);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 
-	&.small {
-		padding: 4px 12px;
-		font-size: 12px;
-	}
+  &:hover {
+    background-color: var(--color-bg-hover, #f5f5f5);
+  }
 
-	&.large {
-		padding: 12px 24px;
-		font-size: 16px;
-	}
+  &.small {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
 
-	&.selected {
-		background-color: var(--color-accent);
-		border-color: var(--color-accent);
-
-		.button_label {
-			color: white;
-		}
-	}
-
-	&:hover {
-		background-color: rgba(var(--color-accent-rgb), 0.1);
-	}
-
-	&:active {
-		transform: scale(0.95);
-	}
+  &.large {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
 }
 
 .button_label {
-	font-size: var(--text-caption-size);
-	font-family: var(--font-body);
-	color: var(--color-text);
-	font-weight: var(--font-regular);
-	letter-spacing: 0.02em;
-	transition: color 0.2s ease;
+  font-size: var(--text-caption-size);
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.02em;
 }
 
 .moreTag {
-	flex-shrink: 0;
-	font-size: var(--text-caption-size);
-	font-family: var(--font-body);
-	color: var(--color-text);
-	font-weight: var(--font-regular);
-	letter-spacing: 0.02em;
-	border: 1px solid var(--color-caption);
-	border-radius: 50%;
-	padding: 4px;
+  flex-shrink: 0;
+  font-size: var(--text-caption-size);
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.02em;
+  border: 1px solid var(--color-caption);
+  border-radius: 50%;
+  padding: 4px;
 }

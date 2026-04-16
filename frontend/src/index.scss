@@ -68,75 +68,63 @@
 }
 
 :root {
-	/* Текст */
-	--color-text: #253017; /* основной текст */
-	--color-caption: #69735d; /* подписи, второстепенный текст */
-	--color-disabled-text: #9ca197; /* неактивный текст */
-	--color-toggle: #b2b9a9; /* текст на переключателях */
+  /* Текст */
+  --color-text: #253017; /* основной текст */
+  --color-caption: #69735d; /* подписи, второстепенный текст */
+  --color-disabled-text: #9ca197; /* неактивный текст */
+  --color-toggle: #b2b9a9; /* текст на переключателях */
 
-	/* Фоны и поверхности */
-	--color-disabled: #e4e8df; /* фон неактивных элементов */
-	--color-card: #fff; /* фон карточек, инпутов */
-	--color-background: #f9faf7; /* фон всей страницы */
+  /* Фоны и поверхности */
+  --color-disabled: #e4e8df; /* фон неактивных элементов */
+  --color-card: #fff; /* фон карточек, инпутов */
+  --color-background: #f9faf7; /* фон всей страницы */
 
-	--color-align-content: rgba(255, 255, 255, 0.9);
+  --color-align-content: rgba(255, 255, 255, 0.9);
 
-	/* Акценты и кнопки */
-	--color-link-pressed: #508826; /* текстовая ссылка / кнопка в нажатом состоянии */
-	--color-accent: #abd27a; /* основной акцентный цвет */
-	--color-button-hover: #deebc5; /* кнопка при наведении */
+  /* Акценты и кнопки */
+  --color-link-pressed: #508826; /* текстовая ссылка / кнопка в нажатом состоянии */
+  --color-accent: #abd27a; /* основной акцентный цвет */
+  --color-button-hover: #deebc5; /* кнопка при наведении */
 
-	/* Статусы */
-	--color-alarm: #e0796e; /* предупреждения, уведомления */
-	--color-error: #bf3920; /* ошибки */
+  /* Статусы */
+  --color-alarm: #e0796e; /* предупреждения, уведомления */
+  --color-error: #bf3920; /* ошибки */
 
-	/* Теги (категории) */
-	--color-tag-business: #eee7f7;
-	--color-tag-creative: #f7e7f2;
-	--color-tag-languages: #ebe5c5;
-	--color-tag-education: #e7f2f6;
-	--color-tag-home: #f7ebe5;
-	--color-tag-health: #e9f7e7;
-	--color-tag-other: #ebecf7;
+  /* Теги (категории) */
+  --color-tag-business: #eee7f7;
+  --color-tag-creative: #f7e7f2;
+  --color-tag-languages: #ebe5c5;
+  --color-tag-education: #e7f2f6;
+  --color-tag-home: #f7ebe5;
+  --color-tag-health: #e9f7e7;
+  --color-tag-other: #ebecf7;
 
-	/* -------------------- ТИПОГРАФИКА -------------------- */
+  /* -------------------- ТИПОГРАФИКА -------------------- */
 
-	/* Шрифты */
-	--font-heading: Yandex;
-	--font-body: Yandex;
-	--font-body-medium: Roboto;
+  /* Шрифты */
+  --font-heading: Yandex;
+  --font-body: Yandex;
+  --font-body-medium: Roboto;
 
-	/* Веса шрифтов */
-	--font-regular: 400;
-	--font-medium: 500;
+  /* Веса шрифтов */
+  --font-regular: 400;
+  --font-medium: 500;
 
-	/* Размеры и интерлиньяж */
-	--text-h1-size: 32px;
-	--text-h1-lineheight: 40px;
-	--text-h2-size: 24px;
-	--text-h2-lineheight: 32px;
-	--text-h3-size: 20px;
-	--text-h3-lineheight: 24px;
-	--text-h4-size: 16px;
-	--text-h4-lineheight: 24px;
-	--text-body-size: 16px;
-	--text-body-lineheight: 24px;
-	--text-caption-size: 12px;
-	--text-caption-lineheight: 16px;
+  /* Размеры и интерлиньяж */
+  --text-h1-size: 32px;
+  --text-h2-size: 24px;
+  --text-h3-size: 20px;
+  --text-h4-size: 16px;
+  --text-body-size: 16px;
+  --text-caption-size: 12px;
 
-	// Мобильные размеры
-	--text-h1-size-mobile: 24px;
-	--text-h1-lineheight-mobile: 28px;
-	--text-h2-size-mobile: 20px;
-	--text-h2-lineheight-mobile: 24px;
-	--text-h3-size-mobile: 16px;
-	--text-h3-lineheight-mobile: 20px;
-	--text-h4-size-mobile: 14px;
-	--text-h4-lineheight-mobile: 16px;
-	--text-body-size-mobile: 14px;
-	--text-body-lineheight-mobile: 20px;
-	--text-caption-size-mobile: 11px;
-	--text-caption-lineheight-mobile: 16px;
+  // Мобильные размеры
+  --text-h1-size-mobile: 24px;
+  --text-h2-size-mobile: 20px;
+  --text-h3-size-mobile: 16px;
+  --text-h4-size-mobile: 14px;
+  --text-body-size-mobile: 14px;
+  --text-caption-size-mobile: 11px;
 }
 
 .dark-theme {
@@ -212,38 +200,38 @@ body {
 /* ==================== СТИЛИ ДЛЯ ТЕГОВ ==================== */
 
 h1 {
-	font-family: var(--font-heading);
-	font-weight: var(--font-medium);
-	font-size: var(--text-h1-size);
-	line-height: var(--text-h1-lineheight);
+  font-family: var(--font-heading);
+  font-weight: var(--font-medium);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lineheight);
 }
 
 h2 {
-	font-family: var(--font-heading);
-	font-weight: var(--font-medium);
-	font-size: var(--text-h2-size);
-	line-height: var(--text-h2-lineheight);
+  font-family: var(--font-heading);
+  font-weight: var(--font-medium);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lineheight);
 }
 
 h3 {
-	font-family: var(--font-heading);
-	font-weight: var(--font-medium);
-	font-size: var(--text-h3-size);
-	line-height: var(--text-h3-lineheight);
+  font-family: var(--font-heading);
+  font-weight: var(--font-medium);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lineheight);
 }
 
 h4 {
-	font-family: var(--font-body-medium);
-	font-weight: var(--font-medium);
-	font-size: var(--text-h4-size);
-	line-height: var(--text-h4-lineheight);
+  font-family: var(--font-body-medium);
+  font-weight: var(--font-medium);
+  font-size: var(--text-h4-size);
+  line-height: var(--text-h4-lineheight);
 }
 
 p {
-	font-family: var(--font-body);
-	font-weight: var(--font-regular);
-	font-size: var(--text-body-size);
-	line-height: var(--text-body-lineheight);
+  font-family: var(--font-body);
+  font-weight: var(--font-regular);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lineheight);
 }
 
 /* ==================== УТИЛИТАРНЫЕ КЛАССЫ ==================== */

@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
 				element: <RegistrationPage />,
 			},
 			{
-				element: <ProtectedRoute isAuthenticated={false} />,
+				element: <ProtectedRoute isAuthenticated={true} />,
 				children: [
 					{
 						path: '/routie',

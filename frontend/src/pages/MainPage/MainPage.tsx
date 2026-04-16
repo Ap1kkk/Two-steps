@@ -109,12 +109,10 @@ export const MainPage: React.FC = () => {
 	return (
 		<section className={styles.section}>
 			{routeOfTheDay && (
-				<div className={styles.route_day}>
-					<RouteOfTheDay
-						route={routeOfTheDay}
-						onNavigate={handleRouteOfTheDay}
-					/>
-				</div>
+				<RouteOfTheDay
+					route={routeOfTheDay}
+					onNavigate={handleRouteOfTheDay}
+				/>
 			)}
 
 			{popularRoutes.length > 0 && (
@@ -137,36 +135,16 @@ export const MainPage: React.FC = () => {
 			{recommendedRoutes.length > 0 && (
 				<div className={styles.container}>
 					<h2 className={styles.title}>Рекомендованные маршруты</h2>
-					<div className={styles.position}>
+					<div className={styles.positionGrid}>
 						{recommendedRoutes.map((route) => (
 							<RouteCard
 								key={route.id}
 								route={route}
 								isLiked={likedRoutes[route.id] || false}
 								onToggleLike={handleToggleLike}
-								variant='compact'
+								variant='standard'
 							/>
 						))}
-					</div>
-				</div>
-			)}
-
-			{isModalOpen && (
-				<div className={styles.modal} onClick={handleCloseModal}>
-					<div
-						className={styles.modalContent}
-						onClick={(e) => e.stopPropagation()}>
-						<h3>Требуется авторизация</h3>
-						<p>
-							Чтобы добавлять маршруты в избранное, пожалуйста,
-							войдите в систему
-						</p>
-						<div className={styles.modalButtons}>
-							<button onClick={() => navigate('/login')}>
-								Войти
-							</button>
-							<button onClick={handleCloseModal}>Закрыть</button>
-						</div>
 					</div>
 				</div>
 			)}
