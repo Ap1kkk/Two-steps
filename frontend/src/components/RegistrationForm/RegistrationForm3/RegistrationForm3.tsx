@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Tag } from '@ui';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Tag } from '@ui';
 
 import styles from './RegistrationForm3.module.scss';
 import s from '../RegistrationForm.module.scss';
@@ -20,6 +20,26 @@ const availableTags: Tag[] = [
 	{ id: '8', name: 'Танцы' },
 	{ id: '9', name: 'Футбол' },
 	{ id: '10', name: 'Баскетбол' },
+	{ id: '11', name: 'Волейбол' },
+	{ id: '12', name: 'Теннис' },
+	{ id: '13', name: 'Бокс' },
+	{ id: '14', name: 'ММА' },
+	{ id: '15', name: 'Карате' },
+	{ id: '16', name: 'Дзюдо' },
+	{ id: '17', name: 'Самбо' },
+	{ id: '18', name: 'Стретчинг' },
+	{ id: '19', name: 'Пилатес' },
+	{ id: '20', name: 'Калланетика' },
+	{ id: '21', name: 'Зумба' },
+	{ id: '22', name: 'Лыжи' },
+	{ id: '23', name: 'Сноуборд' },
+	{ id: '24', name: 'Скейтборд' },
+	{ id: '25', name: 'Роллерспорт' },
+	{ id: '26', name: 'Скалолазание' },
+	{ id: '27', name: 'Туризм' },
+	{ id: '28', name: 'Спортивная ходьба' },
+	{ id: '29', name: 'Триатлон' },
+	{ id: '30', name: 'Пауэрлифтинг' },
 ];
 
 interface RegistrationForm3Props {
@@ -42,26 +62,27 @@ export const RegistrationForm3: React.FC<RegistrationForm3Props> = ({
 		label: tag.name,
 	}));
 
-
 	const handleTagClick = (tagId?: string | number) => {
 		if (tagId) {
+			const id = String(tagId);
 			setSelectedTags((prev) =>
-				prev.includes(tagId as string)
-					? prev.filter((id) => id !== tagId)
-					: [...prev, tagId as string]
+				prev.includes(id)
+					? prev.filter((selectedId) => selectedId !== id)
+					: [...prev, id]
 			);
 		}
 	};
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+		e.stopPropagation();
 		onComplete({ tags: selectedTags });
 	};
 
 	return (
 		<div className={styles.container}>
 			<div className={s.stepCounter}>
-				<div className={s.stepIndicator}>Шаг 2 из 3</div>
+				<div className={s.stepIndicator}>Шаг 3 из 3</div>
 				<div className={s.progressSteps}>
 					<div className={`${s.stepDot} ${s.active}`} />
 					<div className={`${s.stepDot} ${s.active}`} />
@@ -69,9 +90,9 @@ export const RegistrationForm3: React.FC<RegistrationForm3Props> = ({
 				</div>
 			</div>
 			<form onSubmit={handleSubmit} className={styles.form}>
-				<p className={styles.tagHint}>
-					Выберите теги, которые вам нравятся (можно несколько)
-				</p>
+				<span className={styles.tagTitle}>
+					Выберите теги, которые вам нравятся
+				</span>
 
 				<Tag
 					items={tagItems}
@@ -80,16 +101,20 @@ export const RegistrationForm3: React.FC<RegistrationForm3Props> = ({
 					onTagClick={handleTagClick}
 				/>
 
-				<div className={styles.buttons}>
-					<button
+				<div className={styles.tagsButtons}>
+					<Button
 						type='button'
+						variant='secondary'
 						onClick={onBack}
 						className={styles.backButton}>
 						Назад
-					</button>
-					<button type='submit' className={styles.nextButton}>
+					</Button>
+					<Button
+						type='submit'
+						variant='primary'
+						className={styles.nextButton}>
 						Завершить регистрацию
-					</button>
+					</Button>
 				</div>
 			</form>
 		</div>

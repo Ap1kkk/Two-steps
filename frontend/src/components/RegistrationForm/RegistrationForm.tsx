@@ -3,7 +3,7 @@ import { RegistrationForm1 } from './RegistrationForm1/RegistrationForm1';
 import { RegistrationForm2 } from './RegistrationForm2/RegistrationForm2';
 import { RegistrationForm3 } from './RegistrationForm3/RegistrationForm3';
 
-import styles from './RegistrationForm.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface RegistrationData {
 	email: string;
@@ -17,7 +17,8 @@ interface RegistrationData {
 	tags: string[];
 }
 
-const RegistrationForm: React.FC = () => {
+export const RegistrationForm: React.FC = () => {
+	const navigate = useNavigate();
 	const [step, setStep] = useState(1);
 	const [formData, setFormData] = useState<RegistrationData>({
 		email: '',
@@ -47,7 +48,7 @@ const RegistrationForm: React.FC = () => {
 	const handleComplete = (data: { tags: string[] }) => {
 		const completeData = { ...formData, ...data };
 		console.log('Регистрация завершена:', completeData);
-		alert('Регистрация успешно завершена!');
+		navigate('/routie');
 	};
 
 	const handleBack = () => {
@@ -92,5 +93,3 @@ const RegistrationForm: React.FC = () => {
 		</>
 	);
 };
-
-export default RegistrationForm;
