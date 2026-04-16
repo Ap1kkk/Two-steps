@@ -3,10 +3,12 @@ import styles from './Input.module.scss';
 
 import { ReactComponent as OpenEye } from '@icons/eye.svg';
 import { ReactComponent as CloseEye } from '@icons/eye-slash.svg';
+import { ReactComponent as ArrowUp } from '@icons/chevron-up-small.svg';
+import { ReactComponent as ArrowDown } from '@icons/chevron-down-small.svg';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
-	value?: string;
+	value?: string | number;
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	placeholder?: string;
 	error?: string;
@@ -16,6 +18,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	disabled?: boolean;
 	required?: boolean;
 	className?: string;
+	showNumberArrows?: boolean;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -32,12 +35,80 @@ export const Input: React.FC<InputProps> = ({
 	required = false,
 	className,
 	id,
+	showNumberArrows = true,
 	...props
 }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const inputId = id || label?.toLowerCase().replace(/\s/g, '-');
 	const isPassword = type === 'password';
+	const isNumber = type === 'number';
 	const inputType = isPassword ? (showPassword ? 'text' : 'password') : type;
+
+	const handleIncrement = () => {
+		if (disabled || !onChange) return;
+
+		let currentValue =
+			typeof value === 'number' ? value : parseFloat(String(value));
+		if (isNaN(currentValue)) currentValue = 0;
+
+		const step = props.step ? parseFloat(String(props.step)) : 1;
+		const newValue = currentValue + step;
+
+		const event = {
+			target: {
+				value: String(newValue),
+				name: props.name,
+				type: 'number',
+			},
+			currentTarget: { value: String(newValue) },
+			bubbles: true,
+			cancelable: true,
+			defaultPrevented: false,
+			isDefaultPrevented: () => false,
+			isPropagationStopped: () => false,
+			persist: () => {},
+			preventDefault: () => {},
+			stopPropagation: () => {},
+			nativeEvent: new Event('change'),
+			timeStamp: Date.now(),
+			type: 'change',
+		} as React.ChangeEvent<HTMLInputElement>;
+
+		onChange(event);
+	};
+
+	const handleDecrement = () => {
+		if (disabled || !onChange) return;
+
+		let currentValue =
+			typeof value === 'number' ? value : parseFloat(String(value));
+		if (isNaN(currentValue)) currentValue = 0;
+
+		const step = props.step ? parseFloat(String(props.step)) : 1;
+		const newValue = currentValue - step;
+
+		const event = {
+			target: {
+				value: String(newValue),
+				name: props.name,
+				type: 'number',
+			},
+			currentTarget: { value: String(newValue) },
+			bubbles: true,
+			cancelable: true,
+			defaultPrevented: false,
+			isDefaultPrevented: () => false,
+			isPropagationStopped: () => false,
+			persist: () => {},
+			preventDefault: () => {},
+			stopPropagation: () => {},
+			nativeEvent: new Event('change'),
+			timeStamp: Date.now(),
+			type: 'change',
+		} as React.ChangeEvent<HTMLInputElement>;
+
+		onChange(event);
+	};
 
 	return (
 		<div className={`${styles.wrapper} ${className}`}>
@@ -48,8 +119,12 @@ export const Input: React.FC<InputProps> = ({
 			)}
 
 			<div
-				className={`${styles['input-wrapper']} ${error ? styles.error : ''}`}>
-				{iconLeft && <span className={styles['icon-left']}>{iconLeft}</span>}
+				className={`${styles['input-wrapper']} ${
+					error ? styles.error : ''
+				}`}>
+				{iconLeft && (
+					<span className={styles['icon-left']}>{iconLeft}</span>
+				)}
 
 				<input
 					id={inputId}
@@ -64,6 +139,21 @@ export const Input: React.FC<InputProps> = ({
 					{...props}
 				/>
 
+				{isNumber && showNumberArrows && (
+					<div className={styles['number-controls']}>
+						<ArrowUp
+							className={styles.arrowIcon}
+							onClick={handleIncrement}
+							tabIndex={-1}
+						/>
+						<ArrowDown
+							className={styles.arrowIcon}
+							onClick={handleDecrement}
+							tabIndex={-1}
+						/>
+					</div>
+				)}
+
 				{(iconRight || isPassword) && (
 					<span className={styles.rightIcon}>
 						{isPassword ? (
@@ -72,15 +162,15 @@ export const Input: React.FC<InputProps> = ({
 								className={styles.passwordToggle}
 								onClick={() => setShowPassword(!showPassword)}
 								tabIndex={-1}
-								aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}>
+								aria-label={
+									showPassword
+										? 'Скрыть пароль'
+										: 'Показать пароль'
+								}>
 								{showPassword ? (
-									<OpenEye
-										className={styles.eyes}
-									/>
+									<OpenEye className={styles.eyes} />
 								) : (
-									<CloseEye
-										className={styles.eyes}
-									/>
+									<CloseEye className={styles.eyes} />
 								)}
 							</button>
 						) : (
@@ -90,11 +180,14 @@ export const Input: React.FC<InputProps> = ({
 				)}
 			</div>
 
-			{helperText && !error && (
-				<p className={styles.helperText}>{helperText}</p>
+			{(error || helperText) && (
+				<div className={styles['message-container']}>
+					{helperText && !error && (
+						<p className={styles.helperText}>{helperText}</p>
+					)}
+					{error && <p className={styles.errorText}>{error}</p>}
+				</div>
 			)}
-
-			{error && <p className={styles.errorText}>{error}</p>}
 		</div>
 	);
 };

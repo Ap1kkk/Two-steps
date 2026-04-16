@@ -13,9 +13,9 @@ interface SettingsProps {
 }
 
 export const Settings: React.FC<SettingsProps> = ({
-													  onLogout,
-													  className = ''
-												  }) => {
+	onLogout,
+	className = '',
+}) => {
 	const [isLightTheme, setIsLightTheme] = useState<boolean>(() => {
 		const saved = localStorage.getItem('theme');
 		if (saved === null) {
@@ -59,7 +59,9 @@ export const Settings: React.FC<SettingsProps> = ({
 					<span>{isLightTheme ? 'Тёмная тема' : 'Светлая тема'}</span>
 				</button>
 
-				<button onClick={handleLogout} className={`${styles.buttons} ${styles.exit}`}>
+				<button
+					onClick={handleLogout}
+					className={`${styles.buttons} ${styles.exit}`}>
 					<Logout />
 					<span>Выйти из аккаунта</span>
 				</button>

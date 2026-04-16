@@ -5,6 +5,9 @@ import {
 	validatePassword,
 } from '../../../utils/validator';
 import { Button, Input } from '@ui';
+import { Link } from 'react-router-dom';
+
+import s from '../RegistrationForm.module.scss';
 import styles from './RegistrationForm1.module.scss';
 
 interface RegistrationForm1Props {
@@ -12,122 +15,103 @@ interface RegistrationForm1Props {
 	initialData?: { email: string; password: string };
 }
 
-const RegistrationForm1: React.FC<RegistrationForm1Props> = ({
-																 onNext,
-																 initialData,
-															 }) => {
+export const RegistrationForm1: React.FC<RegistrationForm1Props> = ({
+	onNext,
+	initialData,
+}) => {
 	const [email, setEmail] = useState(initialData?.email || '');
 	const [password, setPassword] = useState(initialData?.password || '');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const [errors, setErrors] = useState<{
-		email?: string;
-		password?: string;
-		confirmPassword?: string;
-	}>({});
-	const [touched, setTouched] = useState<{
-		email: boolean;
-		password: boolean;
-		confirmPassword: boolean;
-	}>({
+
+	const [touched, setTouched] = useState({
 		email: false,
 		password: false,
 		confirmPassword: false,
 	});
 
-	const emailValidation = useMemo(() => validateEmail(email), [email]);
-	const passwordValidation = useMemo(
-		() => validatePassword(password),
-		[password]
-	);
-	const confirmPasswordValidation = useMemo(
-		() => validateConfirmPassword(password, confirmPassword),
-		[password, confirmPassword]
-	);
+	const emailValidation = useMemo(() => {
+		if (!email) {
+			return { isValid: false, errorMessage: 'Email обязателен' };
+		}
+		return validateEmail(email);
+	}, [email]);
+
+	const passwordValidation = useMemo(() => {
+		if (!password) {
+			return { isValid: false, errorMessage: 'Пароль обязателен' };
+		}
+		return validatePassword(password);
+	}, [password]);
+
+	const confirmPasswordValidation = useMemo(() => {
+		if (!confirmPassword) {
+			return {
+				isValid: false,
+				errorMessage: 'Подтверждение пароля обязательно',
+			};
+		}
+		return validateConfirmPassword(password, confirmPassword);
+	}, [password, confirmPassword]);
+
+	const showEmailError = touched.email && !emailValidation.isValid;
+	const showPasswordError = touched.password && !passwordValidation.isValid;
+	const showConfirmPasswordError =
+		touched.confirmPassword && !confirmPasswordValidation.isValid;
+
+	const isAllFieldsFilled = useMemo(() => {
+		return (
+			email.trim() !== '' &&
+			password.trim() !== '' &&
+			confirmPassword.trim() !== ''
+		);
+	}, [email, password, confirmPassword]);
+
+	const isFormValid = useMemo(() => {
+		return (
+			isAllFieldsFilled &&
+			emailValidation.isValid &&
+			passwordValidation.isValid &&
+			confirmPasswordValidation.isValid
+		);
+	}, [
+		isAllFieldsFilled,
+		emailValidation.isValid,
+		passwordValidation.isValid,
+		confirmPasswordValidation.isValid,
+	]);
 
 	const handleEmailChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			setEmail(e.target.value);
-			if (touched.email) {
-				setErrors((prev) => ({ ...prev, email: undefined }));
-			}
 		},
-		[touched.email]
+		[]
 	);
 
 	const handlePasswordChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			setPassword(e.target.value);
-			if (touched.password) {
-				setErrors((prev) => ({ ...prev, password: undefined }));
-			}
 		},
-		[touched.password]
+		[]
 	);
 
 	const handleConfirmPasswordChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
 			setConfirmPassword(e.target.value);
-			if (touched.confirmPassword) {
-				setErrors((prev) => ({ ...prev, confirmPassword: undefined }));
-			}
 		},
-		[touched.confirmPassword]
+		[]
 	);
 
 	const handleEmailBlur = useCallback(() => {
 		setTouched((prev) => ({ ...prev, email: true }));
-		if (!emailValidation.isValid && email) {
-			setErrors((prev) => ({
-				...prev,
-				email: emailValidation.errorMessage,
-			}));
-		}
-	}, [emailValidation.isValid, emailValidation.errorMessage, email]);
+	}, []);
 
 	const handlePasswordBlur = useCallback(() => {
 		setTouched((prev) => ({ ...prev, password: true }));
-		if (!passwordValidation.isValid && password) {
-			setErrors((prev) => ({
-				...prev,
-				password: passwordValidation.errorMessage,
-			}));
-		}
-	}, [passwordValidation.isValid, passwordValidation.errorMessage, password]);
+	}, []);
 
 	const handleConfirmPasswordBlur = useCallback(() => {
 		setTouched((prev) => ({ ...prev, confirmPassword: true }));
-		if (!confirmPasswordValidation.isValid && confirmPassword) {
-			setErrors((prev) => ({
-				...prev,
-				confirmPassword: confirmPasswordValidation.errorMessage,
-			}));
-		}
-	}, [
-		confirmPasswordValidation.isValid,
-		confirmPasswordValidation.errorMessage,
-		confirmPassword,
-	]);
-
-	const validateForm = useCallback((): boolean => {
-		const newErrors: {
-			email?: string;
-			password?: string;
-			confirmPassword?: string;
-		} = {};
-
-		if (!emailValidation.isValid) {
-			newErrors.email = emailValidation.errorMessage;
-		}
-		if (!passwordValidation.isValid) {
-			newErrors.password = passwordValidation.errorMessage;
-		}
-		if (!confirmPasswordValidation.isValid) {
-			newErrors.confirmPassword = confirmPasswordValidation.errorMessage;
-		}
-
-		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
-	}, [emailValidation, passwordValidation, confirmPasswordValidation]);
+	}, []);
 
 	const handleSubmit = useCallback(
 		(e: React.FormEvent) => {
@@ -139,28 +123,24 @@ const RegistrationForm1: React.FC<RegistrationForm1Props> = ({
 				confirmPassword: true,
 			});
 
-			if (validateForm()) {
+			if (isFormValid) {
 				onNext({ email, password });
 			}
 		},
-		[email, password, validateForm, onNext]
+		[email, password, isFormValid, onNext]
 	);
-
-	const passwordHelperText =
-		password && !errors.password && passwordValidation.isValid
-			? '✓ Пароль подходит'
-			: undefined;
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.stepCounter}>
-				<span className={styles.stepTitle}>Шаг 1</span>
-				<ul className={styles.dashList}>
-					<li className={`${styles.dash} ${styles.dashActive}`}></li>
-					<li className={styles.dash}></li>
-					<li className={styles.dash}></li>
-				</ul>
+			<div className={s.stepCounter}>
+				<div className={s.stepIndicator}>Шаг 1 из 3</div>
+				<div className={s.progressSteps}>
+					<div className={`${s.stepDot} ${s.active}`} />
+					<div className={s.stepDot} />
+					<div className={s.stepDot} />
+				</div>
 			</div>
+
 			<form onSubmit={handleSubmit} className={styles.regForm} noValidate>
 				<Input
 					id='email'
@@ -172,7 +152,11 @@ const RegistrationForm1: React.FC<RegistrationForm1Props> = ({
 					onBlur={handleEmailBlur}
 					placeholder='example@mail.com'
 					required={true}
-					error={touched.email ? errors.email : undefined}
+					error={
+						showEmailError
+							? emailValidation.errorMessage
+							: undefined
+					}
 				/>
 
 				<Input
@@ -183,10 +167,13 @@ const RegistrationForm1: React.FC<RegistrationForm1Props> = ({
 					value={password}
 					onChange={handlePasswordChange}
 					onBlur={handlePasswordBlur}
-					placeholder='Минимум 6 символов'
+					placeholder='Минимум 8 символов'
 					required={true}
-					error={touched.password ? errors.password : undefined}
-					helperText={passwordHelperText}
+					error={
+						showPasswordError
+							? passwordValidation.errorMessage
+							: undefined
+					}
 				/>
 
 				<Input
@@ -200,21 +187,27 @@ const RegistrationForm1: React.FC<RegistrationForm1Props> = ({
 					placeholder='Введите пароль ещё раз'
 					required={true}
 					error={
-						touched.confirmPassword
-							? errors.confirmPassword
+						showConfirmPasswordError
+							? confirmPasswordValidation.errorMessage
 							: undefined
 					}
 				/>
 
 				<Button
-					variant={'primary'}
+					children={'Далее'}
+					variant='primary'
 					type='submit'
-					className={styles.nextButton}>
-					Далее
-				</Button>
+					className={styles.nextButton}
+					disabled={!isFormValid}
+				/>
 			</form>
+
+			<div className={styles.auth}>
+				<p className={styles.authText}>Уже есть аккаунт?</p>
+				<Link to='/login' className={styles.link}>
+					Авторизоваться
+				</Link>
+			</div>
 		</div>
 	);
 };
-
-export default RegistrationForm1;

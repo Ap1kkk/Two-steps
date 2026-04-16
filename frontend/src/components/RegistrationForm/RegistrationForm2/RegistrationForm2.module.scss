@@ -1,0 +1,116 @@
+.container {
+	width: 100%;
+	max-width: 500px;
+	margin: auto;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.avatarSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 0;
+}
+
+.userPhotoAdd {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	transition: opacity 0.2s;
+
+	&:hover {
+		opacity: 0.8;
+	}
+
+	&:active {
+		opacity: 0.6;
+	}
+}
+
+.avatarError {
+	color: #dc3545;
+	font-size: var(--text-caption-size);
+	margin-top: 4px;
+	text-align: center;
+}
+
+.row {
+	display: flex;
+	gap: 10px;
+	width: 100%;
+
+	@media (max-width: 375px) {
+		gap: 8px;
+	}
+}
+
+.rowInput {
+	flex: 1;
+	min-width: 0;
+	width: calc(50% - 5px);
+
+	input {
+		width: 100%;
+		min-width: 0;
+	}
+}
+
+.buttons {
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
+	width: 100%;
+
+	@media (max-width: 375px) {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
+
+.backButton,
+.nextButton {
+	flex: 1;
+	min-width: 0;
+
+	@media (max-width: 375px) {
+		width: 100%;
+	}
+}
+
+@media (max-width: 400px) {
+	.row {
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	.rowInput {
+		width: 100%;
+		flex: auto;
+	}
+}
+
+@media (max-width: 768px) {
+	.container {
+		padding: 50px 16px 16px;
+	}
+
+	.form {
+		gap: 10px;
+	}
+
+	.row {
+		gap: 10px;
+	}
+}
+
+.inputWrapper {
+	width: 100%;
+}

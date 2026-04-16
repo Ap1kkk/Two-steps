@@ -1,38 +1,38 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	overflow: hidden;
 }
 
 .title {
-  font-size: var(--text-h2-size-mobile);
-  font-family: var(--font-body);
-  font-weight: var(--font-medium);
-  color: var(--color-text);
-  letter-spacing: 0.02em;
-  margin: 0;
+	font-size: var(--text-h2-size-mobile);
+	font-family: var(--font-body);
+	font-weight: var(--font-medium);
+	color: var(--color-text);
+	letter-spacing: 0.02em;
+	margin: 0;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 
 .buttons {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: var(--text-h3-size-mobile);
-  font-family: var(--font-body);
-  font-weight: var(--font-regular);
-  color: var(--color-text);
-  text-decoration: none;
-  border: none;
-  background-color: transparent;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: var(--text-h3-size-mobile);
+	font-family: var(--font-body);
+	font-weight: var(--font-regular);
+	color: var(--color-text);
+	text-decoration: none;
+	border: none;
+	background-color: transparent;
 }
 
 .exit {
-  color: var(--color-alarm);
+	color: var(--color-alarm);
 }

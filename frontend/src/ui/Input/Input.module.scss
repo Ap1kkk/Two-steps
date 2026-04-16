@@ -10,21 +10,24 @@
   font-weight: var(--font-regular);
   letter-spacing: 0.02em;
   color: var(--color-text);
-  padding-bottom: 2px;
+  padding-bottom: 3px;
 
   @media (max-width: 925px) {
     font-size: var(--text-body-size-mobile);
+    padding-bottom: 0;
   }
 }
 
 .input-wrapper {
   display: flex;
   align-items: center;
+  position: relative;
   gap: 10px;
   background-color: var(--color-card);
   border: 1px solid var(--color-caption);
   border-radius: 12px;
-  padding: 10px 16px;
+  padding: 14px 16px;
+  cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
@@ -43,6 +46,14 @@
   &.error:focus-within {
     outline-color: var(--color-alarm);
   }
+
+  &.has-number-controls {
+    padding-right: 32px;
+  }
+
+  @media (max-width: 925px) {
+    padding: 10px 16px;
+  }
 }
 
 .input {
@@ -55,6 +66,10 @@
   border: none;
   outline: none;
 
+  @media (max-width: 925px) {
+    font-size: var(--text-body-size-mobile);
+  }
+
   &::placeholder {
     color: var(--color-disabled-text);
     opacity: 0.5;
@@ -64,6 +79,31 @@
     background-color: var(--color-disabled);
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.number-controls {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+}
+
+.arrowIcon {
+  &:focus {
+    outline: none;
   }
 }
 
@@ -101,16 +141,25 @@
   }
 }
 
+.message-container {
+  min-height: 17px;
+  width: 100%;
+  white-space: wrap;
+}
+
 .helperText {
   font-size: var(--text-caption-size);
   color: var(--color-caption);
-  margin: 0;
 }
 
 .errorText {
   font-size: var(--text-caption-size);
   color: var(--color-alarm);
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
   margin: 0;
+  line-height: 1.4;
 }
 
 .error-message {

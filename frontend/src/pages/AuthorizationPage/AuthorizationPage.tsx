@@ -9,7 +9,7 @@ import {
 } from '../../services/selectors/userSelectors';
 import { AuthorizationForm } from '@components';
 
-import styles from './AuthorizationPage.module.scss'
+import styles from './AuthorizationPage.module.scss';
 
 export const AuthorizationPage = () => {
 	const navigate = useNavigate();

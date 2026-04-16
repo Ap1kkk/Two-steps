@@ -164,6 +164,7 @@ export const Tag: React.FC<TagProps> = ({
 			} ${className || ''}`}>
 			{visibleItems.map((item, index) => (
 				<button
+					type={'button'}
 					key={item.id ?? index}
 					className={`${styles.tag_item} ${styles[variant]} ${
 						isSelected(item.id) ? styles.selected : ''

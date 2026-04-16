@@ -45,9 +45,13 @@ export const Button: React.FC<ButtonProps> = ({
 			disabled={disabled}
 			aria-label={ariaLabel}
 			{...props}>
-			{iconLeft && <span className={styles['icon-left']}>{iconLeft}</span>}
+			{iconLeft && (
+				<span className={styles['icon-left']}>{iconLeft}</span>
+			)}
 			{children && <span className={styles.text}>{children}</span>}
-			{iconRight && <span className={styles['icon-right']}>{iconRight}</span>}
+			{iconRight && (
+				<span className={styles['icon-right']}>{iconRight}</span>
+			)}
 		</button>
 	);
 };
