@@ -96,7 +96,7 @@ export const Profile: React.FC<ProfileProps> = ({
 				<Button variant='secondary' onClick={() => navigate('/statistic')} >
 					Моя статистика
 				</Button>
-				<Button variant='secondary' onClick={() => navigate('/routie')}>
+				<Button variant='secondary' onClick={() => navigate('/achievement')}>
 					Мои достижения
 				</Button>
 			</div>
