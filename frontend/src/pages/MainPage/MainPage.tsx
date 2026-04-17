@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Route } from '../../types/route';
-import styles from './MainPage.module.scss';
+import { Button } from '@ui';
 import { RouteCard, RouteOfTheDay } from '@components';
 import { mockRoutes, getRandomMockRoute } from '../../types/mockData';
 
+import { ReactComponent as RightIcon } from '../../assets/icons/chevron-right.svg';
+
+import styles from './MainPage.module.scss';
+import { useDeviceType } from '../../utils/hooks/useDeviceType';
+
 export const MainPage: React.FC = () => {
 	const navigate = useNavigate();
+	const deviceType = useDeviceType();
+	const isMobile = deviceType === 'mobile';
 	const [popularRoutes, setPopularRoutes] = useState<Route[]>([]);
 	const [recommendedRoutes, setRecommendedRoutes] = useState<Route[]>([]);
 	const [likedRoutes, setLikedRoutes] = useState<Record<number, boolean>>({});
@@ -117,7 +124,9 @@ export const MainPage: React.FC = () => {
 
 			{popularRoutes.length > 0 && (
 				<div className={styles.container}>
-					<h2 className={styles.title}>Популярные маршруты</h2>
+					<div className={styles.containerHeader}>
+						<h2 className={styles.title}>Популярные маршруты</h2>
+					</div>
 					<div className={styles.position}>
 						{popularRoutes.map((route) => (
 							<RouteCard
@@ -134,7 +143,24 @@ export const MainPage: React.FC = () => {
 
 			{recommendedRoutes.length > 0 && (
 				<div className={styles.container}>
-					<h2 className={styles.title}>Рекомендованные маршруты</h2>
+					<div className={styles.containerHeader}>
+						<h2 className={styles.title}>
+							Рекомендованные маршруты
+						</h2>
+						<div className={styles.button}>
+							<Button
+								variant='tertiary'
+								onClick={() => {
+									isMobile
+										? navigate('/routes')
+										: navigate('/filter');
+								}}
+								children={'Смотреть все'}
+								iconRight={<RightIcon />}
+								className={styles.containerHeaderButton}
+							/>
+						</div>
+					</div>
 					<div className={styles.positionGrid}>
 						{recommendedRoutes.map((route) => (
 							<RouteCard

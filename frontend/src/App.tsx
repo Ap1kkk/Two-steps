@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Layout } from '@components';
 import {
 	AuthorizationPage,
-	Error500Page, FilterPage,
+	Error500Page,
 	MainPage,
 	MapPage,
 	NotFoundPage,
@@ -11,6 +11,9 @@ import {
 	SettingsPage,
 } from '@pages';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import { FilterDesktopPage } from './pages/FilterDesktopPage';
+import { FilterMobilePage } from './pages/FilterMobilePage';
+import { RoutesMobilePage } from './pages/RoutesMobilePage';
 
 function checkAuth(): boolean {
 	const token = localStorage.getItem('accessToken');
@@ -55,7 +58,15 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: '/filter',
-						element: <FilterPage />,
+						element: <FilterDesktopPage />,
+					},
+					{
+						path: '/filter-mobile',
+						element: <FilterMobilePage />,
+					},
+					{
+						path: '/routes',
+						element: <RoutesMobilePage />,
 					}
 				],
 			},

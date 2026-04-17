@@ -6,4 +6,3 @@ export * from './MapPage';
 export * from './ProfilePage';
 export * from './RegistrationPage';
 export * from './SettingsPage';
-export * from './FilterPage';
