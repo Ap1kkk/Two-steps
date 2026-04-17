@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Tag } from '../../types/route';
+import { Button, Input } from '@ui';
+
+import { ReactComponent as Cross } from '../../assets/icons/cross.svg';
 
 import styles from './FilterModal.module.scss';
 
@@ -30,12 +33,12 @@ interface Filters {
 }
 
 export const FilterModal: React.FC<FilterModalProps> = ({
-															isOpen,
-															onClose,
-															onApply,
-															onReset,
-															tags = [],
-														}) => {
+	isOpen,
+	onClose,
+	onApply,
+	onReset,
+	tags = [],
+}) => {
 	const [filters, setFilters] = useState<Filters>({
 		distance: { min: 0, max: 20000 },
 		checkpointsCount: { min: 0, max: 20 },
@@ -48,46 +51,46 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 	const [tempFilters, setTempFilters] = useState<Filters>(filters);
 
 	const handleDistanceChange = (type: 'min' | 'max', value: number) => {
-		setTempFilters(prev => ({
+		setTempFilters((prev) => ({
 			...prev,
-			distance: { ...prev.distance, [type]: value }
+			distance: { ...prev.distance, [type]: value },
 		}));
 	};
 
 	const handleCheckpointsChange = (type: 'min' | 'max', value: number) => {
-		setTempFilters(prev => ({
+		setTempFilters((prev) => ({
 			...prev,
-			checkpointsCount: { ...prev.checkpointsCount, [type]: value }
+			checkpointsCount: { ...prev.checkpointsCount, [type]: value },
 		}));
 	};
 
 	const handleDurationChange = (type: 'min' | 'max', value: number) => {
-		setTempFilters(prev => ({
+		setTempFilters((prev) => ({
 			...prev,
-			duration: { ...prev.duration, [type]: value }
+			duration: { ...prev.duration, [type]: value },
 		}));
 	};
 
 	const handleCategoryToggle = (categoryId: number) => {
-		setTempFilters(prev => ({
+		setTempFilters((prev) => ({
 			...prev,
 			categoryIds: prev.categoryIds.includes(categoryId)
-				? prev.categoryIds.filter(id => id !== categoryId)
-				: [...prev.categoryIds, categoryId]
+				? prev.categoryIds.filter((id) => id !== categoryId)
+				: [...prev.categoryIds, categoryId],
 		}));
 	};
 
 	const handleDifficultyToggle = (difficultyId: string) => {
-		setTempFilters(prev => ({
+		setTempFilters((prev) => ({
 			...prev,
 			difficulty: prev.difficulty.includes(difficultyId)
-				? prev.difficulty.filter(d => d !== difficultyId)
-				: [...prev.difficulty, difficultyId]
+				? prev.difficulty.filter((d) => d !== difficultyId)
+				: [...prev.difficulty, difficultyId],
 		}));
 	};
 
 	const handleRatingChange = (rating: number) => {
-		setTempFilters(prev => ({ ...prev, rating }));
+		setTempFilters((prev) => ({ ...prev, rating }));
 	};
 
 	const handleApply = () => {
@@ -98,10 +101,10 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 
 	const handleReset = () => {
 		const defaultFilters: Filters = {
-			distance: { min: 0, max: 20000 },
+			distance: { min: 0, max: 6000 },
 			checkpointsCount: { min: 0, max: 20 },
 			categoryIds: [],
-			duration: { min: 0, max: 8 },
+			duration: { min: 0, max: 2 },
 			difficulty: [],
 			rating: 0,
 		};
@@ -114,17 +117,26 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 
 	return (
 		<div className={styles.filterModalOverlay} onClick={onClose}>
-			<div className={styles.filterModal} onClick={(e) => e.stopPropagation()}>
+			<div
+				className={styles.filterModal}
+				onClick={(e) => e.stopPropagation()}>
 				<div className={styles.filterModalHeader}>
-					<h2>Фильтрация маршрутов</h2>
-					<button className={styles.closeBtn} onClick={onClose}>
-						×
-					</button>
+					<h2 className={styles.filterModalTitle}>
+						Фильтрация маршрутов
+					</h2>
+					<Button
+						variant='tertiary'
+						onClick={onClose}
+						children={<Cross />}
+						className={styles.crossButton}
+					/>
 				</div>
 
 				<div className={styles.filterModalBody}>
 					<div className={styles.filterSection}>
-						<h3>📏 Расстояние (метры)</h3>
+						<span className={styles.filterTitle}>
+							Расстояние (метры)
+						</span>
 						<div className={styles.rangeInputs}>
 							<div className={styles.inputGroup}>
 								<label>От</label>
@@ -178,8 +190,10 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 
 					{/* Количество точек */}
 					<div className={styles.filterSection}>
-						<h3>📍 Количество точек маршрута</h3>
-						<div className={styles.rangeInputs} >
+						<span className={styles.filterTitle}>
+							Количество точек маршрута
+						</span>
+						<div className={styles.rangeInputs}>
 							<div className={styles.inputGroup}>
 								<label>От</label>
 								<input
@@ -230,9 +244,10 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 						</div>
 					</div>
 
-					{/* Время прохождения */}
 					<div className={styles.filterSection}>
-						<h3>⏱️ Время прохождения (часы)</h3>
+						<span className={styles.filterTitle}>
+							Время прохождения (часы)
+						</span>
 						<div className={styles.rangeInputs}>
 							<div className={styles.inputGroup}>
 								<label>От</label>
@@ -273,34 +288,30 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 						</div>
 					</div>
 
-					{/* Категории */}
 					{tags.length > 0 && (
 						<div className={styles.filterSection}>
-							<h3>🏷️ Категории</h3>
+							<span className={styles.filterTitle}>
+								Категории
+							</span>
 							<div className={styles.categoriesList}>
 								{tags.map((tag) => (
-									<label
-										key={tag.id}
-										className={styles.categoryCheckbox}>
-										<input
-											type='checkbox'
-											checked={tempFilters.categoryIds.includes(
-												tag.id
-											)}
-											onChange={() =>
-												handleCategoryToggle(tag.id)
-											}
-										/>
-										<span>{tag.name}</span>
-									</label>
+									<Input
+										type='checkbox'
+										checked={tempFilters.categoryIds.includes(
+											tag.id
+										)}
+										onChange={() =>
+											handleCategoryToggle(tag.id)
+										}
+
+									/>
 								))}
 							</div>
 						</div>
 					)}
 
-					{/* Рейтинг */}
 					<div className={styles.filterSection}>
-						<h3>⭐ Рейтинг</h3>
+						<span className={styles.filterTitle}>Рейтинг</span>
 						<div className={styles.ratingButtons}>
 							{[1, 2, 3, 4, 5].map((star) => (
 								<button
@@ -326,16 +337,24 @@ export const FilterModal: React.FC<FilterModalProps> = ({
 				</div>
 
 				<div className={styles.filterModalFooter}>
-					<button className={styles.resetBtn} onClick={handleReset}>
-						🔄 Сбросить все
-					</button>
+					<Button
+						className={styles.resetBtn}
+						onClick={handleReset}
+						children='Сбросить все'
+						variant='secondary'
+					/>
 					<div className={styles.actionButtons}>
-						<button className={styles.cancelBtn} onClick={onClose}>
-							Отмена
-						</button>
-						<button className={styles.applyBtn} onClick={handleApply}>
-							Применить
-						</button>
+						<Button
+							className={styles.cancelBtn}
+							onClick={onClose}
+							children='Отмена'
+							variant='secondary'
+						/>
+						<Button
+							variant='primary'
+							onClick={handleApply}
+							children='Применить'
+						/>
 					</div>
 				</div>
 			</div>
