@@ -78,7 +78,7 @@
   --color-disabled: #e4e8df; /* фон неактивных элементов */
   --color-card: #fff; /* фон карточек, инпутов */
   --color-background: #f9faf7; /* фон всей страницы */
-
+  --color-border: #000;
   --color-align-content: rgba(255, 255, 255, 0.9);
 
   /* Акценты и кнопки */
@@ -138,7 +138,7 @@
 	--color-disabled: #2a2f24;
 	--color-card: #1a1e16;
 	--color-background: #0f120c;
-
+	--color-border: #fff;
 	--color-align-content: rgba(255, 255, 255, 0.05);
 
 	/* Акценты и кнопки */

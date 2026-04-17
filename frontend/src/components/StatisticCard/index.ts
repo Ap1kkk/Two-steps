@@ -1,0 +1,1 @@
+export { StatisticCard } from './StatisticCard';
