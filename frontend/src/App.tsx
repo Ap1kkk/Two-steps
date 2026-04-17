@@ -69,14 +69,14 @@ export const router = createBrowserRouter([
 					{
 						path: '/routes',
 						element: <RoutesMobilePage />,
-          },
-          {
+					},
+					{
 						path: '/statistic',
 						element: <StatisticPage />,
 					},
 					{
 						path: '/achievement',
-						element: <AchievementPage />
+						element: <AchievementPage />,
 					},
 				],
 			},
