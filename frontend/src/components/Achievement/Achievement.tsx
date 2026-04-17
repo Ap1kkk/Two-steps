@@ -1,4 +1,4 @@
-import styles from './Achievement.module.scss'
+import styles from './Achievement.module.scss';
 import { AchievementCard } from '../AchievementCard';
 import React from 'react';
 
@@ -28,8 +28,7 @@ export const Achievement: React.FC<AchievementProps> = ({
 						key={achievement.id}
 						title={achievement.title}
 						image={achievement.image}
-						caption={achievement.caption}
-					>
+						caption={achievement.caption}>
 						{achievement.value}
 					</AchievementCard>
 				))}
