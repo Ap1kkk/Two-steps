@@ -12,6 +12,9 @@ import {
 	StatisticPage,
 } from '@pages';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import { FilterDesktopPage } from './pages/FilterDesktopPage';
+import { FilterMobilePage } from './pages/FilterMobilePage';
+import { RoutesMobilePage } from './pages/RoutesMobilePage';
 
 function checkAuth(): boolean {
 	const token = localStorage.getItem('accessToken');
@@ -55,6 +58,18 @@ export const router = createBrowserRouter([
 						element: <ProfilePage />,
 					},
 					{
+						path: '/filter',
+						element: <FilterDesktopPage />,
+					},
+					{
+						path: '/filter-mobile',
+						element: <FilterMobilePage />,
+					},
+					{
+						path: '/routes',
+						element: <RoutesMobilePage />,
+          },
+          {
 						path: '/statistic',
 						element: <StatisticPage />
 					}

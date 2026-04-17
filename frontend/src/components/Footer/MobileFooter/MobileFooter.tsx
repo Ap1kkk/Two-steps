@@ -79,9 +79,9 @@ export const MobileFooter = () => {
 
 					<button
 						ref={(el) => (buttonsRef.current[1] = el)}
-						onClick={() => handleNavigation('/filter')}
+						onClick={() => handleNavigation('/routes')}
 						className={`${styles.link} ${
-							location.pathname === '/filter' ? styles.active : ''
+							location.pathname === '/routes' ? styles.active : ''
 						}`}>
 						<Search />
 						<span className={styles.title}>Поиск</span>

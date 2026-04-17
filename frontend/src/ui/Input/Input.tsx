@@ -19,6 +19,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	required?: boolean;
 	className?: string;
 	showNumberArrows?: boolean;
+	inputPadding?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -36,6 +37,7 @@ export const Input: React.FC<InputProps> = ({
 	className,
 	id,
 	showNumberArrows = true,
+	inputPadding = '14px 16px',
 	...props
 }) => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -121,7 +123,8 @@ export const Input: React.FC<InputProps> = ({
 			<div
 				className={`${styles['input-wrapper']} ${
 					error ? styles.error : ''
-				}`}>
+				}`}
+				style={inputPadding ? { padding: inputPadding } : undefined}>
 				{iconLeft && (
 					<span className={styles['icon-left']}>{iconLeft}</span>
 				)}
