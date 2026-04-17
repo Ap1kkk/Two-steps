@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { Layout } from '@components';
 import {
+	AchievementPage,
 	AuthorizationPage,
 	Error500Page,
 	MainPage,
@@ -56,8 +57,12 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: '/statistic',
-						element: <StatisticPage />
-					}
+						element: <StatisticPage />,
+					},
+					{
+						path: '/achievement',
+						element: <AchievementPage />
+					},
 				],
 			},
 			{

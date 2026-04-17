@@ -78,13 +78,17 @@
   --color-disabled: #e4e8df; /* фон неактивных элементов */
   --color-card: #fff; /* фон карточек, инпутов */
   --color-background: #f9faf7; /* фон всей страницы */
-  --color-border: #000;
+
   --color-align-content: rgba(255, 255, 255, 0.9);
 
   /* Акценты и кнопки */
   --color-link-pressed: #508826; /* текстовая ссылка / кнопка в нажатом состоянии */
   --color-accent: #abd27a; /* основной акцентный цвет */
   --color-button-hover: #deebc5; /* кнопка при наведении */
+
+	/* Обводка */
+	--color-border: #000;
+	--border-radius: 12px;
 
   /* Статусы */
   --color-alarm: #e0796e; /* предупреждения, уведомления */
@@ -138,13 +142,16 @@
 	--color-disabled: #2a2f24;
 	--color-card: #1a1e16;
 	--color-background: #0f120c;
-	--color-border: #fff;
 	--color-align-content: rgba(255, 255, 255, 0.05);
 
 	/* Акценты и кнопки */
 	--color-link-pressed: #8fbc5e;
 	--color-accent: #4a6b2e;
 	--color-button-hover: #2a3a1c;
+
+	/* Обводка */
+	--color-border: #fff;
+	--border-radius: 12px;
 
 	/* Статусы */
 	--color-alarm: #e0796e; /* предупреждения, уведомления */

@@ -7,3 +7,4 @@ export * from './ProfilePage';
 export * from './RegistrationPage';
 export * from './SettingsPage';
 export * from './StatisticPage';
+export * from './AchievementPage'
