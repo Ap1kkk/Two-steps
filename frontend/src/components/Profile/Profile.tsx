@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../../components/Profile/Profile.module.scss';
 import { Avatar, Button } from '@ui';
 import { Circle } from '../../ui/Circle';
+import { useNavigate } from 'react-router-dom';
 
 interface ProfileProps {
 	userName?: string;
@@ -30,6 +31,8 @@ export const Profile: React.FC<ProfileProps> = ({
 	friendsName,
 	friendsAvatar,
 }) => {
+	const navigate = useNavigate();
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.circlesContainer}>
@@ -90,11 +93,11 @@ export const Profile: React.FC<ProfileProps> = ({
 				</div>
 			</div>
 			<div className={styles.containerButtons}>
-				<Button variant='secondary'>
-					<p>Моя статистика</p>
+				<Button variant='secondary' onClick={() => navigate('/statistic')} >
+					Моя статистика
 				</Button>
-				<Button variant='secondary'>
-					<p>Мои достижения</p>
+				<Button variant='secondary' onClick={() => navigate('/achievement')}>
+					Мои достижения
 				</Button>
 			</div>
 		</div>

@@ -4,10 +4,10 @@ export interface Route {
 	imagePath: string;
 	distance: number;
 	checkpoints: Checkpoint[];
-	tags: Tag[];
+	tags: Tags[];
 }
 
-export interface Tag {
+export interface Tags {
 	id: number;
 	name: string;
 }

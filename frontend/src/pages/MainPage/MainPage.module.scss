@@ -9,17 +9,17 @@
 }
 
 .errorBanner {
-	position: relative;
-	z-index: 1;
-	background-color: var(--color-card);
-	color: var(--color-alarm);
-	border-radius: 12px;
-	border: 1px solid var(--color-accent);
-	font-size: var(--text-body-size);
-	font-weight: var(--font-regular);
-	font-family: var(--font-body);
-	letter-spacing: 0.02em;
-	text-align: center;
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-card);
+  color: var(--color-alarm);
+  border-radius: 12px;
+  border: 1px solid var(--color-accent);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-regular);
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .container {
@@ -28,12 +28,45 @@
   gap: 10px;
 }
 
+.containerHeader {
+  width: 100%;
+
+  @media (max-width: 10000000px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media (max-width: 925px) {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
 .title {
-	font-family: var(--font-body);
-	font-size: var(--text-h2-size);
-	font-weight: var(--font-medium);
-	color: var(--color-tetx);
-	letter-spacing: 0.02em;
+  font-family: var(--font-body);
+  font-size: var(--text-h2-size);
+  font-weight: var(--font-medium);
+  color: var(--color-tetx);
+  letter-spacing: 0.02em;
+
+  @media (max-width: 925px) {
+    font-size: var(--text-h2-size-mobile);
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.containerHeaderButton {
+  display: flex;
+  background-color: var(--color-card);
+
+  @media (max-width: 925px) {
+    padding: 4px 8px;
+  }
 }
 
 .position {

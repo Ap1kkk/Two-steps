@@ -8,3 +8,8 @@ export * from './RouteOfDay';
 export * from './RegistrationForm';
 export * from './AuthorizationForm';
 export * from './RouteCard';
+export * from './Profile';
+export * from './StatisticCard'
+export * from './Statistic'
+export * from './AchievementCard'
+export * from './Achievement'
