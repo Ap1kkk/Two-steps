@@ -93,11 +93,20 @@ export const Profile: React.FC<ProfileProps> = ({
 				</div>
 			</div>
 			<div className={styles.containerButtons}>
-				<Button variant='secondary' onClick={() => navigate('/statistic')} >
+				<Button
+					variant='secondary'
+					onClick={() => navigate('/statistic')}>
 					Моя статистика
 				</Button>
-				<Button variant='secondary' onClick={() => navigate('/achievement')}>
+				<Button
+					variant='secondary'
+					onClick={() => navigate('/achievement')}>
 					Мои достижения
+				</Button>
+				<Button
+					variant='secondary'
+					onClick={() => navigate('/recovery-page')}>
+					Редактировать
 				</Button>
 			</div>
 		</div>

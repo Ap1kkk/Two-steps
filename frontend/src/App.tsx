@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
 				element: <RegistrationPage />,
 			},
 			{
-				path: '/recovery',
+				path: '/recovery-page',
 				element: <RecoveryPasswordPage />
 			},
 			{

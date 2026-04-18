@@ -15,7 +15,6 @@ import { Button, Input } from '@ui';
 interface RecoveryPasswordFormProps {
 	formData: {
 		newPassword: string;
-		oldPassword: string;
 		passwordConfirmation: string;
 	};
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -37,27 +36,22 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 
 	const [displayErrors, setDisplayErrors] = useState<{
 		newPassword?: string;
-		oldPassword?: string;
 		passwordConfirmation?: string;
 	}>({});
 
 	const [touched, setTouched] = useState<{
 		newPassword: boolean;
-		oldPassword: boolean;
 		passwordConfirmation: boolean;
 	}>({
 		newPassword: false,
-		oldPassword: false,
 		passwordConfirmation: false,
 	});
 
 	const [lastValidValues, setLastValidValues] = useState<{
 		newPassword: string;
-		oldPassword: string;
 		passwordConfirmation: string;
 	}>({
 		newPassword: '',
-		oldPassword: '',
 		passwordConfirmation: '',
 	});
 
@@ -68,22 +62,16 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 		return validatePassword(formData.newPassword);
 	}, [formData.newPassword]);
 
-	const passwordValidation = useMemo(() => {
-		if (!formData.oldPassword) {
-			return { isValid: false, errorMessage: 'Пароль обязателен' };
-		}
-		return validatePassword(formData.oldPassword);
-	}, [formData.oldPassword]);
 
 	const passwordConfirmationValidation = useMemo(() => {
 		if (!formData.passwordConfirmation) {
 			return { isValid: false, errorMessage: 'Подтвердите пароль' };
 		}
 		return validateConfirmPassword(
-			formData.oldPassword,
+			formData.newPassword,
 			formData.passwordConfirmation
 		);
-	}, [formData.oldPassword, formData.passwordConfirmation]);
+	}, [formData.newPassword, formData.passwordConfirmation]);
 
 	useEffect(() => {
 		if (touched.newPassword) {
@@ -108,7 +96,7 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 			) {
 				setDisplayErrors((prev) => ({
 					...prev,
-					newPassword: passwordValidation.errorMessage,
+					newPassword: passwordNewValidation.errorMessage,
 				}));
 			}
 		}
@@ -117,40 +105,6 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 		touched.newPassword,
 		formData.newPassword,
 		lastValidValues.newPassword,
-	]);
-
-	useEffect(() => {
-		if (touched.oldPassword) {
-			if (passwordValidation.isValid) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					oldPassword: undefined,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					oldPassword: formData.oldPassword,
-				}));
-			} else if (formData.oldPassword !== lastValidValues.oldPassword) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					oldPassword: undefined,
-				}));
-			} else if (
-				touched.oldPassword &&
-				!passwordValidation.isValid &&
-				formData.oldPassword === lastValidValues.oldPassword
-			) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					oldPassword: passwordValidation.errorMessage,
-				}));
-			}
-		}
-	}, [
-		passwordValidation,
-		touched.oldPassword,
-		formData.oldPassword,
-		lastValidValues.oldPassword,
 	]);
 
 	useEffect(() => {
@@ -188,12 +142,10 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 	const isClientFormValid = useMemo(() => {
 		return (
 			passwordNewValidation.isValid &&
-			passwordValidation.isValid &&
 			passwordConfirmationValidation.isValid
 		);
 	}, [
 		passwordNewValidation.isValid,
-		passwordValidation.isValid,
 		passwordConfirmationValidation.isValid,
 	]);
 
@@ -300,13 +252,10 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 		(e: React.ChangeEvent<HTMLFormElement>) => {
 			e.preventDefault();
 
-			setTouched({newPassword: true, oldPassword: true, passwordConfirmation: true });
+			setTouched({newPassword: true, passwordConfirmation: true });
 
 			const passwordNewError = !passwordNewValidation.isValid
 				? passwordNewValidation.errorMessage
-				: undefined;
-			const passwordError = !passwordValidation.isValid
-				? passwordValidation.errorMessage
 				: undefined;
 			const passwordConfirmationError =
 				!passwordConfirmationValidation.isValid
@@ -315,19 +264,16 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 
 			setDisplayErrors({
 				newPassword: passwordNewError,
-				oldPassword: passwordError,
 				passwordConfirmation: passwordConfirmationError,
 			});
 
 			setLastValidValues({
 				newPassword: formData.newPassword,
-				oldPassword: formData.oldPassword,
 				passwordConfirmation: formData.passwordConfirmation,
 			});
 
 			if (
 				passwordNewValidation.isValid &&
-				passwordValidation.isValid &&
 				passwordConfirmationValidation.isValid
 			) {
 				onSubmit(e);
@@ -335,11 +281,9 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 		},
 		[
 			passwordNewValidation,
-			passwordValidation,
 			passwordConfirmationValidation,
 			onSubmit,
 			formData.newPassword,
-			formData.oldPassword,
 			formData.passwordConfirmation,
 		]
 	);
@@ -365,18 +309,6 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 					required={true}
 					placeholder={'Введите пароль'}
 					error={displayErrors.newPassword}
-				/>
-
-				<Input
-					type={'oldPassword'}
-					name={'oldPassword'}
-					label={'Пароль'}
-					value={formData.oldPassword}
-					onChange={handleChange}
-					onBlur={handleBlur}
-					required={true}
-					placeholder={'Введите пароль'}
-					error={displayErrors.oldPassword}
 				/>
 
 				<Input
