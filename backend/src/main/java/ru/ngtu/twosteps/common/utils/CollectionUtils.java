@@ -2,6 +2,7 @@ package ru.ngtu.twosteps.common.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -68,6 +69,9 @@ public class CollectionUtils {
 
   public static <T, K, V> Map<K, V> toMap(Collection<T> collection, Function<T, K> keyMapper,
       Function<T, V> valueMapper) {
+    if (isEmpty(collection)) {
+      return new HashMap<>();
+    }
     return collection.stream()
         .collect(Collectors.toMap(keyMapper, valueMapper));
   }
