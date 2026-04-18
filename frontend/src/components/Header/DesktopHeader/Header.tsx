@@ -109,9 +109,9 @@ export const Header = () => {
 					className={styles.typeSelector}
 				/>
 				<Input
-					className={styles.input}
 					placeholder={'Введите название маршрута...'}
 					iconLeft={<Search />}
+					inputPadding='7px 16px'
 				/>
 				<div className={styles.themeButton} onClick={toggleTheme}>
 					{isLightTheme ? <Moon /> : <Sun />}
