@@ -1,21 +1,20 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { Layout } from '@components';
+import { Layout, ProtectedRoute } from '@components';
 import {
 	AchievementPage,
 	AuthorizationPage,
 	Error500Page,
+	FilterDesktopPage,
+	FilterMobilePage,
 	MainPage,
 	MapPage,
 	NotFoundPage,
 	ProfilePage,
 	RegistrationPage,
+	RoutesMobilePage,
 	SettingsPage,
 	StatisticPage,
 } from '@pages';
-import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
-import { FilterDesktopPage } from './pages/FilterDesktopPage';
-import { FilterMobilePage } from './pages/FilterMobilePage';
-import { RoutesMobilePage } from './pages/RoutesMobilePage';
 
 function checkAuth(): boolean {
 	const token = localStorage.getItem('accessToken');
