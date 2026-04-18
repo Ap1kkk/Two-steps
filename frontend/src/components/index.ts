@@ -18,3 +18,5 @@ export * from './routes-on-map';
 export * from './Settings'
 export * from './Statistic'
 export * from './StatisticCard'
+
+export * from './RecoveryPasswordForm'
