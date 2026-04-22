@@ -67,27 +67,29 @@
 
 :root {
   /* Текст */
-  --color-text: #253017; /* основной текст */
-  --color-caption: #69735d; /* подписи, второстепенный текст */
-  --color-disabled-text: #9ca197; /* неактивный текст */
-  --color-toggle: #b2b9a9; /* текст на переключателях */
+  --color-text: #253017;
+  --color-caption: #69735d;
+  --color-disabled-text: #9ca197;
+  --color-toggle: #b2b9a9;
 
   /* Фоны и поверхности */
-  --color-disabled: #e4e8df; /* фон неактивных элементов */
-  --color-card: #fff; /* фон карточек, инпутов */
-  --color-background: #f9faf7; /* фон всей страницы */
+  --color-disabled: #e4e8df;
+  --color-card: #fff;
+  --color-background: #f9faf7;
 
   /* Акценты и кнопки */
-  --color-link-pressed: #508826; /* текстовая ссылка / кнопка в нажатом состоянии */
-  --color-accent: #abd27a; /* основной акцентный цвет */
-  --color-button-hover: #deebc5; /* кнопка при наведении */
-
-  /* Обводка */
-  --color-border: #171717;
+  --color-link-pressed: #508826;
+  --color-accent: #abd27a;
+  --color-button-hover: #deebc5;
 
   /* Статусы */
-  --color-alarm: #e0796e; /* предупреждения, уведомления */
-  --color-error: #bf3920; /* ошибки */
+  --color-alarm: #e0796e;
+  --color-error: #bf3920;
+
+  /* Тени */
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-blur: 0 8px 20px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 6px 12px rgba(0, 0, 0, 0.15);
 
   /* Теги (категории) */
   --color-tag-business: #eee7f7;
@@ -116,6 +118,7 @@
   --text-h4-size: 16px;
   --text-body-size: 16px;
   --text-caption-size: 12px;
+  --text-sm-caption-size: 10px;
 
   // Мобильные размеры
   --text-h1-size-mobile: 24px;
@@ -124,6 +127,10 @@
   --text-h4-size-mobile: 14px;
   --text-body-size-mobile: 14px;
   --text-caption-size-mobile: 11px;
+  --text-sm-caption-size-mobile: 10px;
+
+  // Межбуквенный интервал
+  --letter-spacing: 0.02em;
 
   // Радиус обводки
   --border-radius: 12px;
@@ -146,9 +153,10 @@
   --color-accent: #4a6b2e;
   --color-button-hover: #2a3a1c;
 
-  /* Обводка */
-  --color-border: #fff;
-  --border-radius: 12px;
+  /* Тени */
+  --shadow-soft: 0 2px 6px rgba(255, 255, 255, 0.05);
+  --shadow-blur: 0 8px 20px rgba(255, 255, 255, 0.08);
+  --shadow-card: 0 0 20px rgba(255, 255, 255, 0.04);
 
   /* Статусы */
   --color-alarm: #e0796e;
