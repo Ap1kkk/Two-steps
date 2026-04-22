@@ -1,14 +1,13 @@
-import React, {
-	useCallback,
-	useEffect,
-	useMemo,
-	useState,
-	useRef,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './AuthorizationForm.module.scss';
 import { Button, Input } from '@ui';
-import { validateEmail, validatePassword } from '../../utils/validator';
+import {
+	validateEmail,
+	validatePassword,
+	ValidationResult,
+} from '../../utils/validator';
+
+import styles from './AuthorizationForm.module.scss';
 
 interface AuthorizationFormProps {
 	formData: {
@@ -43,78 +42,13 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 		password: false,
 	});
 
-	const [lastValidValues, setLastValidValues] = useState<{
-		email: string;
-		password: string;
-	}>({
-		email: '',
-		password: '',
-	});
-
-	const emailValidation = useMemo(() => {
-		if (!formData.email) {
-			return { isValid: false, errorMessage: 'Email обязателен' };
-		}
+	const emailValidation = useMemo((): ValidationResult => {
 		return validateEmail(formData.email);
 	}, [formData.email]);
 
-	const passwordValidation = useMemo(() => {
-		if (!formData.password) {
-			return { isValid: false, errorMessage: 'Пароль обязателен' };
-		}
+	const passwordValidation = useMemo((): ValidationResult => {
 		return validatePassword(formData.password);
 	}, [formData.password]);
-
-	useEffect(() => {
-		if (touched.email) {
-			if (emailValidation.isValid) {
-				setDisplayErrors((prev) => ({ ...prev, email: undefined }));
-				setLastValidValues((prev) => ({
-					...prev,
-					email: formData.email,
-				}));
-			} else if (formData.email !== lastValidValues.email) {
-				setDisplayErrors((prev) => ({ ...prev, email: undefined }));
-			} else if (
-				touched.email &&
-				!emailValidation.isValid &&
-				formData.email === lastValidValues.email
-			) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					email: emailValidation.errorMessage,
-				}));
-			}
-		}
-	}, [emailValidation, touched.email, formData.email, lastValidValues.email]);
-
-	useEffect(() => {
-		if (touched.password) {
-			if (passwordValidation.isValid) {
-				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
-				setLastValidValues((prev) => ({
-					...prev,
-					password: formData.password,
-				}));
-			} else if (formData.password !== lastValidValues.password) {
-				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
-			} else if (
-				touched.password &&
-				!passwordValidation.isValid &&
-				formData.password === lastValidValues.password
-			) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					password: passwordValidation.errorMessage,
-				}));
-			}
-		}
-	}, [
-		passwordValidation,
-		touched.password,
-		formData.password,
-		lastValidValues.password,
-	]);
 
 	const isClientFormValid = useMemo(() => {
 		return emailValidation.isValid && passwordValidation.isValid;
@@ -122,7 +56,7 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 
 	const handleChange = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
-			const { name, value } = e.target;
+			const { name } = e.target;
 			onChange(e);
 
 			if (touched[name as keyof typeof touched]) {
@@ -138,32 +72,24 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 		setTouched((prev) => ({ ...prev, [name]: true }));
 
 		if (name === 'email') {
-			const validation = value
-				? validateEmail(value)
-				: { isValid: false, errorMessage: 'Email обязателен' };
+			const validation = validateEmail(value);
 			if (!validation.isValid) {
 				setDisplayErrors((prev) => ({
 					...prev,
 					email: validation.errorMessage,
 				}));
-				setLastValidValues((prev) => ({ ...prev, email: value }));
 			} else {
 				setDisplayErrors((prev) => ({ ...prev, email: undefined }));
-				setLastValidValues((prev) => ({ ...prev, email: value }));
 			}
 		} else if (name === 'password') {
-			const validation = value
-				? validatePassword(value)
-				: { isValid: false, errorMessage: 'Пароль обязателен' };
+			const validation = validatePassword(value);
 			if (!validation.isValid) {
 				setDisplayErrors((prev) => ({
 					...prev,
 					password: validation.errorMessage,
 				}));
-				setLastValidValues((prev) => ({ ...prev, password: value }));
 			} else {
 				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
-				setLastValidValues((prev) => ({ ...prev, password: value }));
 			}
 		}
 	}, []);
@@ -174,34 +100,23 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 
 			setTouched({ email: true, password: true });
 
-			const emailError = !emailValidation.isValid
-				? emailValidation.errorMessage
-				: undefined;
-			const passwordError = !passwordValidation.isValid
-				? passwordValidation.errorMessage
-				: undefined;
+			const emailResult = validateEmail(formData.email);
+			const passwordResult = validatePassword(formData.password);
 
 			setDisplayErrors({
-				email: emailError,
-				password: passwordError,
+				email: emailResult.isValid
+					? undefined
+					: emailResult.errorMessage,
+				password: passwordResult.isValid
+					? undefined
+					: passwordResult.errorMessage,
 			});
 
-			setLastValidValues({
-				email: formData.email,
-				password: formData.password,
-			});
-
-			if (emailValidation.isValid && passwordValidation.isValid) {
+			if (emailResult.isValid && passwordResult.isValid) {
 				onSubmit(e);
 			}
 		},
-		[
-			emailValidation,
-			passwordValidation,
-			onSubmit,
-			formData.email,
-			formData.password,
-		]
+		[onSubmit, formData.email, formData.password]
 	);
 
 	const isDisabled = useMemo(() => {
@@ -214,28 +129,29 @@ export const AuthorizationForm: React.FC<AuthorizationFormProps> = ({
 				<h2 className={styles.title}>Вход в профиль</h2>
 				{error && <p className={styles.error}>{error}</p>}
 			</div>
+
 			<form className={styles.authForm} onSubmit={handleSubmit}>
 				<Input
-					type={'email'}
+					type='email'
 					name='email'
-					label={'Email'}
+					label='Email'
 					value={formData.email}
 					onChange={handleChange}
 					onBlur={handleBlur}
-					required={true}
-					placeholder={'example@mail.com'}
+					required
+					placeholder='example@mail.com'
 					error={displayErrors.email}
 				/>
 
 				<Input
-					type={'password'}
+					type='password'
 					name='password'
-					label={'Пароль'}
+					label='Пароль'
 					value={formData.password}
 					onChange={handleChange}
 					onBlur={handleBlur}
-					required={true}
-					placeholder={'Введите пароль'}
+					required
+					placeholder='Введите пароль'
 					error={displayErrors.password}
 				/>
 

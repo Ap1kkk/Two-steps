@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Avatar.module.scss';
 
-type AvatarSize = 'small' | 'medium' | 'large';
+type AvatarSize = 'tiny' | 'small' | 'medium' | 'big' | 'large';
 
 interface AvatarProps {
 	src?: string;
@@ -11,8 +11,10 @@ interface AvatarProps {
 }
 
 const sizeMap = {
+	tiny: 24,
 	small: 32,
 	medium: 48,
+	big: 72,
 	large: 150,
 };
 
