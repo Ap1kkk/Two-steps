@@ -14,7 +14,7 @@ export const MobileFooter = () => {
 	const indicatorRef = useRef<HTMLDivElement>(null);
 	const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
-	const paths = ['/routie', '/filter', '/favourites', '/settings'];
+	const paths = ['/routie', '/routes', '/favourites', '/settings'];
 
 	const updateIndicator = () => {
 		const activeIndex = paths.findIndex(
@@ -43,75 +43,46 @@ export const MobileFooter = () => {
 		return () => window.removeEventListener('resize', updateIndicator);
 	}, [location.pathname]);
 
-	const handleNavigation = (path: string) => {
-		navigate(path);
-	};
-
-	const [isLightTheme, setIsLightTheme] = useState<boolean>(() => {
-		const saved = localStorage.getItem('theme');
-		return saved === 'light';
-	});
-
 	useEffect(() => {
-		if (isLightTheme) {
-			document.body.classList.remove('dark-theme');
-			localStorage.setItem('theme', 'light');
-		} else {
-			document.body.classList.add('dark-theme');
-			localStorage.setItem('theme', 'dark');
-		}
-	}, [isLightTheme]);
+		updateIndicator();
+	}, []);
 
 	return (
 		<footer className={styles.footer}>
-			<div className={styles.footerWrapper}>
-				<nav className={styles.navigation}>
-					<div ref={indicatorRef} className={styles.indicator} />
-					<button
-						ref={(el) => (buttonsRef.current[0] = el)}
-						onClick={() => handleNavigation('/routie')}
-						className={`${styles.link} ${
-							location.pathname === '/routie'
-						}`}>
-						<Home />
-						<span className={styles.title}>Главная</span>
-					</button>
+			<nav className={styles.navigation}>
+				<div ref={indicatorRef} className={styles.indicator} />
+				<button
+					ref={(el) => (buttonsRef.current[0] = el)}
+					onClick={() => navigate('/routie')}
+					className={styles.button}>
+					<Home />
+					<span className={styles.title}>Главная</span>
+				</button>
 
-					<button
-						ref={(el) => (buttonsRef.current[1] = el)}
-						onClick={() => handleNavigation('/routes')}
-						className={`${styles.link} ${
-							location.pathname === '/routes' ? styles.active : ''
-						}`}>
-						<Search />
-						<span className={styles.title}>Поиск</span>
-					</button>
+				<button
+					ref={(el) => (buttonsRef.current[1] = el)}
+					onClick={() => navigate('/routes')}
+					className={styles.button}>
+					<Search />
+					<span className={styles.title}>Поиск</span>
+				</button>
 
-					<button
-						ref={(el) => (buttonsRef.current[2] = el)}
-						onClick={() => handleNavigation('/favourites')}
-						className={`${styles.link} ${
-							location.pathname === '/favourites'
-								? styles.active
-								: ''
-						}`}>
-						<Like />
-						<span className={styles.title}>Избранное</span>
-					</button>
+				<button
+					ref={(el) => (buttonsRef.current[2] = el)}
+					onClick={() => navigate('/favourites')}
+					className={styles.button}>
+					<Like />
+					<span className={styles.title}>Избранное</span>
+				</button>
 
-					<button
-						ref={(el) => (buttonsRef.current[3] = el)}
-						onClick={() => handleNavigation('/settings')}
-						className={`${styles.link} ${
-							location.pathname === '/settings'
-								? styles.active
-								: ''
-						}`}>
-						<Avatar alt={'avatar'} className={styles.avatar} />
-						<span className={styles.title}>Профиль</span>
-					</button>
-				</nav>
-			</div>
+				<button
+					ref={(el) => (buttonsRef.current[3] = el)}
+					onClick={() => navigate('/settings')}
+					className={styles.button}>
+					<Avatar alt='avatar' size='tiny' />
+					<span className={styles.title}>Профиль</span>
+				</button>
+			</nav>
 		</footer>
 	);
 };

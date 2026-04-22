@@ -1,63 +1,67 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow: hidden;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 25px;
 }
 
 .headerContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  justify-content: center;
+  gap: 5px;
 }
 
 .profileUsername {
   font-size: var(--text-h2-size-mobile);
   font-weight: var(--font-medium);
   font-family: var(--font-body);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
-  text-align: center;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 .level {
   width: 24px;
   height: 24px;
-  font-size: var(--text-caption-size-mobile);
-  background: linear-gradient(135deg, #36f470 0%, #2f5928 100%);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: var(--text-sm-caption-size-mobile);
+  background: linear-gradient(135deg, #36f470 0%, #2f5928 100%);
+  border-radius: 50%;
 }
 
 .profileEmail {
   font-size: var(--text-body-size-mobile);
   font-weight: var(--font-regular);
   font-family: var(--font-body);
-  letter-spacing: 0.01em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-caption);
-  text-align: center;
+}
+
+.sectionCards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .card {
   width: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 26px;
   background-color: var(--color-card);
-  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
   padding: 10px 20px;
-  gap: 14px;
+  gap: 12px;
+}
+
+.separator {
+  border-bottom: 1px solid var(--color-text);
+  opacity: 0.2;
 }
 
 .buttonCard {
@@ -75,19 +79,14 @@
 }
 
 .buttons {
+  padding: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: var(--text-h3-size-mobile);
-  font-family: var(--font-body);
-  font-weight: var(--font-regular);
-  color: var(--color-text);
-  text-decoration: none;
-  border: none;
-  background-color: transparent;
+  justify-content: start;
 }
 
 .exit {
   color: var(--color-alarm);
+  justify-content: center;
 }
 

@@ -5,41 +5,36 @@ import { Avatar, Button } from '@ui';
 
 import { ReactComponent as User } from '../../assets/icons/user-circle.svg';
 import { ReactComponent as Edit } from '../../assets/icons/edit.svg';
-import { ReactComponent as Logout } from '../../assets/icons/logout.svg';
 import { ReactComponent as Sun } from '../../assets/icons/sun.svg';
 import { ReactComponent as Moon } from '../../assets/icons/moon.svg';
 import { ReactComponent as ArrowRight } from '../../assets/icons/chevron-right.svg';
 
 interface SettingsProps {
 	onLogout?: () => void;
-	className?: string;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
 	onLogout,
-	className = '',
 }) => {
 	const navigate = useNavigate();
-	const [isLightTheme, setIsLightTheme] = useState<boolean>(() => {
+
+	const [theme, setTheme] = useState<boolean>(() => {
 		const saved = localStorage.getItem('theme');
-		if (saved === null) {
-			return !window.matchMedia('(prefers-color-scheme: dark)').matches;
-		}
 		return saved === 'light';
 	});
 
 	useEffect(() => {
-		if (isLightTheme) {
+		if (theme) {
 			document.body.classList.remove('dark-theme');
 			localStorage.setItem('theme', 'light');
 		} else {
 			document.body.classList.add('dark-theme');
 			localStorage.setItem('theme', 'dark');
 		}
-	}, [isLightTheme]);
+	}, [theme]);
 
 	const toggleTheme = () => {
-		setIsLightTheme(!isLightTheme);
+		setTheme(!theme);
 	};
 
 	const handleLogout = () => {
@@ -49,18 +44,16 @@ export const Settings: React.FC<SettingsProps> = ({
 	};
 
 	return (
-		<div className={`${styles.container} ${className}`}>
-			<div className={styles.content}>
-				<article className={styles.headerContent}>
-					<Avatar size={'big'} />
-					<p className={styles.profileUsername}>
-						Eвгений
-						<span className={styles.level}>100</span>
-					</p>
-					<p className={styles.profileEmail}>
-						evgeniinaumov04@gmail.com
-					</p>
-				</article>
+		<div className={styles.container}>
+			<article className={styles.headerContent}>
+				<Avatar size={'big'} />
+				<p className={styles.profileUsername}>
+					Eвгений
+					<span className={styles.level}>100</span>
+				</p>
+				<p className={styles.profileEmail}>evgeniinaumov04@gmail.com</p>
+			</article>
+			<div className={styles.sectionCards}>
 				<article className={styles.card}>
 					<div className={styles.buttonCard}>
 						<User />
@@ -72,6 +65,7 @@ export const Settings: React.FC<SettingsProps> = ({
 							onClick={() => navigate('/profile')}
 						/>
 					</div>
+					<span className={styles.separator}></span>
 					<div className={styles.buttonCard}>
 						<Edit />
 						<Button
@@ -79,26 +73,27 @@ export const Settings: React.FC<SettingsProps> = ({
 							iconRight={<ArrowRight />}
 							variant={'tertiary'}
 							className={styles.buttonMenu}
-							onClick={() => navigate('/')}
+							onClick={() => navigate('/profile/edit')}
 						/>
 					</div>
 				</article>
 				<article className={styles.card}>
-					<button onClick={toggleTheme} className={styles.buttons}>
-						{isLightTheme ? <Moon /> : <Sun />}
-						<span>
-							{isLightTheme ? 'Тёмная тема' : 'Светлая тема'}
-						</span>
-					</button>
+					<Button
+						onClick={toggleTheme}
+						variant={'tertiary'}
+						iconLeft={theme ? <Moon /> : <Sun />}
+						children={theme ? 'Тёмная тема' : 'Светлая тема'}
+						className={styles.buttons}
+					/>
 				</article>
 
 				<article className={styles.card}>
-					<button
+					<Button
 						onClick={handleLogout}
-						className={`${styles.buttons} ${styles.exit}`}>
-						<Logout />
-						<span>Выйти из аккаунта</span>
-					</button>
+						variant={'tertiary'}
+						className={`${styles.buttons} ${styles.exit}`}
+						children='Выйти из аккаунта'
+					/>
 				</article>
 			</div>
 		</div>
