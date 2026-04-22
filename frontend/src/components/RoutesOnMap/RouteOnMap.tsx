@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { YMaps, Map } from '@pbe/react-yandex-maps';
 import { useRouteMap } from '../../utils/hooks/useRouteMap';
 import { Route } from '../../types/route';
-import styles from './routes-on-map.module.scss';
+import styles from './RouteOnMap.module.scss';
 
 const YANDEX_MAPS_API_KEY = '71b4ede5-7042-4bba-9243-a2cb4b638bd5';
 
@@ -13,19 +13,16 @@ export interface RouteMapProps {
 	className?: string;
 	showUserMarker?: boolean;
 	showRoute?: boolean;
-	height?: string | number;
 }
 
 export const RouteOnMap: React.FC<RouteMapProps> = ({
 	routeData,
 	userLocation,
 	onMapLoad,
-	className = '',
 	showUserMarker = true,
 	showRoute = true,
-	height = '500px',
 }) => {
-	const [mapKey, setMapKey] = useState(0); // Для принудительной перерисовки
+	const [mapKey, setMapKey] = useState(0);
 
 	const {
 		ymaps,
@@ -40,23 +37,19 @@ export const RouteOnMap: React.FC<RouteMapProps> = ({
 		setMapError,
 	} = useRouteMap(routeData, userLocation, onMapLoad);
 
-	// Принудительно перерисовываем карту при изменении routeData
 	useEffect(() => {
 		setMapKey((prev) => prev + 1);
 	}, [routeData?.id]);
 
-	// Строим маршрут при загрузке данных
 	useEffect(() => {
 		if (isMapReady && showRoute && routeData) {
 			console.log('Building route...');
-			// Небольшая задержка для инициализации карты
 			setTimeout(() => {
 				buildRoute();
 			}, 100);
 		}
 	}, [isMapReady, routeData, showRoute, buildRoute]);
 
-	// Добавляем метку пользователя
 	useEffect(() => {
 		if (isMapReady && showUserMarker && userLocation && ymaps && map) {
 			console.log('Adding user marker...');
@@ -66,11 +59,9 @@ export const RouteOnMap: React.FC<RouteMapProps> = ({
 		}
 	}, [isMapReady, userLocation, showUserMarker, addUserMarker, ymaps, map]);
 
-	// Центрируем карту на маршруте или пользователе
 	useEffect(() => {
 		if (isMapReady && map) {
 			if (routeData?.checkpoints && routeData.checkpoints.length > 0) {
-				// Центрируем на маршруте
 				const points = routeData.checkpoints.map((cp: any) => [
 					cp.latitude,
 					cp.longitude,
@@ -91,7 +82,6 @@ export const RouteOnMap: React.FC<RouteMapProps> = ({
 					}
 				}
 			} else if (userLocation) {
-				// Центрируем на пользователе
 				map.setCenter(userLocation, 14);
 			}
 		}
@@ -107,9 +97,9 @@ export const RouteOnMap: React.FC<RouteMapProps> = ({
 	});
 
 	return (
-		<div className={`${styles.mapContainer} ${className}`}>
+		<div className={styles.mapContainer}>
 			<YMaps
-				key={mapKey} // Добавляем key для принудительной перерисовки
+				key={mapKey}
 				query={{
 					apikey: YANDEX_MAPS_API_KEY,
 					lang: 'ru_RU',
@@ -123,13 +113,13 @@ export const RouteOnMap: React.FC<RouteMapProps> = ({
 						zoom: 12,
 						controls: ['zoomControl', 'fullscreenControl'],
 					}}
-					width='100%'
-					height={height}
 					onLoad={handleApiLoad}
 					options={{
 						suppressMapOpenBlock: true,
 						yandexMapDisablePoiInteractivity: true,
 					}}
+					width='100%'
+					height='100%'
 					className={styles.map}
 					modules={['multiRouter.MultiRoute', 'util.bounds']}
 				/>

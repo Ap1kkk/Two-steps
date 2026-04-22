@@ -12,9 +12,7 @@ export * from './ProtectedRoute'
 export * from './RegistrationForm';
 export * from './RouteCard';
 export * from './RouteOfDay';
-
-export * from './routes-on-map';
-
+export * from './RoutesOnMap';
 export * from './Settings'
 export * from './Statistic'
 export * from './StatisticCard'
