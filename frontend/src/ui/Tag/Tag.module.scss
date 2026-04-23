@@ -60,7 +60,7 @@
   font-family: var(--font-body);
   color: var(--color-text);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
 }
 
 .moreTag {
@@ -69,7 +69,7 @@
   font-family: var(--font-body);
   color: var(--color-text);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   border: 1px solid var(--color-caption);
   border-radius: 50%;
   padding: 4px;

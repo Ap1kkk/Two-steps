@@ -37,34 +37,6 @@
   font-style: normal;
 }
 
-/* Roboto */
-@font-face {
-  font-weight: 300;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-display: swap;
-  src: url('assets/fonts/Roboto-Light.woff2') format('woff2'),
-  url('assets/fonts/Roboto-Light.woff') format('woff');
-}
-
-@font-face {
-  font-weight: 400;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-display: swap;
-  src: url('assets/fonts/Roboto-Regular.woff2') format('woff2'),
-  url('assets/fonts/Roboto-Regular.woff') format('woff');
-}
-
-@font-face {
-  font-weight: 700;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-display: swap;
-  src: url('assets/fonts/Roboto-Bold.woff2') format('woff2'),
-  url('assets/fonts/Roboto-Bold.woff') format('woff');
-}
-
 :root {
   /* Текст */
   --color-text: #253017;
@@ -105,7 +77,6 @@
   /* Шрифты */
   --font-heading: Yandex;
   --font-body: Yandex;
-  --font-body-medium: Roboto;
 
   /* Веса шрифтов */
   --font-regular: 400;
@@ -113,20 +84,24 @@
 
   /* Размеры и интерлиньяж */
   --text-h1-size: 32px;
-  --text-h2-size: 24px;
-  --text-h3-size: 20px;
-  --text-h4-size: 16px;
+  --text-h2-size: 28px;
+  --text-h3-size: 24px;
+  --text-h4-size: 20px;
+  --text-h5-size: 18px;
+  --text-h6-size: 16px;
   --text-body-size: 16px;
   --text-caption-size: 12px;
-  --text-sm-caption-size: 10px;
+  --text-sm-caption-size: 11px;
 
   // Мобильные размеры
-  --text-h1-size-mobile: 24px;
-  --text-h2-size-mobile: 20px;
-  --text-h3-size-mobile: 16px;
-  --text-h4-size-mobile: 14px;
+  --text-h1-size-mobile: 28px;
+  --text-h2-size-mobile: 24px;
+  --text-h3-size-mobile: 20px;
+  --text-h4-size-mobile: 18px;
+  --text-h5-size-mobile: 16px;
+  --text-h6-size-mobile: 14px;
   --text-body-size-mobile: 14px;
-  --text-caption-size-mobile: 11px;
+  --text-caption-size-mobile: 12px;
   --text-sm-caption-size-mobile: 10px;
 
   // Межбуквенный интервал
@@ -172,82 +147,67 @@
   --color-tag-other: #25263d;
 }
 
-/* ==================== БАЗОВЫЕ СТИЛИ ДОКУМЕНТА ==================== */
-
 body {
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-body);
   font-weight: var(--font-regular);
   font-size: var(--text-body-size);
+  letter-spacing: var(--letter-spacing);
 }
-
-/* ==================== СТИЛИ ДЛЯ ТЕГОВ ==================== */
 
 h1 {
   font-family: var(--font-heading);
   font-weight: var(--font-medium);
   font-size: var(--text-h1-size);
+  letter-spacing: var(--letter-spacing);
 }
 
 h2 {
   font-family: var(--font-heading);
   font-weight: var(--font-medium);
   font-size: var(--text-h2-size);
+  letter-spacing: var(--letter-spacing);
 }
 
 h3 {
   font-family: var(--font-heading);
   font-weight: var(--font-medium);
   font-size: var(--text-h3-size);
+  letter-spacing: var(--letter-spacing);
 }
 
 h4 {
-  font-family: var(--font-body-medium);
+  font-family: var(--font-heading);
   font-weight: var(--font-medium);
   font-size: var(--text-h4-size);
+  letter-spacing: var(--letter-spacing);
+}
+
+h5 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-medium);
+  font-size: var(--text-h5-size);
+  letter-spacing: var(--letter-spacing);
+}
+
+h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-medium);
+  font-size: var(--text-h6-size);
+  letter-spacing: var(--letter-spacing);
 }
 
 p {
   font-family: var(--font-body);
   font-weight: var(--font-regular);
   font-size: var(--text-body-size);
+  letter-spacing: var(--letter-spacing);
 }
 
-/* ==================== УТИЛИТАРНЫЕ КЛАССЫ ==================== */
-
-.text-h1 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h1-size);
-}
-
-.text-h2 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h2-size);
-}
-
-.text-h3 {
-  font-family: var(--font-heading);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h3-size);
-}
-
-.text-h4 {
-  font-family: var(--font-body-medium);
-  font-weight: var(--font-medium);
-  font-size: var(--text-h4-size);
-}
-
-.text-body {
+span {
   font-family: var(--font-body);
   font-weight: var(--font-regular);
   font-size: var(--text-body-size);
-}
-
-.text-caption {
-  font-family: var(--font-body);
-  font-weight: var(--font-regular);
-  font-size: var(--text-caption-size);
+  letter-spacing: var(--letter-spacing);
 }

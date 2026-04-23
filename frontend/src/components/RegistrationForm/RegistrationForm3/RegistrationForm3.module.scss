@@ -33,7 +33,7 @@
   font-family: var(--font-body);
   font-weight: var(--font-medium);
   font-size: var(--text-h3-size);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
 
   @media (max-width: 768px) {

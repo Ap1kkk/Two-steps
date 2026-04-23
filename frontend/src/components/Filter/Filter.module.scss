@@ -10,7 +10,7 @@
   font-family: var(--font-body);
   font-size: var(--text-h2-size);
   font-weight: var(--font-medium);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
 }
 
@@ -25,7 +25,7 @@
   font-family: var(--font-body);
   font-size: var(--text-body-size);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
   margin-bottom: 2px;
 }
@@ -93,7 +93,7 @@
   font-family: var(--font-body);
   font-size: var(--text-body-size);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
   color: var(--color-text);
   transition: all 0.2s;

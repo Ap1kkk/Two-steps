@@ -17,7 +17,7 @@
   font-size: var(--text-body-size);
   font-weight: var(--font-regular);
   font-family: var(--font-body);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   text-align: center;
 }
 
@@ -47,7 +47,7 @@
   font-size: var(--text-h2-size);
   font-weight: var(--font-medium);
   color: var(--color-tetx);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
 
   @media (max-width: 925px) {
     font-size: var(--text-h2-size-mobile);
