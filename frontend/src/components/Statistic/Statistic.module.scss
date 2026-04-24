@@ -16,7 +16,7 @@
   font-size: var(--text-h2-size);
   font-weight: var(--font-medium);
   font-family: var(--font-body);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
 
   @media (max-width: 750px) {

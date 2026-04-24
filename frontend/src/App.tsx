@@ -58,8 +58,17 @@ export const router = createBrowserRouter([
 						element: <SettingsPage />,
 					},
 					{
-						path: '/profile',
+						path: '/profile/:username',
 						element: <ProfilePage />,
+					},
+					{
+						path: '/profile',
+						element: (
+							<Navigate
+								to={`/profile/${getCurrentUsername()}`}
+								replace
+							/>
+						),
 					},
 					{
 						path: '/filter',
@@ -90,3 +99,8 @@ export const router = createBrowserRouter([
 		],
 	},
 ]);
+
+function getCurrentUsername() {
+	const username = localStorage.getItem('username');
+	if (username) return username;
+}

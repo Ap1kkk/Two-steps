@@ -26,7 +26,7 @@
   font-family: var(--font-body);
   font-size: var(--text-body-size);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
 }
 
@@ -37,7 +37,7 @@
   font-family: var(--font-body);
   font-size: var(--text-caption-size);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
 }
 
@@ -55,7 +55,7 @@
   font-family: var(--font-body);
   font-size: var(--text-caption-size);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   color: var(--color-text);
 }
 

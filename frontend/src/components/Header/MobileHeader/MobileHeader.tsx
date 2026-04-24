@@ -10,11 +10,8 @@ export const MobileHeader = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const [isLightTheme, setIsLightTheme] = useState<boolean>(() => {
+	const [theme] = useState<boolean>(() => {
 		const saved = localStorage.getItem('theme');
-		if (saved === null) {
-			return !window.matchMedia('(prefers-color-scheme: dark)').matches;
-		}
 		return saved === 'light';
 	});
 
@@ -34,18 +31,16 @@ export const MobileHeader = () => {
 				</span>
 			)}
 
-			<Link
-				to='/routie'
+			<button
+				onClick={() => navigate('/routie')}
 				className={`${styles.logoContainer} ${styles.button}`}>
 				<Compass
 					width={24}
 					height={24}
-					className={
-						isLightTheme ? styles.logoLight : styles.logoDark
-					}
+					className={theme ? styles.logoDark : styles.logoLight}
 				/>
 				<span className={styles.logoTitle}>Routie</span>
-			</Link>
+			</button>
 		</header>
 	);
 };

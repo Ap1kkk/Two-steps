@@ -9,7 +9,7 @@
 	font-family: var(--font-body);
 	font-size: var(--text-h2-size);
 	font-weight: var(--font-medium);
-	letter-spacing: 0.02em;
+	letter-spacing: var(--letter-spacing);
 	text-align: center;
 
 	@media (max-width: 925px) {

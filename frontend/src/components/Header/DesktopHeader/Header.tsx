@@ -20,29 +20,26 @@ export const Header = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const [isLightTheme, setIsLightTheme] = useState<boolean>(() => {
+	const [theme, setTheme] = useState<boolean>(() => {
 		const saved = localStorage.getItem('theme');
-		if (saved === null) {
-			return !window.matchMedia('(prefers-color-scheme: dark)').matches;
-		}
 		return saved === 'light';
 	});
 
 	useEffect(() => {
-		if (isLightTheme) {
+		if (theme) {
 			document.body.classList.remove('dark-theme');
 			localStorage.setItem('theme', 'light');
 		} else {
 			document.body.classList.add('dark-theme');
 			localStorage.setItem('theme', 'dark');
 		}
-	}, [isLightTheme]);
+	}, [theme]);
 
 	const toggleTheme = () => {
-		setIsLightTheme(!isLightTheme);
+		setTheme(!theme);
 	};
 
-	const [isAuthenticated, setIsAuthenticated] = useState(
+	const [isAuthenticated] = useState(
 		MOCK_USER.isAuthenticated
 	);
 
@@ -70,9 +67,7 @@ export const Header = () => {
 					<Link to='/routie' className={styles.logoContainer}>
 						<Compass
 							className={
-								isLightTheme
-									? styles.logoLight
-									: styles.logoDark
+								theme ? styles.logoLight : styles.logoDark
 							}
 						/>
 						<span className={styles.logoTitle}>Routie</span>
@@ -95,9 +90,7 @@ export const Header = () => {
 			<nav className={styles.navigation}>
 				<Link to='/routie' className={styles.logoContainer}>
 					<Compass
-						className={
-							isLightTheme ? styles.logoLight : styles.logoDark
-						}
+						className={theme ? styles.logoLight : styles.logoDark}
 					/>
 					<span className={styles.logoTitle}>Routie</span>
 				</Link>
@@ -114,7 +107,7 @@ export const Header = () => {
 					inputPadding='7px 16px'
 				/>
 				<div className={styles.themeButton} onClick={toggleTheme}>
-					{isLightTheme ? <Moon /> : <Sun />}
+					{theme ? <Moon /> : <Sun />}
 				</div>
 				{isAuthenticated ? (
 					<Button

@@ -7,7 +7,7 @@ export const Error500Page = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className={styles.pageWrapper}>
+		<section className={styles.pageWrapper}>
 			<img
 				src={errorImage}
 				alt='500 Error'
@@ -23,7 +23,7 @@ export const Error500Page = () => {
 					На главную
 				</Button>
 			</div>
-		</div>
+		</section>
 	);
 };
 

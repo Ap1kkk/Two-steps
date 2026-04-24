@@ -28,7 +28,7 @@
 	font-family: var(--font-heading);
 	font-size: var(--text-body-size);
 	line-height: var(--text-body-lineheight);
-	letter-spacing: 0.02em;
+	letter-spacing: var(--letter-spacing);
 	color: var(--color-text);
 	display: flex;
 	align-items: center;

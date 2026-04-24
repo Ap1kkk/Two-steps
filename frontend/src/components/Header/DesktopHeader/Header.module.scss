@@ -45,7 +45,7 @@
   font-family: var(--font-heading);
   font-weight: var(--font-medium);
   font-size: var(--text-h1-size);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   white-space: nowrap;
 }
 
@@ -61,7 +61,7 @@
   font-family: var(--font-heading);
   font-weight: var(--font-medium);
   font-size: var(--text-body-size);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   white-space: nowrap;
 }
 
