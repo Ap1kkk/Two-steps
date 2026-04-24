@@ -83,10 +83,6 @@ export const MainPage: React.FC = () => {
 		console.log(`Route ${routeId} liked: ${!likedRoutes[routeId]}`);
 	};
 
-	const handleCloseModal = () => {
-		setIsModalOpen(false);
-	};
-
 	if (loading) {
 		return (
 			<div className={styles.container}>

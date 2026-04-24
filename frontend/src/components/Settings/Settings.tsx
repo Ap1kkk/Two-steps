@@ -5,6 +5,8 @@ import { Avatar, Button } from '@ui';
 
 import { ReactComponent as User } from '../../assets/icons/user-circle.svg';
 import { ReactComponent as Edit } from '../../assets/icons/edit.svg';
+import { ReactComponent as Achievements } from '../../assets/icons/achievements.svg';
+import { ReactComponent as Stats } from '../../assets/icons/stats.svg';
 import { ReactComponent as Sun } from '../../assets/icons/sun.svg';
 import { ReactComponent as Moon } from '../../assets/icons/moon.svg';
 import { ReactComponent as ArrowRight } from '../../assets/icons/chevron-right.svg';
@@ -74,6 +76,29 @@ export const Settings: React.FC<SettingsProps> = ({
 							variant={'tertiary'}
 							className={styles.buttonMenu}
 							onClick={() => navigate('/profile/edit')}
+						/>
+					</div>
+				</article>
+				<article className={styles.card}>
+					<div className={styles.buttonCard}>
+						<Stats />
+						<Button
+							children={'Статистика'}
+							iconRight={<ArrowRight />}
+							variant={'tertiary'}
+							className={styles.buttonMenu}
+							onClick={() => navigate('/statistic')}
+						/>
+					</div>
+					<span className={styles.separator}></span>
+					<div className={styles.buttonCard}>
+						<Achievements />
+						<Button
+							children={'Достижения'}
+							iconRight={<ArrowRight />}
+							variant={'tertiary'}
+							className={styles.buttonMenu}
+							onClick={() => navigate('/achievement')}
 						/>
 					</div>
 				</article>

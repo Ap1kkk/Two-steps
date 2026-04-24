@@ -37,7 +37,6 @@ export const RoutesList: React.FC = () => {
 		limit,
 	} = useSelector((state: RootState) => state.routes);
 
-	// Локальные состояния
 	const [selectedRouteId, setSelectedRouteId] = useState<number>(0);
 	const [tagId, setTagId] = useState<number>(1);
 	const [minDistance, setMinDistance] = useState<number>(0);
@@ -45,7 +44,6 @@ export const RoutesList: React.FC = () => {
 	const [searchTerm, setSearchTerm] = useState<string>('');
 	const [filters, setFilters] = useState<RouteFilters>({});
 
-	// Форма создания маршрута
 	const [newRoute, setNewRoute] = useState<CreateRouteData>({
 		name: '',
 		distance: 0,
@@ -53,19 +51,16 @@ export const RoutesList: React.FC = () => {
 		tagIds: [1],
 	});
 
-	// Форма редактирования
 	const [editData, setEditData] = useState<Omit<UpdateRouteData, 'id'>>({
 		name: '',
 		distance: 0,
 		tagIds: [],
 	});
 
-	// Загрузка маршрутов при монтировании
 	useEffect(() => {
 		dispatch(fetchAllRoutes({ page, limit, filters }));
 	}, [dispatch, page, limit]);
 
-	// Обработчики
 	const handleFetchAllRoutes = () => {
 		dispatch(fetchAllRoutes({ page, limit, filters }));
 	};
@@ -185,7 +180,7 @@ export const RoutesList: React.FC = () => {
 	}
 
 	return (
-		<div className='routes-manager'>
+		<section className='routes-manager'>
 			<h1>Управление маршрутами</h1>
 
 			{(successMessage || error) && (
@@ -570,7 +565,7 @@ export const RoutesList: React.FC = () => {
 					</div>
 				)}
 			</div>
-		</div>
+		</section>
 	);
 };
 

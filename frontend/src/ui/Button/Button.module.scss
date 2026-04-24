@@ -11,7 +11,7 @@
 	font-size: var(--text-body-size);
 	font-weight: var(--font-regular);
 	line-height: var(--text-body-lineheight);
-	letter-spacing: 0.02em;
+	letter-spacing: var(--letter-spacing);
 	transition: all 0.2s ease;
 	outline: none;
 	white-space: nowrap;

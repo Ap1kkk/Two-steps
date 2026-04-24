@@ -8,7 +8,7 @@
   font-family: var(--font-body);
   font-size: var(--text-h4-size);
   font-weight: var(--font-medium);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
   text-align: center;
   background-color: var(--color-card);
   box-shadow:
@@ -66,7 +66,7 @@
   text-decoration: none;
   font-family: var(--font-body);
   font-size: var(--text-h4-size);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
 
   @media (max-width: 925px) {
     gap: 10px;

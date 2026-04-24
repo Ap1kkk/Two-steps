@@ -2,14 +2,16 @@ import React from 'react';
 import styles from '../../ui/Circle/Circle.module.scss';
 
 interface CircleProps {
-	children?: React.ReactNode;
+	inCircle?: React.ReactNode;
+	label?: string;
 }
 
-export const Circle: React.FC<CircleProps> = ({
-										   children,
-									   }) => {
+export const Circle: React.FC<CircleProps> = ({ inCircle, label }) => {
 	return (
-		<span className={styles.smallCircle}>{children}</span>
+		<div className={styles.circleContainer}>
+			<span className={styles.circle}>{inCircle}</span>
+			<span className={styles.circleLabel}>{label}</span>
+		</div>
 	);
 };
 
