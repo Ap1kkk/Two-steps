@@ -15,7 +15,7 @@ const sizeMap = {
 	small: 32,
 	medium: 48,
 	big: 72,
-	large: 150,
+	large: 100,
 };
 
 export const Avatar: React.FC<AvatarProps> = ({

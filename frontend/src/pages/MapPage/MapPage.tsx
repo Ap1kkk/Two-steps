@@ -80,17 +80,17 @@ export const MapPage = () => {
 
 	if (isLoading) {
 		return (
-			<div className={styles.container}>
+			<section className={styles.container}>
 				<div className={styles.loader}>
 					<div className={styles.spinner}></div>
 					<p>Загрузка маршрута...</p>
 				</div>
-			</div>
+			</section>
 		);
 	}
 
 	return (
-		<div className={styles.container}>
+		<section className={styles.container}>
 			<div className={styles.mapWrapper}>
 				<RouteOnMap
 					key={routeData?.id}
@@ -100,7 +100,7 @@ export const MapPage = () => {
 					showRoute={true}
 				/>
 			</div>
-		</div>
+		</section>
 	);
 };
 
