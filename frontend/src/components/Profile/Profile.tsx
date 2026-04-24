@@ -171,6 +171,14 @@ export const Profile: React.FC<ProfileProps> = ({
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className={styles.containerButtons}>
+				<Button
+					variant='secondary'
+					onClick={() => navigate('/recovery-page')}>
+					Редактировать
+				</Button>
+			</div>
 			) : (
 				<div className={styles.containerDesktop}></div>
 			)}

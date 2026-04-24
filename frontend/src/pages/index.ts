@@ -11,3 +11,4 @@ export * from './RegistrationPage';
 export * from './RoutesMobilePage';
 export * from './SettingsPage';
 export * from './StatisticPage';
+export * from './RecoveryPasswordPage'

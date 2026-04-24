@@ -53,6 +53,15 @@ export interface RegisterFormData {
 	birthDate?: Date;
 }
 
+export interface RecoveryPasswordFormData {
+	newPassword: string;
+	confirmPassword: string;
+}
+
+export interface RecoveryPasswordValidationResult extends ValidationResult {
+	isSameAsOldPassword?: boolean;
+}
+
 // ========== ОСНОВНЫЕ ВАЛИДАТОРЫ ==========
 /** Валидация email */
 export const validateEmail = (email: string): ValidationResult => {
@@ -212,4 +221,39 @@ export const validateImages = (files: File[]): string | undefined => {
 		}
 	}
 	return undefined;
+};
+
+/** Валидация нового пароля с проверкой на отличие от старого */
+export const validateNewPasswordWithOld = (
+	newPassword: string,
+	oldPassword?: string
+): RecoveryPasswordValidationResult => {
+	const passwordValidation = validatePassword(newPassword);
+	if (!passwordValidation.isValid) {
+		return passwordValidation;
+	}
+
+	if (oldPassword && newPassword === oldPassword) {
+		return invalid('Новый пароль должен отличаться от текущего');
+	}
+
+	return valid();
+};
+
+/** Комплексная валидация формы восстановления пароля */
+export const validateRecoveryPasswordForm = (
+	data: RecoveryPasswordFormData,
+	oldPassword?: string
+): RecoveryPasswordValidationResult => {
+	const newPasswordResult = validateNewPasswordWithOld(data.newPassword, oldPassword);
+	if (!newPasswordResult.isValid) {
+		return newPasswordResult;
+	}
+
+	const confirmResult = validateConfirmPassword(data.newPassword, data.confirmPassword);
+	if (!confirmResult.isValid) {
+		return confirmResult;
+	}
+
+	return valid();
 };
