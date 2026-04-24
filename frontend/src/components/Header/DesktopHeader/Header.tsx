@@ -10,7 +10,7 @@ import { ReactComponent as Global } from '../../../assets/icons/global.svg';
 import { ReactComponent as Moon } from '../../../assets/icons/moon.svg';
 import { ReactComponent as Sun } from '../../../assets/icons/sun.svg';
 
-import { MOCK_USER } from '../../../mocks/mock';
+import { MOCK_USER } from '../../../mocks/users';
 
 import styles from './Header.module.scss';
 

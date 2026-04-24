@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Route } from '../../types/route';
 import { Button } from '@ui';
 import { RouteCard, RouteOfTheDay } from '@components';
-import { mockRoutes, getRandomMockRoute } from '../../types/mockData';
+import { mockRoutes, getRandomMockRoute } from '../../mocks/route';
 
 import { ReactComponent as RightIcon } from '../../assets/icons/chevron-right.svg';
 

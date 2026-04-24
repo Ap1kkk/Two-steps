@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Tags } from '../../types/route';
-import { Filter } from '../../components/Filter';
-import { RouteCard } from '@components';
-import { mockRoutes } from '../../types/mockData';
+import React, { useState } from 'react';
+import { Tags } from '../../types/route';
+import { Filter } from '@components';
+import { mockRoutes } from '../../mocks/route';
 
 import styles from './FilterMobilePage.module.scss';
 

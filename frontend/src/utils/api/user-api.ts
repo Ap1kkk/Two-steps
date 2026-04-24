@@ -2,7 +2,7 @@ import {
 	TLoginData,
 	TRegisterData,
 	TUpdateUserData,
-	TUser,
+	User,
 } from '../../types/user';
 import {
 	clearSession,
@@ -65,7 +65,7 @@ export const registerUserApi = async (
 
 		return {
 			success: true,
-			user: userWithoutPassword as TUser,
+			user: userWithoutPassword as User,
 			accessToken,
 			refreshToken,
 		};
@@ -116,7 +116,7 @@ export const loginUserApi = async (data: TLoginData): Promise<TApiResponse> => {
 
 		return {
 			success: true,
-			user: userWithoutPassword as TUser,
+			user: userWithoutPassword as User,
 			accessToken,
 			refreshToken,
 		};
@@ -192,7 +192,7 @@ export const getUserApi = async (): Promise<TApiResponse> => {
 
 		return {
 			success: true,
-			user: userWithoutPassword as TUser,
+			user: userWithoutPassword as User,
 		};
 	} catch (error: any) {
 		return {
@@ -244,7 +244,7 @@ export const updateUserApi = async (
 
 		return {
 			success: true,
-			user: userWithoutPassword as TUser,
+			user: userWithoutPassword as User,
 		};
 	} catch (error: any) {
 		return {
