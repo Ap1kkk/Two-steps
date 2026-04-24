@@ -1,28 +1,26 @@
 import { useNavigate } from 'react-router-dom';
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import {  useSelector } from '@store';
+import React, { ChangeEvent, useState } from 'react';
+import { useDispatch, useSelector } from '@store';
 import {
 	selectIsAuthenticated,
-	selectIsLoading,
 	selectLoginError,
 } from '../../services/selectors/userSelectors';
 import { RecoveryPasswordForm } from '@components';
-import styles from './RecoveryPasswordPage.module.scss'
+import styles from './RecoveryPasswordPage.module.scss';
 
 export const RecoveryPasswordPage = () => {
 	const navigate = useNavigate();
-	
+	const oldPassword: string | undefined = 'qwrd2yks';
+
 	const [formData, setFormData] = useState({
 		newPassword: '',
-		oldPassword: '',
-		passwordConfirmation: '',
+		confirmPassword: '',
 	});
 
-	const isLoading = useSelector(selectIsLoading);
-	const error = useSelector(selectLoginError)
-	const isAuthenticated = useSelector(selectIsAuthenticated)
+	const error = useSelector(selectLoginError);
+	const isAuthenticated = useSelector(selectIsAuthenticated);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (isAuthenticated) {
 			const timer = setTimeout(() => {
 				navigate('/');
@@ -32,31 +30,27 @@ export const RecoveryPasswordPage = () => {
 	}, [isAuthenticated, navigate]);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value} = e.target;
+		const { name, value } = e.target;
 		setFormData((prev) => ({
 			...prev,
 			[name]: value,
 		}));
 	};
 
-	const isFormValid = Boolean(
-		formData.newPassword && formData.oldPassword && formData.passwordConfirmation
-	);
-
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (!isFormValid) {
-			return;
-		}
+		console.log('Пароль изменен:', {
+			newPassword: formData.newPassword,
+		});
 	};
 
 	const errorMessage = error
 		? typeof error === 'object' && 'message' in error
 			? error.message
 			: typeof error === 'string'
-			? error
-			: 'Ошибка'
+				? error
+				: 'Ошибка при смене пароля'
 		: null;
 
 	return (
@@ -65,12 +59,11 @@ export const RecoveryPasswordPage = () => {
 				formData={formData}
 				onChange={handleChange}
 				onSubmit={handleSubmit}
-				isFormValid={isFormValid}
-				isLoading={isLoading}
 				error={errorMessage}
+				oldPassword={oldPassword}
 			/>
 		</section>
-	)
+	);
 };
 
 export default RecoveryPasswordPage;

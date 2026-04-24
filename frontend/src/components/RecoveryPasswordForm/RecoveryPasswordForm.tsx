@@ -1,296 +1,90 @@
-import React, {
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styles from './RecoveryPasswordForm.module.scss';
 import {
 	validateConfirmPassword,
-	validatePassword,
+	validateNewPasswordWithOld,
+	validateRecoveryPasswordForm,
 } from '../../utils/validator';
 import { Button, Input } from '@ui';
 
 interface RecoveryPasswordFormProps {
 	formData: {
 		newPassword: string;
-		passwordConfirmation: string;
+		confirmPassword: string;
 	};
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	onSubmit: (e: React.ChangeEvent<HTMLFormElement>) => void;
-	isFormValid?: boolean;
-	isLoading?: boolean;
 	error?: string | null;
+	oldPassword?: string;
 }
 
 export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 	formData,
 	onChange,
 	onSubmit,
-	isFormValid,
-	isLoading = false,
 	error = null,
+	oldPassword,
 }) => {
-	const passwordRef = useRef<string>('');
-
-	const [displayErrors, setDisplayErrors] = useState<{
-		newPassword?: string;
-		passwordConfirmation?: string;
-	}>({});
-
-	const [touched, setTouched] = useState<{
-		newPassword: boolean;
-		passwordConfirmation: boolean;
-	}>({
+	const [touched, setTouched] = useState({
 		newPassword: false,
-		passwordConfirmation: false,
+		confirmPassword: false,
 	});
 
-	const [lastValidValues, setLastValidValues] = useState<{
-		newPassword: string;
-		passwordConfirmation: string;
-	}>({
-		newPassword: '',
-		passwordConfirmation: '',
-	});
+	const newPasswordError = useMemo(() => {
+		if (!touched.newPassword) return undefined;
+		if (!formData.newPassword) return 'Пароль обязателен';
 
-	const passwordNewValidation = useMemo(() => {
-		if (!formData.newPassword) {
-			return { isValid: false, errorMessage: 'Пароль обязателен' };
-		}
-		return validatePassword(formData.newPassword);
-	}, [formData.newPassword]);
-
-
-	const passwordConfirmationValidation = useMemo(() => {
-		if (!formData.passwordConfirmation) {
-			return { isValid: false, errorMessage: 'Подтвердите пароль' };
-		}
-		return validateConfirmPassword(
+		const validation = validateNewPasswordWithOld(
 			formData.newPassword,
-			formData.passwordConfirmation
+			oldPassword
 		);
-	}, [formData.newPassword, formData.passwordConfirmation]);
+		return validation.isValid ? undefined : validation.errorMessage;
+	}, [formData.newPassword, oldPassword, touched.newPassword]);
 
-	useEffect(() => {
-		if (touched.newPassword) {
-			if (passwordNewValidation.isValid) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					newPassword: undefined,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					newPassword: formData.newPassword,
-				}));
-			} else if (formData.newPassword !== lastValidValues.newPassword) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					newPassword: undefined,
-				}));
-			} else if (
-				touched.newPassword &&
-				!passwordNewValidation.isValid &&
-				formData.newPassword === lastValidValues.newPassword
-			) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					newPassword: passwordNewValidation.errorMessage,
-				}));
-			}
-		}
+	const confirmPasswordError = useMemo(() => {
+		if (!touched.confirmPassword) return undefined;
+		if (!formData.confirmPassword) return 'Подтвердите пароль';
+
+		const validation = validateConfirmPassword(
+			formData.newPassword,
+			formData.confirmPassword
+		);
+		return validation.isValid ? undefined : validation.errorMessage;
 	}, [
-		passwordNewValidation,
-		touched.newPassword,
 		formData.newPassword,
-		lastValidValues.newPassword,
+		formData.confirmPassword,
+		touched.confirmPassword,
 	]);
 
-	useEffect(() => {
-		if (touched.passwordConfirmation) {
-			if (passwordConfirmationValidation.isValid) {
-				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
-				setLastValidValues((prev) => ({
-					...prev,
-					passwordConfirmation: formData.passwordConfirmation,
-				}));
-			} else if (
-				formData.passwordConfirmation !==
-				lastValidValues.passwordConfirmation
-			) {
-				setDisplayErrors((prev) => ({ ...prev, password: undefined }));
-			} else if (
-				touched.passwordConfirmation &&
-				!passwordConfirmationValidation.isValid &&
-				formData.passwordConfirmation ===
-					lastValidValues.passwordConfirmation
-			) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					password: passwordConfirmationValidation.errorMessage,
-				}));
-			}
-		}
-	}, [
-		passwordConfirmationValidation,
-		touched.passwordConfirmation,
-		formData.passwordConfirmation,
-		lastValidValues.passwordConfirmation,
-	]);
+	const isFormValid = useMemo(() => {
+		if (!formData.newPassword || !formData.confirmPassword) return false;
 
-	const isClientFormValid = useMemo(() => {
-		return (
-			passwordNewValidation.isValid &&
-			passwordConfirmationValidation.isValid
+		const validation = validateRecoveryPasswordForm(
+			{
+				newPassword: formData.newPassword,
+				confirmPassword: formData.confirmPassword,
+			},
+			oldPassword
 		);
-	}, [
-		passwordNewValidation.isValid,
-		passwordConfirmationValidation.isValid,
-	]);
-
-	const handleChange = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			const { name, value } = e.target;
-
-			if (name === 'password') {
-				passwordRef.current = value;
-			}
-
-			onChange(e);
-
-			if (touched[name as keyof typeof touched]) {
-				setDisplayErrors((prev) => ({ ...prev, [name]: undefined }));
-			}
-		},
-		[onChange, touched]
-	);
+		return validation.isValid;
+	}, [formData, oldPassword]);
 
 	const handleBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-
-		setTouched((prev) => ({ ...prev, [name]: true }));
-		if (name === 'newPassword') {
-			const validation = value
-				? validatePassword(value)
-				: { isValid: false, errorMessage: 'Пароль обязателен' };
-			if (!validation.isValid) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					newPassword: validation.errorMessage,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					newPassword: value,
-				}));
-			} else {
-				setDisplayErrors((prev) => ({
-					...prev,
-					newPassword: undefined,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					newPassword: value,
-				}));
-			}
-		} else if (name === 'password') {
-			const validation = value
-				? validatePassword(value)
-				: { isValid: false, errorMessage: 'Пароль обязателен' };
-			if (!validation.isValid) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					oldPassword: validation.errorMessage,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					oldPassword: value,
-				}));
-			} else {
-				setDisplayErrors((prev) => ({
-					...prev,
-					oldPassword: undefined,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					oldPassword: value,
-				}));
-			}
-		} else if (name === 'passwordConfirmation') {
-			const passwordValue = passwordRef.current;
-
-			const validation = value
-				? validateConfirmPassword(passwordValue, value)
-				: {
-						isValid: false,
-						errorMessage: 'Подтверждение пароля обязательно',
-				  };
-
-			if (!validation.isValid) {
-				setDisplayErrors((prev) => ({
-					...prev,
-					passwordConfirmation: validation.errorMessage,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					passwordConfirmation: value,
-				}));
-			} else {
-				setDisplayErrors((prev) => ({
-					...prev,
-					passwordConfirmation: undefined,
-				}));
-				setLastValidValues((prev) => ({
-					...prev,
-					passwordConfirmation: value,
-				}));
-			}
-		}
+		setTouched((prev) => ({ ...prev, [e.target.name]: true }));
 	}, []);
 
 	const handleSubmit = useCallback(
 		(e: React.ChangeEvent<HTMLFormElement>) => {
 			e.preventDefault();
 
-			setTouched({newPassword: true, passwordConfirmation: true });
+			setTouched({ newPassword: true, confirmPassword: true });
 
-			const passwordNewError = !passwordNewValidation.isValid
-				? passwordNewValidation.errorMessage
-				: undefined;
-			const passwordConfirmationError =
-				!passwordConfirmationValidation.isValid
-					? passwordConfirmationValidation.errorMessage
-					: undefined;
-
-			setDisplayErrors({
-				newPassword: passwordNewError,
-				passwordConfirmation: passwordConfirmationError,
-			});
-
-			setLastValidValues({
-				newPassword: formData.newPassword,
-				passwordConfirmation: formData.passwordConfirmation,
-			});
-
-			if (
-				passwordNewValidation.isValid &&
-				passwordConfirmationValidation.isValid
-			) {
+			if (isFormValid) {
 				onSubmit(e);
 			}
 		},
-		[
-			passwordNewValidation,
-			passwordConfirmationValidation,
-			onSubmit,
-			formData.newPassword,
-			formData.passwordConfirmation,
-		]
+		[isFormValid, onSubmit]
 	);
-
-	const isDisabled = useMemo(() => {
-		return !isFormValid || isLoading || !isClientFormValid;
-	}, [isFormValid, isLoading, isClientFormValid]);
 
 	return (
 		<div className={styles.container}>
@@ -298,38 +92,41 @@ export const RecoveryPasswordForm: React.FC<RecoveryPasswordFormProps> = ({
 				<h2 className={styles.title}>Восстановление пароля</h2>
 				{error && <p className={styles.error}>{error}</p>}
 			</div>
+
 			<form className={styles.confirmationForm} onSubmit={handleSubmit}>
 				<Input
-					type={'newPassword'}
-					name={'newPassword'}
-					label={'Новый пароль'}
+					type='password'
+					name='newPassword'
+					label='Новый пароль'
 					value={formData.newPassword}
-					onChange={handleChange}
+					onChange={onChange}
 					onBlur={handleBlur}
-					required={true}
-					placeholder={'Введите пароль'}
-					error={displayErrors.newPassword}
+					required
+					placeholder='Введите новый пароль'
+					error={newPasswordError}
+					autoComplete='new-password'
 				/>
 
 				<Input
-					type={'passwordConfirmation'}
-					name={'passwordConfirmation'}
-					label={'Подвтердите пароль'}
-					value={formData.passwordConfirmation}
-					onChange={handleChange}
+					type='password'
+					name='confirmPassword'
+					label='Подтвердите пароль'
+					value={formData.confirmPassword}
+					onChange={onChange}
 					onBlur={handleBlur}
-					required={true}
-					placeholder={'Подтвердите пароль'}
-					error={displayErrors.passwordConfirmation}
+					required
+					placeholder='Подтвердите новый пароль'
+					error={confirmPasswordError}
+					autoComplete='new-password'
 				/>
 
 				<Button
-					children={isLoading ? 'Вход...' : 'Подтвердить'}
-					disabled={isDisabled}
+					disabled={!isFormValid}
 					type='submit'
 					variant='primary'
-					className={styles.buttonSubmitForm}
-				/>
+					className={styles.buttonSubmitForm}>
+					Сохранить пароль
+				</Button>
 			</form>
 		</div>
 	);
