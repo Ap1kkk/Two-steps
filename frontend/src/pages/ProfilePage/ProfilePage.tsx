@@ -1,6 +1,6 @@
 import styles from './ProfilePage.module.scss'
 import { MOCK_FRIEND, MOCK_USER } from '../../mocks/mock';
-import { Profile } from '../../components/Profile';
+import { Profile } from '@components';
 
 export const ProfilePage = () => {
 	return (

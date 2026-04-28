@@ -1,28 +1,9 @@
-import { Route } from './route';
-
-export interface User {
-	id: string;
+export type TUser = {
+	id?: number;
 	username: string;
-	name: string;
 	email: string;
-	number: string;
-	password: string;
-	level: number;
-	gender: 'male' | 'female' | 'other';
-	height: number;
-	weight: number;
-	birthday: string;
 	role: 'USER' | 'ADMIN';
-	isAuthenticated: boolean;
-	friends: User[];
-	recentRoutes: Route[];
-	avatar: string;
-}
-
-export interface AvatarUser {
-	id: string;
-	avatar: string;
-}
+};
 
 export type TRegisterData = {
 	username: string;
