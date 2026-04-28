@@ -1,42 +1,90 @@
 import { Route } from './route';
+import { Tags } from './tags';
+
+export type UUID = string;
 
 export interface User {
-	id: string;
+	id: UUID;
 	username: string;
 	name: string;
 	email: string;
 	number: string;
-	password: string;
 	level: number;
 	gender: 'male' | 'female' | 'other';
 	height: number;
 	weight: number;
 	birthday: string;
-	role: 'USER' | 'ADMIN';
+	password: string;
 	isAuthenticated: boolean;
-	friends: User[];
-	recentRoutes: Route[];
-	avatar: string;
 }
 
 export interface AvatarUser {
 	id: string;
+	user_id: UUID;
 	avatar: string;
 }
 
-export type TRegisterData = {
+export interface UserTags {
+	user_id: UUID;
+	tags: Tags[];
+}
+
+export interface RoleUser {
+	user_id: UUID;
+	role: 'USER' | 'ADMIN';
+}
+
+export interface Friend {
+	id: UUID;
+	username: string;
+	name: string;
+	avatar?: string;
+}
+
+export interface FriendsUser {
+	user_id: UUID;
+	friends: Friend[];
+}
+
+export interface RoutesHistoryUser {
+	user_id: UUID;
+	historyRoutes: Route[];
+}
+
+export interface TLoginData {
+	email: string;
+	password: string;
+}
+
+export interface TRegisterData {
 	username: string;
 	email: string;
 	password: string;
+	name?: string;
+	number?: string;
+	gender?: 'male' | 'female' | 'other';
+	height?: number;
+	weight?: number;
+	birthday?: string;
 	role?: 'USER' | 'ADMIN';
-};
+}
 
-export type TLoginData = {
-	email: string;
-	password: string;
-};
+export interface TUpdateUserData {
+	name?: string;
+	username?: string;
+	number?: string;
+	gender?: 'male' | 'female' | 'other';
+	height?: number;
+	weight?: number;
+	birthday?: string;
+	level?: number;
+	avatar?: string;
+	password?: string;
+}
 
-export type TUpdateUserData = Partial<Omit<TRegisterData, 'role'>> & {
-	id?: number;
-	role?: 'USER' | 'ADMIN';
-};
+export interface UserSession {
+	userId: UUID;
+	accessToken: string;
+	refreshToken: string;
+	expiresAt: string;
+}

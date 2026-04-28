@@ -1,6 +1,8 @@
-import styles from './EditProfileForm.module.scss';
-import { Avatar, Button, Input, Tag } from '@ui';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Avatar, Button, Input, Tag } from '@ui';
+import { Tags } from '../../types/tags';
+
+import styles from './EditProfileForm.module.scss';
 
 import {
 	formatName,
@@ -12,11 +14,6 @@ import {
 	validatePreferencesCount,
 } from '../../utils/validator';
 
-interface TagItem {
-	label: string;
-	id: number | string;
-}
-
 interface EditProfileFormProps {
 	data: {
 		name: string;
@@ -27,7 +24,7 @@ interface EditProfileFormProps {
 		preferences?: string[] | number[];
 	};
 	updateData?: (key: string, value: unknown) => void;
-	availablePreferences?: TagItem[];
+	availablePreferences?: Tags[];
 }
 
 export const EditProfileForm: React.FC<EditProfileFormProps> = ({

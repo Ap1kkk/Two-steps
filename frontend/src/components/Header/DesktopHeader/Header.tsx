@@ -11,7 +11,7 @@ import { ReactComponent as Global } from '../../../assets/icons/global.svg';
 import { ReactComponent as Moon } from '../../../assets/icons/moon.svg';
 import { ReactComponent as Sun } from '../../../assets/icons/sun.svg';
 
-import { MOCK_USER } from '../../../mocks/users';
+import { MOCK_USER, MOCK_USER_AVATAR } from '../../../mocks/users';
 
 import styles from './Header.module.scss';
 
@@ -95,7 +95,10 @@ export const Header = () => {
 						type={'button'}
 						variant={'tertiary'}
 						iconRight={
-							<Avatar src={MOCK_USER.avatar} size={'small'} />
+							<Avatar
+								src={MOCK_USER_AVATAR.avatar}
+								size={'small'}
+							/>
 						}
 						children={MOCK_USER.name}
 						onClick={() => navigate('/profile')}

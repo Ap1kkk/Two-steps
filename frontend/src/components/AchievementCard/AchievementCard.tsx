@@ -12,22 +12,22 @@ interface AchievementCardProps {
 	children?: React.ReactNode;
 	title?: string;
 	caption?: string;
-	index?: number; // Добавляем index
+	index?: number;
 }
 
 const ACHIEVEMENT_ICONS = [Ach1, Ach2, Ach3, Ach4, Ach5, Ach6];
 
 export const AchievementCard: React.FC<AchievementCardProps> = ({
-																	children,
-																	title = '',
-																	caption = '',
-																	index = 0, // Получаем index из пропсов
-																}) => {
+	children,
+	title = '',
+	caption = '',
+	index = 0,
+}) => {
 	const Icon = useMemo(() => {
 		const iconIndex = index % ACHIEVEMENT_ICONS.length;
 		console.log('Index:', index, 'IconIndex:', iconIndex); // Для проверки
 		return ACHIEVEMENT_ICONS[iconIndex];
-	}, [index]); // index в зависимостях!
+	}, [index]);
 
 	return (
 		<article className={styles.container}>

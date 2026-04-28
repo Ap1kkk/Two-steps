@@ -23,6 +23,8 @@ export const MAX_WEIGHT = 300;
 export const MIN_HEIGHT = 50;
 /** Максимальный рост (см) */
 export const MAX_HEIGHT = 250;
+/** Минимальное количество предпочтений */
+export const MIN_PREFERENCES_COUNT = 3;
 
 // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
 /** Проверка на пустую строку */
@@ -245,15 +247,26 @@ export const validateRecoveryPasswordForm = (
 	data: RecoveryPasswordFormData,
 	oldPassword?: string
 ): RecoveryPasswordValidationResult => {
-	const newPasswordResult = validateNewPasswordWithOld(data.newPassword, oldPassword);
+	const newPasswordResult = validateNewPasswordWithOld(
+		data.newPassword,
+		oldPassword
+	);
 	if (!newPasswordResult.isValid) {
 		return newPasswordResult;
 	}
 
-	const confirmResult = validateConfirmPassword(data.newPassword, data.confirmPassword);
+	const confirmResult = validateConfirmPassword(
+		data.newPassword,
+		data.confirmPassword
+	);
 	if (!confirmResult.isValid) {
 		return confirmResult;
 	}
 
+	return valid();
+};
+
+export const validatePreferencesCount = (selectedCount: number): ValidationResult => {
+	if (selectedCount < MIN_PREFERENCES_COUNT) return invalid(`Минимальное количество предпочтений: ${MIN_PREFERENCES_COUNT}`);
 	return valid();
 };

@@ -56,7 +56,9 @@ export const MapPage = () => {
 				await new Promise((resolve) => setTimeout(resolve, 500));
 
 				const id = routeId ? parseInt(routeId) : undefined;
-				let mockData = id ? getMockRouteById(id) : mockRouteKremlin;
+				let mockData = id
+					? getMockRouteById(id.toString())
+					: mockRouteKremlin;
 
 				if (!mockData) {
 					console.warn(`Mock route not found for ID: ${id}`);

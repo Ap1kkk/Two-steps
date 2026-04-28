@@ -65,5 +65,3 @@ export const RecoveryPasswordPage = () => {
 		</section>
 	);
 };
-
-export default RecoveryPasswordPage;

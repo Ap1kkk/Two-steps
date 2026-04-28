@@ -1,10 +1,7 @@
-import styles from './EditProfilePage.module.scss'
+import styles from './EditProfilePage.module.scss';
 
 export const EditProfilePage = () => {
-	return (
-		<section className={styles.container}>
-		</section>
-	);
+	return <section className={styles.container}></section>;
 };
 
 export default EditProfilePage;
