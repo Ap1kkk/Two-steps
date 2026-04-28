@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { YMaps, Map } from '@pbe/react-yandex-maps';
-import { useRouteMap } from '../../utils/hooks/useRouteMap';
+import { useRouteMap } from '../../hooks/useRouteMap';
 import { Route } from '../../types/route';
 import styles from './RouteOnMap.module.scss';
 

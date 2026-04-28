@@ -4,11 +4,11 @@ import { Route } from '../../types/route';
 import { Button } from '@ui';
 import { RouteCard, RouteOfTheDay } from '@components';
 import { mockRoutes, getRandomMockRoute } from '../../types/mockData';
+import { useDeviceType } from '../../hooks/useDeviceType';
 
 import { ReactComponent as RightIcon } from '../../assets/icons/chevron-right.svg';
 
 import styles from './MainPage.module.scss';
-import { useDeviceType } from '../../utils/hooks/useDeviceType';
 
 export const MainPage: React.FC = () => {
 	const navigate = useNavigate();
