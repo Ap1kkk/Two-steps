@@ -4,7 +4,7 @@ import styles from './Avatar.module.scss';
 type AvatarSize = 'tiny' | 'small' | 'medium' | 'big' | 'large';
 
 interface AvatarProps {
-	src?: string;
+	src?: string | null;
 	alt?: string;
 	size?: AvatarSize;
 	className?: string;

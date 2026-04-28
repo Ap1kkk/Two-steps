@@ -1,6 +1,7 @@
 export * from './Achievement'
 export * from './AchievementCard'
 export * from './AuthorizationForm';
+export * from './EditProfileForm'
 export * from './Filter';
 export * from './Footer/DesktopFooter';
 export * from './Footer/MobileFooter';

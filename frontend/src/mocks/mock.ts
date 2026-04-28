@@ -7,6 +7,7 @@ export const MOCK_USER = {
 	email: 'evgeny@example.com',
 	number: '+79081553950',
 	password: '123456',
+	preferences: [1,4,5],
 	avatar: userExample,
 	level: 42,
 	routes: 52,

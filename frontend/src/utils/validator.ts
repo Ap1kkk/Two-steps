@@ -23,6 +23,8 @@ export const MAX_WEIGHT = 300;
 export const MIN_HEIGHT = 50;
 /** Максимальный рост (см) */
 export const MAX_HEIGHT = 250;
+/** Минимальное количество предпочтений */
+export const MIN_PREFERENCES_COUNT = 3;
 
 // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
 /** Проверка на пустую строку */
@@ -212,4 +214,9 @@ export const validateImages = (files: File[]): string | undefined => {
 		}
 	}
 	return undefined;
+};
+
+export const validatePreferencesCount = (selectedCount: number): ValidationResult => {
+	if (selectedCount < MIN_PREFERENCES_COUNT) return invalid(`Минимальное количество предпочтений: ${MIN_PREFERENCES_COUNT}`);
+	return valid();
 };

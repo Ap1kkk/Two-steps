@@ -1,5 +1,6 @@
 export * from './AchievementPage';
 export * from './AuthorizationPage';
+export * from './EditProfilePage'
 export * from './Error400Page';
 export * from './Error500Page';
 export * from './FilterDesktopPage';
