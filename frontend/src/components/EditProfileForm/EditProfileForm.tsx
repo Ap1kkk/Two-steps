@@ -36,17 +36,10 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
 	availablePreferences = [],
 }) => {
 	const fileInputRef = useRef<HTMLInputElement>(null);
-	const [avatarPreview, setAvatarPreview] = useState<string | null>(() => {
-		if (data.avatar) {
-			return URL.createObjectURL(data.avatar);
-		}
-		if (data.avatarUrl) {
-			return data.avatarUrl;
-		}
-		return null;
-	});
+	const [avatarPreview, setAvatarPreview] = useState<string | null>(
+		data.avatar ? URL.createObjectURL(data.avatar) : null
+	);
 	const [avatarError, setAvatarError] = useState<string | undefined>();
-
 	const [name, setName] = useState(data.name || '');
 	const [weight, setWeight] = useState<string | number>(data.weight || '');
 	const [height, setHeight] = useState<string | number>(data.height || '');
@@ -75,27 +68,30 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
 
 	useEffect(() => {
 		return () => {
-			if (avatarPreview && avatarPreview.startsWith('blob:')) {
+			if (avatarPreview) {
 				URL.revokeObjectURL(avatarPreview);
 			}
 		};
 	}, [avatarPreview]);
 
-	useEffect(() => {
-		if (data.avatarUrl && !data.avatar) {
-			setAvatarPreview(data.avatarUrl);
-		}
-	}, [data.avatarUrl, data.avatar]);
-
 	const nameValidation = useMemo(() => {
+		if (!name) {
+			return { isValid: false, errorMessage: 'Имя обязательно' };
+		}
 		return validateName(name);
 	}, [name]);
 
 	const weightValidation = useMemo(() => {
+		if (!weight && weight !== 0) {
+			return { isValid: false, errorMessage: 'Вес обязателен' };
+		}
 		return validateWeight(weight);
 	}, [weight]);
 
 	const heightValidation = useMemo(() => {
+		if (!height && height !== 0) {
+			return { isValid: false, errorMessage: 'Рост обязателен' };
+		}
 		return validateHeight(height);
 	}, [height]);
 
@@ -146,8 +142,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
 			setAvatarError(error);
 			if (!error) {
 				updateData?.('avatar', file);
-				updateData?.('avatarUrl', null);
-				if (avatarPreview && avatarPreview.startsWith('blob:')) {
+				if (avatarPreview) {
 					URL.revokeObjectURL(avatarPreview);
 				}
 				const preview = URL.createObjectURL(file);
@@ -264,12 +259,11 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
 				<div className={styles.avatarSection}>
 					<div
 						className={styles.userPhotoAdd}
-						onClick={handleAvatarClick}
-					>
+						onClick={handleAvatarClick}>
 						<Avatar
-							src={avatarPreview}
+							src={avatarPreview ?? ''}
 							size={'large'}
-							alt="Аватар"
+							alt='Аватар'
 						/>
 					</div>
 					<input

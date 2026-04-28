@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
 						element: <AchievementPage />,
 					},
 					{
-						path: '/edit-profile',
+						path: '/profile/edit',
 						element: <EditProfilePage />
 					}
 				],

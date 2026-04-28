@@ -99,9 +99,6 @@ export const Profile: React.FC<ProfileProps> = ({
 				<Button variant='secondary' onClick={() => navigate('/achievement')}>
 					Мои достижения
 				</Button>
-				<Button variant='secondary' onClick={() => navigate('/edit-profile')}>
-					Редактировать
-				</Button>
 			</div>
 		</div>
 	);
