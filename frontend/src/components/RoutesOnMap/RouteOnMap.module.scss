@@ -43,7 +43,7 @@
   font-size: var(--text-body-size-mobile);
   font-family: var(--font-body);
   font-weight: var(--font-regular);
-  letter-spacing: 0.02em;
+  letter-spacing: var(--letter-spacing);
 }
 
 .map :global(.ymaps-2-1-79-transport-pin_size_small),

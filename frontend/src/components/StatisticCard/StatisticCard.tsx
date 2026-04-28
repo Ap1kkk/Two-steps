@@ -12,9 +12,9 @@ export const StatisticCard: React.FC<StatisticCardProps> = ({
 	title = '',
 }) => {
 	return (
-		<div className={styles.container}>
+		<article className={styles.container}>
 			<span className={styles.cardTitle}>{title}</span>
 			<span className={styles.cardContent}>{children}</span>
-		</div>
+		</article>
 	)
 }

@@ -6,7 +6,7 @@ import errorImage from '../../assets/images/error404.svg';
 export const NotFoundPage = () => {
 	const navigate = useNavigate();
 	return (
-		<div className={styles.pageWrapper}>
+		<section className={styles.pageWrapper}>
 			<img
 				src={errorImage}
 				alt='404 Error'
@@ -31,7 +31,7 @@ export const NotFoundPage = () => {
 					На главную
 				</Button>
 			</div>
-		</div>
+		</section>
 	);
 };
 export default NotFoundPage;

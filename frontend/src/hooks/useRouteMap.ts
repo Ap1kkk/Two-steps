@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Route } from '../../types/route';
+import { Route } from '../types/route';
 
 export const useRouteMap = (
 	routeData: Route | null | undefined,

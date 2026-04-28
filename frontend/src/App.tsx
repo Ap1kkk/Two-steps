@@ -10,7 +10,7 @@ import {
 	MainPage,
 	MapPage,
 	NotFoundPage,
-	ProfilePage,
+	ProfilePage, RecoveryPasswordPage,
 	RegistrationPage,
 	RoutesMobilePage,
 	SettingsPage,
@@ -40,6 +40,10 @@ export const router = createBrowserRouter([
 				element: <RegistrationPage />,
 			},
 			{
+				path: '/recovery-page',
+				element: <RecoveryPasswordPage />
+			},
+			{
 				element: <ProtectedRoute isAuthenticated={true} />,
 				children: [
 					{
@@ -55,8 +59,17 @@ export const router = createBrowserRouter([
 						element: <SettingsPage />,
 					},
 					{
-						path: '/profile',
+						path: '/profile/:username',
 						element: <ProfilePage />,
+					},
+					{
+						path: '/profile',
+						element: (
+							<Navigate
+								to={`/profile/${getCurrentUsername()}`}
+								replace
+							/>
+						),
 					},
 					{
 						path: '/filter',
@@ -91,3 +104,8 @@ export const router = createBrowserRouter([
 		],
 	},
 ]);
+
+function getCurrentUsername() {
+	const username = localStorage.getItem('username');
+	if (username) return username;
+}
