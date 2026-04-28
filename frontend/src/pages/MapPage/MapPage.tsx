@@ -4,7 +4,7 @@ import {
 	getMockRouteById,
 	mockRouteKremlin,
 	mockRoutes,
-} from '../../types/mockData';
+} from '../../mocks/route';
 
 import styles from './MapPage.module.scss';
 import { RouteOnMap } from '@components';

@@ -1,7 +1,46 @@
 import userExample from '../assets/images/avatarProfile/avatar2.png';
+import { User } from '../types/user';
 
-export const MOCK_USER = {
-	id: 1,
+const friend1: User = {
+	id: '2',
+	username: '@anna_smirnova',
+	name: 'Анна Смирнова',
+	email: 'anna@example.com',
+	number: '+79081234567',
+	password: '********',
+	level: 38,
+	gender: 'female',
+	height: 168,
+	weight: 60,
+	birthday: '25.06.1995',
+	role: 'USER',
+	isAuthenticated: true,
+	friends: [], // Чтобы избежать циклической зависимости
+	recentRoutes: [],
+	avatar: '/avatars/anna.jpg',
+};
+
+const friend2: User = {
+	id: '3',
+	username: '@dima_ivanov',
+	name: 'Дмитрий Иванов',
+	email: 'dima@example.com',
+	number: '+79087654321',
+	password: '********',
+	level: 45,
+	gender: 'male',
+	height: 180,
+	weight: 82,
+	birthday: '10.12.1988',
+	role: 'USER',
+	isAuthenticated: true,
+	friends: [],
+	recentRoutes: [],
+	avatar: '/avatars/dima.jpg',
+};
+
+export const MOCK_USER: User = {
+	id: '1',
 	username: '@evgeniy020304',
 	name: 'Евгений',
 	email: 'evgeny@example.com',
@@ -9,27 +48,13 @@ export const MOCK_USER = {
 	password: '123456',
 	avatar: userExample,
 	level: 42,
-	routes: 52,
 	gender: 'male',
 	height: 192,
 	weight: 90,
 	birthday: '15.03.1990',
 	role: 'USER',
 	isAuthenticated: true,
-	friends: [
-		{
-			id: 2,
-			name: 'Анна Смирнова',
-			username: '@anna_smirnova',
-			avatar: 'path/to/avatar.jpg',
-		},
-		{
-			id: 3,
-			name: 'Дмитрий Иванов',
-			username: '@dima_ivanov',
-			avatar: 'path/to/avatar2.jpg',
-		},
-	],
+	friends: [ friend1, friend2	],
 	recentRoutes: [
 		{
 			id: 1,

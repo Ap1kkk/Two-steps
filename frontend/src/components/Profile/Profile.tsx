@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../components/Profile/Profile.module.scss';
 import { Avatar, Button } from '@ui';
 import { useNavigate } from 'react-router-dom';
@@ -169,6 +169,13 @@ export const Profile: React.FC<ProfileProps> = ({
 								)}
 							</div>
 						</div>
+					</div>
+					<div className={styles.containerButtons}>
+						<Button
+							variant='secondary'
+							onClick={() => navigate('/recovery-page')}>
+							Редактировать
+						</Button>
 					</div>
 				</div>
 			) : (

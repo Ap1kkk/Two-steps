@@ -1,4 +1,4 @@
-import { Route } from './route';
+import { Route } from '../types/route';
 
 export const mockRouteKremlin: Route = {
 	id: 1,
