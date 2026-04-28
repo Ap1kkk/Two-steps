@@ -3,6 +3,7 @@ import { Layout, ProtectedRoute } from '@components';
 import {
 	AchievementPage,
 	AuthorizationPage,
+	EditProfilePage,
 	Error500Page,
 	FilterDesktopPage,
 	FilterMobilePage,
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
 						path: '/achievement',
 						element: <AchievementPage />,
 					},
+					{
+						path: '/profile/edit',
+						element: <EditProfilePage />
+					}
 				],
 			},
 			{
