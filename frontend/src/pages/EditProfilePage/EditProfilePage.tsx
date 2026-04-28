@@ -24,7 +24,6 @@ export const EditProfilePage = () => {
 					weight: MOCK_USER.weight,
 					height: MOCK_USER.height,
 					avatarUrl: MOCK_USER.avatar,
-					preferences: MOCK_USER.preferences
 				}}
 				availablePreferences={AVAILABLE_PREFERENCES}
 			/>
