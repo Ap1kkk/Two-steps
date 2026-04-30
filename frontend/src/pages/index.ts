@@ -1,6 +1,6 @@
 export * from './AchievementPage';
 export * from './AuthorizationPage';
-export * from './EditProfilePage'
+export * from './EditProfilePage';
 export * from './Error400Page';
 export * from './Error500Page';
 export * from './FilterDesktopPage';
@@ -12,4 +12,4 @@ export * from './RegistrationPage';
 export * from './RoutesMobilePage';
 export * from './SettingsPage';
 export * from './StatisticPage';
-export * from './RecoveryPasswordPage'
+export * from './RecoveryPasswordPage';

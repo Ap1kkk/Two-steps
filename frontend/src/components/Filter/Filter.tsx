@@ -9,7 +9,6 @@ import { ReactComponent as Star } from '../../assets/icons/star.svg';
 import styles from './Filter.module.scss';
 import './index.css';
 
-
 interface FilterModalProps {
 	onApply: (filters: Filters) => void;
 	onReset: () => void;

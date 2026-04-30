@@ -6,7 +6,6 @@ import { mockRoutes } from '../../mocks/route';
 
 import styles from './FilterMobilePage.module.scss';
 
-
 export const FilterMobilePage: React.FC = () => {
 	const [activeFilters, setActiveFilters] = useState<Filters | null>(null);
 

@@ -8,7 +8,7 @@ import {
 	TLoginData,
 	TRegisterData,
 	TUpdateUserData,
-	User
+	User,
 } from '../../../types/user';
 import { clearTokens, storeTokens } from '../../../utils/auth';
 import {

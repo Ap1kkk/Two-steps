@@ -10,7 +10,8 @@ import {
 	MainPage,
 	MapPage,
 	NotFoundPage,
-	ProfilePage, RecoveryPasswordPage,
+	ProfilePage,
+	RecoveryPasswordPage,
 	RegistrationPage,
 	RoutesMobilePage,
 	SettingsPage,
@@ -41,7 +42,7 @@ export const router = createBrowserRouter([
 			},
 			{
 				path: '/recovery-page',
-				element: <RecoveryPasswordPage />
+				element: <RecoveryPasswordPage />,
 			},
 			{
 				element: <ProtectedRoute isAuthenticated={true} />,
@@ -93,8 +94,8 @@ export const router = createBrowserRouter([
 					},
 					{
 						path: '/profile/edit',
-						element: <EditProfilePage />
-					}
+						element: <EditProfilePage />,
+					},
 				],
 			},
 			{

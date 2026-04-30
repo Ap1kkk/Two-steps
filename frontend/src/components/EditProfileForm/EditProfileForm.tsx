@@ -359,4 +359,3 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
 		</div>
 	);
 };
-
